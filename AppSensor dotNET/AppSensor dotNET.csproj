@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7686FB7F-F993-4624-A965-A39C473C0374}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AppSensor_dotNET</RootNamespace>
+    <AssemblyName>AppSensor dotNET</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="access-control-reference\ReferenceAccessController.cs" />
+    <Compile Include="analysis-reference\ReferenceAttackAnalysisEngine.cs" />
+    <Compile Include="analysis-reference\ReferenceEventAnalysisEngine.cs" />
+    <Compile Include="analysis-reference\ReferenceResponseAnalysisEngine.cs" />
+    <Compile Include="core\accesscontrol\AccessController.cs" />
+    <Compile Include="core\accesscontrol\Action.cs" />
+    <Compile Include="core\accesscontrol\Context.cs" />
+    <Compile Include="core\accesscontrol\Role.cs" />
+    <Compile Include="core\analysis\AttackAnalysisEngine.cs" />
+    <Compile Include="core\analysis\EventAnalysisEngine.cs" />
+    <Compile Include="core\analysis\ResponseAnalysisEngine.cs" />
+    <Compile Include="core\AppSensorClient.cs" />
+    <Compile Include="core\AppSensorServer.cs" />
+    <Compile Include="core\Attack.cs" />
+    <Compile Include="core\ClientApplication.cs" />
+    <Compile Include="core\configuration.client\ClientConfiguration.cs" />
+    <Compile Include="core\configuration.client\ClientConfigurationReader.cs" />
+    <Compile Include="core\configuration.client\ServerConnection.cs" />
+    <Compile Include="core\configuration.server\ServerConfiguration.cs" />
+    <Compile Include="core\configuration.server\ServerConfigurationReader.cs" />
+    <Compile Include="core\correlation\CorrelationSet.cs" />
+    <Compile Include="core\criteria\SearchCriteria.cs" />
+    <Compile Include="core\DetectionPoint.cs" />
+    <Compile Include="core\Event.cs" />
+    <Compile Include="core\event\EventManager.cs" />
+    <Compile Include="core\exceptions\ConfigurationException.cs" />
+    <Compile Include="core\exceptions\NotAuthenticatedException.cs" />
+    <Compile Include="core\exceptions\NotAuthorizedException.cs" />
+    <Compile Include="core\Interval.cs" />
+    <Compile Include="core\listener\AttackListener.cs" />
+    <Compile Include="core\listener\EventListener.cs" />
+    <Compile Include="core\listener\ResponseListener.cs" />
+    <Compile Include="core\logging\Loggable.cs" />
+    <Compile Include="core\logging\LoggerBeanPostProcessor.cs" />
+    <Compile Include="core\reporting\ReportingEngine.cs" />
+    <Compile Include="core\RequestHandler.cs" />
+    <Compile Include="core\Resource.cs" />
+    <Compile Include="core\Response.cs" />
+    <Compile Include="core\response\NoopUserManager.cs" />
+    <Compile Include="core\response\ResponseHandler.cs" />
+    <Compile Include="core\response\UserManager.cs" />
+    <Compile Include="core\storage\AttackStore.cs" />
+    <Compile Include="core\storage\AttackStoreListener.cs" />
+    <Compile Include="core\storage\EventStore.cs" />
+    <Compile Include="core\storage\EventStoreListener.cs" />
+    <Compile Include="core\storage\ResponseStore.cs" />
+    <Compile Include="core\storage\ResponseStoreListener.cs" />
+    <Compile Include="core\Threshold.cs" />
+    <Compile Include="core\Trend.cs" />
+    <Compile Include="core\User.cs" />
+    <Compile Include="core\util\DateUtils.cs" />
+    <Compile Include="core\util\FileUtils.cs" />
+    <Compile Include="core\util\StringUtils.cs" />
+    <Compile Include="core\util\XmlUtils.cs" />
+    <Compile Include="appsensor-local\event\LocalEventManager.cs" />
+    <Compile Include="appsensor-local\handler\LocalRequestHandler.cs" />
+    <Compile Include="appsensor-local\response\LocalResponseHandler.cs" />
+    <Compile Include="appsensor-local\test\analysis\ReferenceStatisticalEventAnalysisEngineTest.cs" />
+    <Compile Include="appsensor-local\test\AppSensorServerWiringTest.cs" />
+    <Compile Include="reporting-simple-logging\reporting\SimpleLoggingReportingEngine.cs" />
+    <Compile Include="reporting-websocket\reporting\WebSocketJsonObject.cs" />
+    <Compile Include="reporting-websocket\reporting\WebSocketReportingEngine.cs" />
+    <Compile Include="reporting-websocket\test\DemoDataPopulator.cs" />
+    <Compile Include="storage-file-based\storage\FileBasedAttackStore.cs" />
+    <Compile Include="storage-file-based\storage\FileBasedEventStore.cs" />
+    <Compile Include="storage-file-based\storage\FileBasedResponseStore.cs" />
+    <Compile Include="storage-file-based\test\FileBasedEventStorageTest.cs" />
+    <Compile Include="storage-in-memory\InMemoryAttackStore.cs" />
+    <Compile Include="storage-in-memory\InMemoryEventStore.cs" />
+    <Compile Include="storage-in-memory\InMemoryResponseStore.cs" />
+    <Compile Include="configuration-stax\client\StaxClientConfiguration.cs" />
+    <Compile Include="configuration-stax\client\StaxClientConfigurationReader.cs" />
+    <Compile Include="configuration-stax\server\StaxServerConfiguration.cs" />
+    <Compile Include="configuration-stax\server\StaxServerConfigurationReader.cs" />
+    <Compile Include="configuration-stax\test\client\XmlClientConfigurationReaderTest.cs" />
+    <Compile Include="configuration-stax\test\server\StaxServerConfigurationReaderTest.cs" />
+    <Compile Include="configuration-stax\test\server\XmlServerConfigurationReaderTest.cs" />
+    <Compile Include="Util\HashCodeBuilder.cs" />
+    <Compile Include="websocket-dashboard\Dashboard.cs" />
+    <Compile Include="ws-rest-server\handler\RestRequestHandler.cs" />
+    <Compile Include="ws-rest-server\reporting\RestReportingEngine.cs" />
+    <Compile Include="ws-rest-server\rest\AccessControlUtils.cs" />
+    <Compile Include="ws-rest-server\rest\AppSensorApplication.cs" />
+    <Compile Include="ws-rest-server\rest\filter\ClientApplicationIdentificationFilter.cs" />
+    <Compile Include="ws-rest-server\test\event\NoopEventManager.cs" />
+    <Compile Include="ws-rest-server\test\handler\RestRequestHandlerTest.cs" />
+    <Compile Include="ws-rest-server\test\reporting\DemoDataMultiUserPopulator.cs" />
+    <Compile Include="ws-rest-server\test\reporting\RestReportingEngineTest.cs" />
+    <Compile Include="ws-rest-server\test\response\NoopResponseHandler.cs" />
+    <Compile Include="ws-soap-client\event\SoapEventManager.cs" />
+    <Compile Include="ws-soap-client\test\SoapEventManagerTest.cs" />
+    <Compile Include="ws-soap-server\handler\ClientApplicationIdentificationHandler.cs" />
+    <Compile Include="ws-soap-server\handler\ReferenceSoapRequestHandler.cs" />
+    <Compile Include="ws-soap-server\handler\SoapRequestHandler.cs" />
+    <Compile Include="ws-soap-server\test\ReferenceSoapRequestHandlerTest.cs" />
+    <Compile Include="ws-soap-server\test\RegisterClientApplicationIdentificationHandler.cs" />
+    <Compile Include="ws-rest-client\event\RestEventManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Common.Logging">
+      <HintPath>..\packages\Common.Logging.1.2.0\lib\1.0\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="CommonLibrary">
+      <HintPath>..\packages\CommonLibrary.NET.0.9.6.1\lib\CommonLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="CopyPropertiesFromOneObjectToAnother">
+      <HintPath>..\..\..\..\..\Downloads\CopyPropertiesFromOneObjectToAnother\bin\Debug\CopyPropertiesFromOneObjectToAnother.exe</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="NodaTime">
+      <HintPath>..\packages\NodaTime.1.2.0\lib\net35-Client\NodaTime.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Core">
+      <HintPath>..\packages\Spring.Core.2.0.0-RC1\lib\net45\Spring.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
