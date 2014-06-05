@@ -14,7 +14,7 @@ using org.owasp.appsensor.criteria.SearchCriteria;
 using org.owasp.appsensor.listener.AttackListener;
 using org.owasp.appsensor.logging.Loggable;
 using org.owasp.appsensor.util.DateUtils;
-using log4net.Repository.Hierarchy;
+using log4net;
 using System.Collections.ObjectModel;
 using org.owasp.appsensor.criteria;
 using System;
@@ -38,7 +38,7 @@ namespace org.owasp.appsensor.storage{
 [Named("")]
 public class InMemoryAttackStore : AttackStore {
 	
-	private Logger logger;
+	private ILog Logger;
 	
 	/** maintain a collection of {@link Attack}s as an in-memory list */
 	private static Collection<Attack> attacks = new CopyOnWriteArrayList<Attack>();
@@ -47,7 +47,7 @@ public class InMemoryAttackStore : AttackStore {
 	 * {@inheritDoc}
 	 */
 	public override void addAttack(Attack attack) {
-		Logger.warn("Security attack " + attack.GetDetectionPoint().getId() + " triggered by user: " + attack.GetUser().getUsername());
+		Logger.Warn("Security attack " + attack.GetDetectionPoint().getId() + " triggered by user: " + attack.GetUser().getUsername());
 	       
 		attacks.Add(attack);
 		

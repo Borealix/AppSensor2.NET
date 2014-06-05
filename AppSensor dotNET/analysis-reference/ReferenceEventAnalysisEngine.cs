@@ -9,7 +9,6 @@ using System.Collections.ObjectModel;
 using System;
 using org.owasp.appsensor.util;
 using Ninject;
-using ComLib.Logging;
 
 using org.owasp.appsensor.AppSensorServer;
 using org.owasp.appsensor.Attack;
@@ -23,6 +22,7 @@ using org.owasp.appsensor.storage.AttackStore;
 using org.owasp.appsensor.storage.EventStore;
 using org.owasp.appsensor.util.DateUtils;
 using org.owasp.appsensor.criteria;
+using log4net;
 /**
  * This is a statistical {@link Event} analysis engine, 
  * and is an implementation of the Observer pattern. 
@@ -40,7 +40,7 @@ namespace org.owasp.appsensor.analysis {
 [Named("ReferenceEventAnalysisEngine")]
 public class ReferenceEventAnalysisEngine : EventAnalysisEngine {
 
-	private ILog logger;
+	private ILog Logger;
 	
 	[Inject]
 	private AppSensorServer appSensorServer;
@@ -73,7 +73,7 @@ public class ReferenceEventAnalysisEngine : EventAnalysisEngine {
 		int thresholdCount = configuredDetectionPoint.getThreshold().getCount();
 
 		if (eventCount % thresholdCount == 0) {
-			logger.Info("Violation Observed for user <" + Event.GetUser().getUsername() + "> - storing attack");
+			Logger.Info("Violation Observed for user <" + Event.GetUser().getUsername() + "> - storing attack");
 			//have determined this event triggers attack
 			appSensorServer.getAttackStore().addAttack(new Attack(Event));
 		}

@@ -40,7 +40,6 @@ namespace org.owasp.appsensor.handler {
 //@Path("/api/v1.0")
 //@Produces(MediaType.APPLICATION_JSON)
 //@Consumes(MediaType.APPLICATION_JSON)
-[Named ("")]
 [Named ("RestRequestHandler")]
 public class RestRequestHandler : RequestHandler {
 

@@ -1,2 +1,4 @@
 c:\users\luis serna gonzález\documents\visual studio 2013\Projects\org.owasp.appsensor\AppSensor dotNET\bin\Debug\AppSensor dotNET.exe.config
 C:\Users\Luis Serna González\Documents\Visual Studio 2013\Projects\org.owasp.appsensor\AppSensor dotNET\obj\Debug\AppSensor dotNET.csprojResolveAssemblyReference.cache
+C:\Users\Luis Serna González\Documents\Borealix\Códigos\AppSensor dotNET\AppSensor dotNET\bin\Debug\AppSensor dotNET.exe.config
+C:\Users\Luis Serna González\Documents\Borealix\Códigos\AppSensor dotNET\AppSensor dotNET\obj\Debug\AppSensor dotNET.csprojResolveAssemblyReference.cache

@@ -13,12 +13,12 @@ using org.owasp.appsensor.Response;
 using org.owasp.appsensor.handler.LocalRequestHandler;
 using org.owasp.appsensor.logging.Loggable;
 using org.owasp.appsensor.util.DateUtils;
-using log4net.Repository.Hierarchy;
 using org.owasp.appsensor.handler;
 using System;
 using org.owasp.appsensor.util;
 using System.Collections.ObjectModel;
 using Ninject;
+using log4net;
 /**
  * Local {@link EventManager} that is used when the application is configured
  * to run within the same JVM as the Analysis Engine.  
@@ -32,7 +32,7 @@ namespace org.owasp.appsensor.events {
 public class LocalEventManager : EventManager {
 	
 	//@SuppressWarnings("unused")
-	private Logger logger;
+	private ILog Logger;
 	
 	[Inject]
 	private LocalRequestHandler requestHandler;

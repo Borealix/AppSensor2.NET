@@ -93,16 +93,12 @@
     <Compile Include="appsensor-local\event\LocalEventManager.cs" />
     <Compile Include="appsensor-local\handler\LocalRequestHandler.cs" />
     <Compile Include="appsensor-local\response\LocalResponseHandler.cs" />
-    <Compile Include="appsensor-local\test\analysis\ReferenceStatisticalEventAnalysisEngineTest.cs" />
-    <Compile Include="appsensor-local\test\AppSensorServerWiringTest.cs" />
     <Compile Include="reporting-simple-logging\reporting\SimpleLoggingReportingEngine.cs" />
     <Compile Include="reporting-websocket\reporting\WebSocketJsonObject.cs" />
     <Compile Include="reporting-websocket\reporting\WebSocketReportingEngine.cs" />
-    <Compile Include="reporting-websocket\test\DemoDataPopulator.cs" />
     <Compile Include="storage-file-based\storage\FileBasedAttackStore.cs" />
     <Compile Include="storage-file-based\storage\FileBasedEventStore.cs" />
     <Compile Include="storage-file-based\storage\FileBasedResponseStore.cs" />
-    <Compile Include="storage-file-based\test\FileBasedEventStorageTest.cs" />
     <Compile Include="storage-in-memory\InMemoryAttackStore.cs" />
     <Compile Include="storage-in-memory\InMemoryEventStore.cs" />
     <Compile Include="storage-in-memory\InMemoryResponseStore.cs" />
@@ -110,29 +106,8 @@
     <Compile Include="configuration-stax\client\StaxClientConfigurationReader.cs" />
     <Compile Include="configuration-stax\server\StaxServerConfiguration.cs" />
     <Compile Include="configuration-stax\server\StaxServerConfigurationReader.cs" />
-    <Compile Include="configuration-stax\test\client\XmlClientConfigurationReaderTest.cs" />
-    <Compile Include="configuration-stax\test\server\StaxServerConfigurationReaderTest.cs" />
-    <Compile Include="configuration-stax\test\server\XmlServerConfigurationReaderTest.cs" />
     <Compile Include="Util\HashCodeBuilder.cs" />
     <Compile Include="websocket-dashboard\Dashboard.cs" />
-    <Compile Include="ws-rest-server\handler\RestRequestHandler.cs" />
-    <Compile Include="ws-rest-server\reporting\RestReportingEngine.cs" />
-    <Compile Include="ws-rest-server\rest\AccessControlUtils.cs" />
-    <Compile Include="ws-rest-server\rest\AppSensorApplication.cs" />
-    <Compile Include="ws-rest-server\rest\filter\ClientApplicationIdentificationFilter.cs" />
-    <Compile Include="ws-rest-server\test\event\NoopEventManager.cs" />
-    <Compile Include="ws-rest-server\test\handler\RestRequestHandlerTest.cs" />
-    <Compile Include="ws-rest-server\test\reporting\DemoDataMultiUserPopulator.cs" />
-    <Compile Include="ws-rest-server\test\reporting\RestReportingEngineTest.cs" />
-    <Compile Include="ws-rest-server\test\response\NoopResponseHandler.cs" />
-    <Compile Include="ws-soap-client\event\SoapEventManager.cs" />
-    <Compile Include="ws-soap-client\test\SoapEventManagerTest.cs" />
-    <Compile Include="ws-soap-server\handler\ClientApplicationIdentificationHandler.cs" />
-    <Compile Include="ws-soap-server\handler\ReferenceSoapRequestHandler.cs" />
-    <Compile Include="ws-soap-server\handler\SoapRequestHandler.cs" />
-    <Compile Include="ws-soap-server\test\ReferenceSoapRequestHandlerTest.cs" />
-    <Compile Include="ws-soap-server\test\RegisterClientApplicationIdentificationHandler.cs" />
-    <Compile Include="ws-rest-client\event\RestEventManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Common.Logging">
@@ -141,11 +116,11 @@
     <Reference Include="CommonLibrary">
       <HintPath>..\packages\CommonLibrary.NET.0.9.6.1\lib\CommonLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="CopyPropertiesFromOneObjectToAnother">
-      <HintPath>..\..\..\..\..\Downloads\CopyPropertiesFromOneObjectToAnother\bin\Debug\CopyPropertiesFromOneObjectToAnother.exe</HintPath>
-    </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WebSockets">
+      <HintPath>..\packages\Microsoft.WebSockets.0.2.3\lib\net45\Microsoft.WebSockets.dll</HintPath>
     </Reference>
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
@@ -156,6 +131,10 @@
     <Reference Include="Spring.Core">
       <HintPath>..\packages\Spring.Core.2.0.0-RC1\lib\net45\Spring.Core.dll</HintPath>
     </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup />

@@ -23,8 +23,7 @@ using org.owasp.appsensor.listener.EventListener;
 using org.owasp.appsensor.logging.Loggable;
 using org.owasp.appsensor.util.DateUtils;
 using org.owasp.appsensor.util.FileUtils;
-using org.slf4j.Logger;
-using log4net.Repository.Hierarchy;
+using log4net;
 using System.IO;
 using System.Collections.ObjectModel;
 using org.owasp.appsensor.criteria;
@@ -47,12 +46,11 @@ using org.owasp.appsensor.util;
  * @author Raphaël Taban
  */
 namespace org.owasp.appsensor.storage {
-[Named ("")]
 //@Loggable
-[Named("")]
+[Named("FileBasedEventStore")]
 public class FileBasedEventStore : EventStore {
 	
-	private Logger logger;
+	private ILog Logger;
 	
 	//@SuppressWarnings("unused")
 	[Inject]
@@ -74,7 +72,7 @@ public class FileBasedEventStore : EventStore {
 	 * {@inheritDoc}
 	 */
 	public override void addEvent(Event Event) {
-		Logger.warn("Security event " + Event.GetDetectionPoint().getId() + " triggered by user: " + Event.GetUser().getUsername());
+		Logger.Warn("Security event " + Event.GetDetectionPoint().getId() + " triggered by user: " + Event.GetUser().getUsername());
 		
 		writeEvent(Event);
 		
@@ -126,7 +124,7 @@ public class FileBasedEventStore : EventStore {
 		try {
 			Files.write(getPath(), Arrays.asList(json), StandardCharsets.UTF_8, StandardOpenOption.APPEND, StandardOpenOption.WRITE);
 		} catch (IOException e) {
-			Logger.error("Error occurred loading writing event file to path: " + getPath(), e);
+			Logger.Error("Error occurred loading writing event file to path: " + getPath(), e);
 		}
 	}
 	

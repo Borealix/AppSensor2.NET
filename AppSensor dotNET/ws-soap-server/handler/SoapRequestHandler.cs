@@ -9,6 +9,8 @@ using org.owasp.appsensor.RequestHandler;
 using org.owasp.appsensor.Response;
 using org.owasp.appsensor.exceptions.NotAuthorizedException;
 using System.Collections.ObjectModel;
+using System.Web;
+using System.Web.Services;
 
 /**
  * This is the soap endpoint interface for handling requests on the server-side. 
@@ -16,7 +18,7 @@ using System.Collections.ObjectModel;
  * @author John Melton (jtmelton@gmail.com) http://www.jtmelton.com/
  */
 namespace org.owasp.appsensor.handler {
-@WebService(targetNamespace = "https://www.owasp.org/index.php/OWASP_AppSensor_Project/wsdl")
+[WebService(Namespace = "https://www.owasp.org/index.php/OWASP_AppSensor_Project/wsdl")]
 public interface SoapRequestHandler : RequestHandler {
 
 	/**
@@ -28,13 +30,11 @@ public interface SoapRequestHandler : RequestHandler {
 	/**
 	 * {@inheritDoc}
 	 */
-	//@Override
 	public override void addAttack(Attack attack);
 
 	/**
 	 * {@inheritDoc}
 	 */
-	//@Override
 	public override Collection<Response> getResponses(string earliest);
 
 }

@@ -18,7 +18,6 @@ using System.Collections.ObjectModel;
  * @author Raphaël Taban
  */
 namespace org.owasp.appsensor.events {
-[Named ("")]
 [Named("RestEventManager")]
 public class RestEventManager : EventManager {
 

@@ -5,11 +5,11 @@ import org.slf4j.Logger;
  */
 using System;
 using Ninject;
-using log4net.Repository.Hierarchy;
 using org.owasp.appsensor.ClientApplication;
 using org.owasp.appsensor.exceptions.NotAuthorizedException;
 using org.owasp.appsensor.logging.Loggable;
 using org.owasp.appsensor.exceptions;
+using log4net;
 
 /**
  * This particular {@link AccessController} implementation simply checks the {@link ClientApplication}s 
@@ -25,7 +25,7 @@ namespace org.owasp.appsensor.accesscontrol {
 public class ReferenceAccessController : AccessController {
 	
 	//@SuppressWarnings("unused")
-	private Logger logger;
+	private ILog Logger;
 	
 	/**
 	 * {@inheritDoc}

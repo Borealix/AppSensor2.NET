@@ -38,7 +38,7 @@ using org.owasp.appsensor.util.FileUtils;
  * @author Raphaël Taban
  */
 using org.owasp.appsensor.storage;
-using log4net.Repository.Hierarchy;
+using log4net;
 using org.owasp.appsensor;
 using System.IO;
 using System.Collections.ObjectModel;
@@ -52,7 +52,7 @@ namespace org.owasp.appsensor.storage{
 [Named("FileBasedResponseStore")]
 public class FileBasedResponseStore : ResponseStore {
 
-	private Logger logger;
+	private ILog Logger;
 	
 	//@SuppressWarnings("unused")
 	[Inject]
@@ -74,7 +74,7 @@ public class FileBasedResponseStore : ResponseStore {
 	 * {@inheritDoc}
 	 */
 	public override void addResponse(Response response) {
-		Logger.warn("Security response " + response + " triggered for user: " + response.GetUser().getUsername());
+		Logger.Warn("Security response " + response + " triggered for user: " + response.GetUser().getUsername());
 
 		writeResponse(response);
 		
@@ -121,7 +121,7 @@ public class FileBasedResponseStore : ResponseStore {
 		try {
 			Files.write(getPath(), Arrays.asList(json), StandardCharsets.UTF_8, StandardOpenOption.APPEND, StandardOpenOption.WRITE);
 		} catch (IOException e) {
-			Logger.error("Error occurred loading writing event file to path: " + getPath(), e);
+			Logger.Error("Error occurred loading writing event file to path: " + getPath(), e);
 		}
 	}
 	
@@ -137,7 +137,7 @@ public class FileBasedResponseStore : ResponseStore {
 				responses.Add(response);
 			}
 		} catch (IOException e) {
-			Logger.error("Error occurred loading configured event file from path: " + getPath(), e);
+			Logger.Error("Error occurred loading configured event file from path: " + getPath(), e);
 		}
 		
 		return responses;

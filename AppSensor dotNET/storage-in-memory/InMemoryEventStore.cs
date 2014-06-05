@@ -15,7 +15,7 @@ using org.owasp.appsensor.criteria.SearchCriteria;
 using org.owasp.appsensor.listener.EventListener;
 using org.owasp.appsensor.logging.Loggable;
 using org.owasp.appsensor.util.DateUtils;
-using log4net.Repository.Hierarchy;
+using log4net;
 using System.Collections.ObjectModel;
 using org.owasp.appsensor.criteria;
 using System;
@@ -36,12 +36,11 @@ using org.owasp.appsensor.util;
  * @author Raphaël Taban
  */
 namespace org.owasp.appsensor.storage{
-[Named ("")]
 //@Loggable
 [Named("InMemoryEventStore")]
 public class InMemoryEventStore : EventStore {
 	
-	private Logger logger;
+	private ILog Logger;
 	
 	/** maintain a collection of {@link Event}s as an in-memory list */
 	private Collection<Event> events = new CopyOnWriteArrayList<Event>();
@@ -50,7 +49,7 @@ public class InMemoryEventStore : EventStore {
 	 * {@inheritDoc}
 	 */
 	public override void addEvent(Event Event) {
-		Logger.warn("Security event " + Event.GetDetectionPoint().getId() + " triggered by user: " + Event.GetUser().getUsername());
+		Logger.Warn("Security event " + Event.GetDetectionPoint().getId() + " triggered by user: " + Event.GetUser().getUsername());
 		
 		events.Add(Event);
 		
