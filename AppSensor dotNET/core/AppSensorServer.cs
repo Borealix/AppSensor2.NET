@@ -1,4 +1,4 @@
-using log4net.Repository.Hierarchy;
+using log4net;
 using Ninject;
 using org.owasp.appsensor.accesscontrol;
 /*import javax.inject.Inject;
@@ -30,7 +30,7 @@ namespace org.owasp.appsensor{
 public class AppSensorServer {
 	
 	//@SuppressWarnings("unused")
-	private Logger logger;
+	private ILog logger;
 	
 	/** accessor for {@link org.owasp.appsensor.configuration.server.ServerConfiguration} */
 	private ServerConfiguration configuration;

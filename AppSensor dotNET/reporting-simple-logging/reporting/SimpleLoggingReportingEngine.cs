@@ -11,7 +11,7 @@ using org.owasp.appsensor.logging.Loggable;
 using org.owasp.appsensor.storage.AttackStoreListener;
 using org.owasp.appsensor.storage.EventStoreListener;
 using org.owasp.appsensor.storage.ResponseStoreListener;
-using log4net.Repository.Hierarchy;
+using log4net;
 using Ninject;
 using System.Collections.ObjectModel;
 
@@ -38,7 +38,7 @@ namespace org.owasp.appsensor.reporting {
 [Named("SimpleLoggingReportingEngine")]
 public class SimpleLoggingReportingEngine : ReportingEngine {
 	
-	private Logger logger;
+	private ILog logger;
 	
 	/**
 	 * {@inheritDoc}

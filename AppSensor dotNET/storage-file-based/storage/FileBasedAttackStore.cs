@@ -23,7 +23,7 @@ using org.owasp.appsensor.listener.AttackListener;
 using org.owasp.appsensor.logging.Loggable;
 using org.owasp.appsensor.util.DateUtils;
 using org.owasp.appsensor.util.FileUtils;
-using log4net.Repository.Hierarchy;
+using log4net;
 using System.IO;
 using System.Collections.ObjectModel;
 using org.owasp.appsensor.criteria;
@@ -52,7 +52,7 @@ namespace org.owasp.appsensor.storage {
 [Named("FileBasedAttackStore")]
 public class FileBasedAttackStore : AttackStore {
 	
-	private Logger logger;
+	private ILog Logger;
 	
 	//@SuppressWarnings("unused")
 	[Inject]
@@ -74,7 +74,7 @@ public class FileBasedAttackStore : AttackStore {
 	 * {@inheritDoc}
 	 */
 	public override void addAttack(Attack attack) {
-		Logger.warn("Security attack " + attack.GetDetectionPoint().getId() + " triggered by user: " + attack.GetUser().getUsername());
+		Logger.Warn("Security attack " + attack.GetDetectionPoint().getId() + " triggered by user: " + attack.GetUser().getUsername());
 	       
 		writeAttack(attack);
 		
@@ -126,7 +126,7 @@ public class FileBasedAttackStore : AttackStore {
 		try {
 			Files.write(getPath(), Arrays.asList(json), StandardCharsets.UTF_8, StandardOpenOption.APPEND, StandardOpenOption.WRITE);
 		} catch (IOException e) {
-			Logger.error("Error occurred loading writing event file to path: " + getPath(), e);
+			Logger.Error("Error occurred loading writing event file to path: " + getPath(), e);
 		}
 	}
 	
@@ -142,7 +142,7 @@ public class FileBasedAttackStore : AttackStore {
 				attacks.Add(attack);
 			}
 		} catch (IOException e) {
-			Logger.error("Error occurred loading configured attack file from path: " + getPath(), e);
+			Logger.Error("Error occurred loading configured attack file from path: " + getPath(), e);
 		}
 		
 		return attacks;

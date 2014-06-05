@@ -39,7 +39,7 @@ public abstract class ServerConfiguration {
 	
     //private static transient Map<String, DetectionPoint> detectionPointCache = Collections.synchronizedMap(new HashMap<String, DetectionPoint>());
     [NonSerialized]
-	private static IDictionary<string, DetectionPoint> detectionPointCache = new Dictionary<string, DetectionPoint>());
+	private static IDictionary<string, DetectionPoint> detectionPointCache = new Dictionary<string, DetectionPoint>();
 	
     //private static transient Map<String, ClientApplication> clientApplicationCache = Collections.synchronizedMap(new HashMap<String, ClientApplication>());
     [NonSerialized]

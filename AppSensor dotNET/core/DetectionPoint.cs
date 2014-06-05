@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 /*
 import java.io.Serializable;
 import java.util.List;
@@ -40,7 +41,8 @@ public class DetectionPoint{
 	/**
 	 * Set of {@link Response}s associated with given detection point.
 	 */
-	private Collection<Response> responses = new List<Response>();
+    //private Collection<Response> responses = new ArrayList<Response>();
+    private Collection<Response> responses = new Collection<Response>();
 	
 	public DetectionPoint() {}
 	

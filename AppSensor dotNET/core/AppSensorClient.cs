@@ -1,4 +1,4 @@
-using log4net.Repository.Hierarchy;
+using log4net;
 using Ninject;
 using org.owasp.appsensor.configuration.client;
 /*
@@ -9,9 +9,9 @@ using org.owasp.appsensor.configuration.client.ClientConfiguration;
 using org.owasp.appsensor.Events;
 using org.owasp.appsensor.Events.EventManager;
 using org.owasp.appsensor.logging.Loggable;
-using org.owasp.appsensor.response;
-using org.owasp.appsensor.response.ResponseHandler;
+using org.owasp.appsensor.Responses;
 using org.owasp.appsensor.response.UserManager;
+using org.owasp.appsensor.response;
 
 /**
  * AppSensor core class for accessing client-side components. Most components
@@ -28,7 +28,7 @@ namespace org.owasp.appsensor{
 public class AppSensorClient {
 	
 	//@SuppressWarnings("unused")
-	private Logger logger;
+	private ILog Logger;
 	
 	/** accessor for {@link org.owasp.appsensor.configuration.client.ClientConfiguration} */
 	private ClientConfiguration configuration;

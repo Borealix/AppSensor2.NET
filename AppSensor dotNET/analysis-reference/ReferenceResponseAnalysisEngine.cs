@@ -5,13 +5,13 @@ import javax.inject.Named;
 import org.slf4j.Logger;
  */
 using Ninject;
-using ComLib.Logging;
 
 using org.owasp.appsensor.AppSensorClient;
 using org.owasp.appsensor.Response;
 using org.owasp.appsensor.logging.Loggable;
-using org.owasp.appsensor.response.ResponseHandler;
+using org.owasp.appsensor.Responses;
 using org.owasp.appsensor.storage.ResponseStore;
+using log4net;
 /**
  * This is a reference {@link Response} analysis engine, 
  * and is an implementation of the Observer pattern. 
@@ -28,7 +28,7 @@ namespace org.owasp.appsensor.analysis {
     [Named("ReferenceResponseAnalysisEngine")]
     public class ReferenceResponseAnalysisEngine : ResponseAnalysisEngine {
 
-        private ILog logger;
+        private ILog Logger;
 
         [Inject]
         private AppSensorClient appSensorClient;

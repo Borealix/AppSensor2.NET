@@ -14,7 +14,7 @@ using org.owasp.appsensor.criteria.SearchCriteria;
 using org.owasp.appsensor.listener.ResponseListener;
 using org.owasp.appsensor.logging.Loggable;
 using org.owasp.appsensor.util.DateUtils;
-using log4net.Repository.Hierarchy;
+using log4net;
 using System.Collections.ObjectModel;
 using org.owasp.appsensor.criteria;
 using System;
@@ -32,13 +32,12 @@ using System.Collections.Generic;
  * @author John Melton (jtmelton@gmail.com) http://www.jtmelton.com/
  * @author Raphaël Taban
  */
-[Named ("")]
 //@Loggable
 namespace org.owasp.appsensor.storage{
 [Named("InMemoryResponseStore")]
 public class InMemoryResponseStore : ResponseStore {
 
-	private Logger logger;
+	private ILog Logger;
 
 	/** maintain a collection of {@link Response}s as an in-memory list */
 	private static Collection<Response> responses = new CopyOnWriteArrayList<Response>();
@@ -48,7 +47,7 @@ public class InMemoryResponseStore : ResponseStore {
 	 */
 	//@Override
 	public override void addResponse(Response response) {
-		Logger.warn("Security response " + response + " triggered for user: " + response.GetUser().getUsername());
+		Logger.Warn("Security response " + response + " triggered for user: " + response.GetUser().getUsername());
 
 		responses.Add(response);
 		

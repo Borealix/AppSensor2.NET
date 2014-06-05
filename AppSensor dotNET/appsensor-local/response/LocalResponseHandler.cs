@@ -6,11 +6,10 @@ import org.slf4j.Logger;
 */
 using org.owasp.appsensor.Responses;
 using org.owasp.appsensor.AppSensorClient;
-//using org.owasp.appsensor.Response;
 using org.owasp.appsensor.logging.Loggable;
 using Ninject;
-using ComLib.Logging;
 using System;
+using log4net;
 /**
  * This class should only be used as the server-side response handler
  * if you are in local mode. Otherwise, use a NO-OP implementation 
@@ -25,7 +24,7 @@ namespace org.owasp.appsensor.response {
 public class LocalResponseHandler : ResponseHandler {
 
 	/** Logger */
-	private ILog logger;
+	private ILog Logger;
 	
 	[Inject]
 	private AppSensorClient appSensorClient;
