@@ -38,6 +38,14 @@ public class StaxClientConfigurationReader : ClientConfigurationReader {
 		/** initialize namespaces **/
 		//namespaces.put(XSD_NAMESPACE, "config");
         namespaces.Add(XSD_NAMESPACE, "config");
+        /*
+         * In Java, we use put. It does almost the same as Add, with the difference that if
+         * Put receives a existing key, replaced the old value by the newer.
+         * If Add receives a existing key, throws a exception.
+         * 
+         * Migrator's note.
+         * 
+         */
 	}
 	
 	/**

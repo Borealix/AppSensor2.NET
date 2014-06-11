@@ -92,12 +92,11 @@ public class ReferenceEventAnalysisEngine : EventAnalysisEngine {
 		//grab the startTime to begin counting from based on the current time - interval
         //DateTime startTime = DateUtils.getCurrentTimestamp().MinusMillis((int)intervalInMillis);
         DateTime startTime = DateUtils.getCurrentTimestamp().AddMilliseconds(-(intervalInMillis));
-        intervalInMillis = -(intervalInMillis);
 		//count events after most recent attack.
-		DateTime mostRecentAttackTime = findMostRecentAttackTime(triggeringEvent);
+		DateTime? mostRecentAttackTime = findMostRecentAttackTime(triggeringEvent);
 		
 		foreach (Event Event in existingEvents) {
-			DateTime eventTimestamp = DateUtils.fromString(Event.GetTimestamp());
+			DateTime? eventTimestamp = DateUtils.fromString(Event.GetTimestamp());
 			//ensure only events that have occurred since the last attack are considered
 			// if (eventTimestamp.isAfter(mostRecentAttackTime)) {
             if (eventTimestamp > mostRecentAttackTime) {
@@ -126,8 +125,8 @@ public class ReferenceEventAnalysisEngine : EventAnalysisEngine {
 	 * @param event {@link Event} to use to find matching {@link Attack}s
 	 * @return timestamp representing last matching {@link Attack}, or -1L if not found
 	 */
-	protected DateTime findMostRecentAttackTime(Event Event) {
-		DateTime newest = DateUtils.epoch();
+	protected DateTime? findMostRecentAttackTime(Event Event) {
+		DateTime? newest = DateUtils.epoch();
 		
 		SearchCriteria criteria = new SearchCriteria().
 				setUser(Event.GetUser()).
@@ -142,7 +141,6 @@ public class ReferenceEventAnalysisEngine : EventAnalysisEngine {
 				newest = DateUtils.fromString(attack.GetTimestamp());
 			}
 		}
-		
 		return newest;
 	}	
 }

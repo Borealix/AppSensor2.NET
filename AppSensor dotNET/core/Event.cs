@@ -7,6 +7,8 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.StringBuilder;
 */
 using org.owasp.appsensor.util.DateUtils;
+using System.Text;
+using Tools.HashCodeBuilder;
 /**
  * Event is a specific instance that a sensor has detected that 
  * represents a suspicious activity.
@@ -47,15 +49,19 @@ public class Event{
     public Event () {}
     
 	public Event (User user, DetectionPoint detectionPoint, string detectionSystemId) {
-		this(user, detectionPoint, DateUtils.getCurrentTimestampAsString(), detectionSystemId);
+		InitClass(user, detectionPoint, DateUtils.getCurrentTimestampAsString(), detectionSystemId);
 	}
 	
 	public Event (User user, DetectionPoint detectionPoint, string timestamp, string detectionSystemId) {
-		setUser(user);
-		setDetectionPoint(detectionPoint);
-		setTimestamp(timestamp);
-		setDetectionSystemId(detectionSystemId);
+        InitClass(user, detectionPoint, timestamp, detectionSystemId);
 	}
+
+    private void InitClass(User user, DetectionPoint detectionPoint, string timestamp, string detectionSystemId) {
+        setUser(user);
+        setDetectionPoint(detectionPoint);
+        setTimestamp(timestamp);
+        setDetectionSystemId(detectionSystemId);
+    }
 	
 	public User GetUser() {
 		return user;
@@ -103,13 +109,13 @@ public class Event{
 	}
 	
 	public override int hashCode() {
-		return new HashCodeBuilder(17,31).
-				Append(user).
-				Append(detectionPoint).
-				Append(timestamp).
-				Append(detectionSystemId).
-				Append(resource).
-				toHashCode();
+		return new HashCodeBuilder().
+				Add(user).
+				Add(detectionPoint).
+				Add(timestamp).
+				Add(detectionSystemId).
+				Add(resource).
+				GetHashCode();
 	}
 	
 	public override bool Equals(object obj) {
@@ -122,22 +128,32 @@ public class Event{
 		
 		Event other = (Event) obj;
 		
-		return new EqualsBuilder().
+		/*return new EqualsBuilder().
 				Append(user, other.GetUser()).
 				Append(detectionPoint, other.GetDetectionPoint()).
 				Append(timestamp, other.GetTimestamp()).
 				Append(detectionSystemId, other.GetDetectionSystemId()).
 				Append(resource, other.getResource()).
-				isEquals();
+				isEquals();*/
+        if(user.Equals(other.GetUser()) &&
+            detectionPoint.Equals(other.GetDetectionPoint()) &&
+            timestamp.Equals(other.GetTimestamp()) &&
+            detectionSystemId.Equals(other.GetDetectionSystemId()) &&
+            resource.Equals(other.getResource())) {
+            return true;
+        } else {
+            return false;
+        }
 	}
 	
-	public override string ToString() {
-		return new StringBuilder(this).
-				Append("user", user).
-				Append("detectionPoint", detectionPoint).
-				Append("timestamp", timestamp).
-				Append("detectionSystemId", detectionSystemId).
-				Append("resource", resource).
+	public override string toString() {
+		//return new StringBuilder(this).
+        return new StringBuilder().
+				AppendFormat("user", user).
+				AppendFormat("detectionPoint", detectionPoint).
+				AppendFormat("timestamp", timestamp).
+				AppendFormat("detectionSystemId", detectionSystemId).
+				AppendFormat("resource", resource).
 			    ToString();
 	}
 }

@@ -43,7 +43,7 @@ public class InMemoryEventStore : EventStore {
 	private ILog Logger;
 	
 	/** maintain a collection of {@link Event}s as an in-memory list */
-	private Collection<Event> events = new CopyOnWriteArrayList<Event>();
+    private SynchronizedCollection<Event> events = new SynchronizedCollection<Event>();
 	
 	/**
 	 * {@inheritDoc}
@@ -61,10 +61,11 @@ public class InMemoryEventStore : EventStore {
 	 */
 	public override Collection<Event> findEvents(SearchCriteria criteria) {
 		if (criteria == null) {
-			throw new IllegalArgumentException("criteria must be non-null");
+			throw new ArgumentException("criteria must be non-null");
 		}
 		
-		Collection<Event> matches = new List<Event>();
+		//Collection<Event> matches = new List<Event>();
+        Collection<Event> matches = new Collection<Event>();
 		
 		User user = criteria.GetUser();
 		DetectionPoint detectionPoint = criteria.GetDetectionPoint();

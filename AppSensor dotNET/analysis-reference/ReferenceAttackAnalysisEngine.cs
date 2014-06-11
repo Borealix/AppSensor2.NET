@@ -82,7 +82,6 @@ public class ReferenceAttackAnalysisEngine : AttackAnalysisEngine {
 		string responseAction = null;
 		Interval interval = null;
 
-        //Collection<Response> possibleResponses = findPossibleResponses(triggeringDetectionPoint);
         Collection<Response> possibleResponses = findPossibleResponses(triggeringDetectionPoint);
 
 		//if (existingResponses == null || existingResponses.Size() == 0) {
@@ -130,10 +129,9 @@ public class ReferenceAttackAnalysisEngine : AttackAnalysisEngine {
 	 * @param triggeringDetectionPoint {@link DetectionPoint} that triggered {@link Attack}
 	 * @return collection of {@link Response} objects for given {@link DetectionPoint}
 	 */
-	//protected Collection<Response> findPossibleResponses(DetectionPoint triggeringDetectionPoint) {
-    protected List<Response> findPossibleResponses(DetectionPoint triggeringDetectionPoint) {
+    protected Collection<Response> findPossibleResponses(DetectionPoint triggeringDetectionPoint) {
 		//Collection<Response> possibleResponses = new List<Response>();
-        List<Response> possibleResponses = new List<Response>();
+        Collection<Response> possibleResponses = new Collection<Response>();
 		
 		foreach (DetectionPoint configuredDetectionPoint in appSensorServer.getConfiguration().getDetectionPoints()) {
 			if (configuredDetectionPoint.getId().Equals(triggeringDetectionPoint.getId())) {

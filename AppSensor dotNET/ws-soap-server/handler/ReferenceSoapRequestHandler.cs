@@ -28,6 +28,7 @@ using System.Collections.Generic;
 using org.owasp.appsensor.accesscontrol;
 using org.owasp.appsensor.criteria;
 using org.owasp.appsensor.util;
+using System.Web.Services;
 
 /**
  * This is the soap endpoint that handles requests on the server-side. 
@@ -35,12 +36,12 @@ using org.owasp.appsensor.util;
  * @author John Melton (jtmelton@gmail.com) http://www.jtmelton.com/
  */
 namespace org.owasp.appsensor.handler {
-@WebService(
-        portName = "SoapRequestHandlerPort",
+[WebService(
+        portname = "SoapRequestHandlerPort",
         serviceName = "SoapRequestHandlerService",
-        targetNamespace = "https://www.owasp.org/index.php/OWASP_AppSensor_Project/wsdl",
+        Namespace = "https://www.owasp.org/index.php/OWASP_AppSensor_Project/wsdl",
         endpointInterface = "org.owasp.appsensor.handler.SoapRequestHandler"
-        )
+        )]
 @HandlerChain(file="handler-chain.xml")
 [Named ("ReferenceSoapRequestHandler")]
 public class ReferenceSoapRequestHandler : SoapRequestHandler  {//extends SpringBeanAutowiringSupport 
@@ -56,7 +57,8 @@ public class ReferenceSoapRequestHandler : SoapRequestHandler  {//extends Spring
 	 */
 	//@WebMethod
 
-	public override void addEvent(Event Event) throws NotAuthorizedException {
+    /// <exception cref="InvalidOperationException"></exception>
+	public override void addEvent(Event Event) {
 		checkAuthorization(Action.ADD_EVENT);
 		
 		Event.setDetectionSystemId(getClientApplicationName());

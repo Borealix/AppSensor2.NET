@@ -5,6 +5,8 @@ using org.apache.commons.lang3.builder.HashCodeBuilder;
 using org.apache.commons.lang3.builder.StringBuilder;*/
 using org.owasp.appsensor.util.DateUtils;
 using System;
+using System.Text;
+using Tools.HashCodeBuilder;
 
 namespace org.owasp.appsensor {
 /**
@@ -39,24 +41,28 @@ public class Response {
 	public Response() {}
 	
 	public Response (User user, string action, string detectionSystemId) {
-		this(user, action, DateUtils.getCurrentTimestampAsString(), detectionSystemId, null);
+		InitClass(user, action, DateUtils.getCurrentTimestampAsString(), detectionSystemId, null);
 	}
 	
 	public Response (User user, string action, string timestamp, string detectionSystemId) {
-		this(user, action, timestamp, detectionSystemId, null);
+		InitClass(user, action, timestamp, detectionSystemId, null);
 	}
 	
 	public Response (User user, string action, string detectionSystemId, Interval interval) {
-		this(user, action, DateUtils.getCurrentTimestampAsString(), detectionSystemId, interval);
+		InitClass(user, action, DateUtils.getCurrentTimestampAsString(), detectionSystemId, interval);
 	}
 	
 	public Response (User user, string action, string timestamp, string detectionSystemId, Interval interval) {
-		setUser(user);
-		setAction(action);
-		setTimestamp(timestamp);
-		setDetectionSystemId(detectionSystemId);
-		setInterval(interval);
+        InitClass(user, action, timestamp, detectionSystemId, interval);
 	}
+
+    private void InitClass(User user, string action, string timestamp, string detectionSystemId, Interval interval) {
+        setUser(user);
+        setAction(action);
+        setTimestamp(timestamp);
+        setDetectionSystemId(detectionSystemId);
+        setInterval(interval);
+    }
 	
 	public User GetUser() {
 		return user;
@@ -104,13 +110,13 @@ public class Response {
 	}
 	
 	public int hashCode() {
-		return new HashCodeBuilder(17,31).
-				Append(user).
-				Append(timestamp).
-				Append(action).
-				Append(interval).
-				Append(detectionSystemId).
-				toHashCode();
+		return new HashCodeBuilder().
+				Add(user).
+                Add(timestamp).
+                Add(action).
+                Add(interval).
+                Add(detectionSystemId).
+				GetHashCode();
 	}
 	
 	public bool Equals(object obj) {
@@ -123,22 +129,31 @@ public class Response {
 		
 		Response other = (Response) obj;
 		
-		return new EqualsBuilder().
+		/*return new EqualsBuilder().
 				Append(user, other.GetUser()).
 				Append(timestamp, other.GetTimestamp()).
 				Append(action, other.getAction()).
 				Append(interval, other.getInterval()).
 				Append(detectionSystemId, other.GetDetectionSystemId()).
-				isEquals();
+				isEquals();*/
+        if(user.Equals(other.GetUser()) &&
+            timestamp.Equals(other.GetTimestamp()) &&
+            action.Equals (other.getAction()) &&
+            interval.Equals (other.getInterval()) &&
+            detectionSystemId.Equals(other.GetDetectionSystemId())) {
+            return true;
+        } else {
+            return false;
+        }
 	}
 
-	public string ToString() {
-		return new StringBuilder(this).
-			       Append("user", user).
-			       Append("timestamp", timestamp).
-			       Append("action", action).
-			       Append("interval", interval).
-			       Append("detectionSystemId", detectionSystemId).
+	public string toString() {
+		return new StringBuilder().
+			       AppendFormat("user", user).
+			       AppendFormat("timestamp", timestamp).
+			       AppendFormat("action", action).
+			       AppendFormat("interval", interval).
+			       AppendFormat("detectionSystemId", detectionSystemId).
 			       ToString();
 	}	
 }

@@ -22,6 +22,7 @@ using org.owasp.appsensor.logging.Loggable;
 using Ninject;
 using System.Collections.ObjectModel;
 using log4net;
+using System;
 
 /**
  * This is the websocket-based reporting engine, and is an implementation of the observer pattern. 
@@ -84,21 +85,21 @@ public class WebSocketReportingEngine : ReportingEngine {
 	 * {@inheritDoc}
 	 */
 	public override Collection<Event> findEvents(string earliest) {
-		throw new UnsupportedOperationException("This method is not implemented for WebSocket reporting implementation");
+		throw new NotSupportedException("This method is not implemented for WebSocket reporting implementation");
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public override Collection<Attack> findAttacks(string earliest) {
-		throw new UnsupportedOperationException("This method is not implemented for WebSocket reporting implementation");
+		throw new NotSupportedException("This method is not implemented for WebSocket reporting implementation");
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public override Collection<Response> findResponses(string earliest) {
-		throw new UnsupportedOperationException("This method is not implemented for WebSocket reporting implementation");
+		throw new NotSupportedException("This method is not implemented for WebSocket reporting implementation");
 	}
 	
 	private void notifyWebSocket(string type, object Object) {
@@ -106,11 +107,11 @@ public class WebSocketReportingEngine : ReportingEngine {
 		
 		if (localSession != null && localSession.isOpen()) {
 			try {
-				WebSocketJsonObject jsonObject = new WebSocketJsonObject(type, object);
+				WebSocketJsonObject jsonObject = new WebSocketJsonObject(type, Object);
 				string json = gson.toJson(jsonObject);
 				localSession.getBasicRemote().sendText(json);
 			} catch (IOException e) {
-				Logger.error("Error sending data to websocket", e);
+				Logger.Error("Error sending data to websocket", e);
 			}
 		}
 	}

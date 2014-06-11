@@ -8,7 +8,7 @@ using Ninject;
 using org.owasp.appsensor.exceptions;
 using org.owasp.appsensor.exceptions.ConfigurationException;
 using System;
-using CopyPropertiesFromOneObjectToAnother;
+using Tools.CopyProperties;
 //using 
 /**
  * Represents the configuration for client-side components. 
@@ -16,23 +16,26 @@ using CopyPropertiesFromOneObjectToAnother;
  * @author John Melton (jtmelton@gmail.com) http://www.jtmelton.com/
  */
 namespace org.owasp.appsensor.configuration.client {
-
 [Named("StaxClientConfiguration")]
 public class StaxClientConfiguration : ClientConfiguration {
-	public StaxClientConfiguration() {
-		//this (true);
-        this (true);
-	}
+    public StaxClientConfiguration() {
+        InitClass(true);
+    }
 
 	public StaxClientConfiguration(bool loadConfiguration) {
-		if (loadConfiguration) {
-			ClientConfiguration configuration = loadconfiguration(new StaxClientConfigurationReader());
-			if (configuration != null) {
-                // BeanUtils.copyProperties(configuration, this);
-                PropertiesCopier.CopyProperties(configuration, this);
-			}
-		}
+        InitClass(loadConfiguration);
 	}
+
+    private void InitClass(bool loadConfiguration) {
+        if(loadConfiguration) {
+            ClientConfiguration configuration = loadconfiguration(new StaxClientConfigurationReader());
+            if(configuration != null) {
+                //BeanUtils.copyProperties(configuration, this);
+                ReflectionUtils.CopyProperties(configuration, this);
+            }
+        }
+    }
+
 
     /**
      * Bootstrap mechanism that loads the configuration for the client object based 

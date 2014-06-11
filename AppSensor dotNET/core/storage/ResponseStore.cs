@@ -10,6 +10,8 @@ using System.Collections.ObjectModel;
 using org.owasp.appsensor.listener;
 using org.owasp.appsensor.criteria;
 using Ninject;
+using System.Object;
+using System.Collections.Generic;
 
 /**
  * A store is an observable object. 
@@ -24,7 +26,8 @@ using Ninject;
 namespace org.owasp.appsensor.storage {
 public abstract class ResponseStore {
 	
-	private static Collection<ResponseListener> listeners = new CopyOnWriteArrayList<>();
+	//private static Collection<ResponseListener> listeners = new CopyOnWriteArrayList<>();
+    private static SynchronizedCollection<ResponseListener> listeners = new SynchronizedCollection<ResponseListener>();
 	
 	/**
 	 * Add a response to the ResponseStore
@@ -47,7 +50,8 @@ public abstract class ResponseStore {
 	 * @param listener the {@link ResponseListener} to register
 	 */
 	public void registerListener(ResponseListener listener) {
-		if (! listeners.Contains(listener)) {
+        //if (! listeners.Contains(listener)) {
+        if(!listeners.Contains(listener)) {
 			listeners.Add(listener);
 		}
 	}

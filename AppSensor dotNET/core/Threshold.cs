@@ -5,6 +5,8 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.StringBuilder;
 */
 using System;
+using System.Text;
+using Tools.HashCodeBuilder;
 /**
  * The Threshold represents a number of occurrences over a span of time. The key components are the: 
  * 
@@ -58,10 +60,10 @@ public class Threshold {
 	}
 	
 	public override int hashCode() {
-		return new HashCodeBuilder(17,31).
-				Append(count).
-				Append(interval).
-				toHashCode();
+		return new HashCodeBuilder().
+				Add(count).
+				Add(interval).
+				GetHashCode();
 	}
 	
 	public override bool Equals(object obj) {
@@ -74,16 +76,22 @@ public class Threshold {
 		
 		Threshold other = (Threshold) obj;
 		
-		return new EqualsBuilder().
+		/*return new EqualsBuilder().
 				Append(count, other.getCount()).
 				Append(interval, other.getInterval()).
-				isEquals();
+				isEquals();*/
+        if(count == other.getCount() &&
+            interval.Equals(other.getInterval())) {
+            return true;
+        } else {
+            return false;
+        }
 	}
 	
-	public override string ToString() {
-		return new StringBuilder(this).
-			       Append("count", count).
-			       Append("interval", interval).
+	public override string toString() {
+		return new StringBuilder().
+			       AppendFormat("count", count).
+			       AppendFormat("interval", interval).
 			       ToString();
 	}	
 }

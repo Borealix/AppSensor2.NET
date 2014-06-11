@@ -1,7 +1,7 @@
 using Ninject;
 using org.owasp.appsensor.exceptions.ConfigurationException;
 using System.Text;
-using Util.HashCodeBuilder;
+using Tools.HashCodeBuilder;
 /**
  * This interface is to be fulfilled by implementations that load a configuration 
  * file and provide an object representation of it. 
@@ -116,17 +116,27 @@ namespace org.owasp.appsensor.configuration.client {
 
             ServerConnection other = (ServerConnection)obj;
 
-            return new EqualsBuilder().
+            /*return new EqualsBuilder().
                     Append(type, other.getType()).
                     Append(protocol, other.getProtocol()).
                     Append(host, other.getHost()).
                     Append(port, other.getPort()).
                     Append(path, other.getPath()).
                     Append(clientApplicationIdentificationHeaderValue, other.getClientApplicationIdentificationHeaderValue()).
-                    isEquals();
+                    isEquals();*/
+            if(type.Equals(other.getType()) &&
+            protocol.Equals(other.getProtocol()) &&
+            host.Equals(other.getHost()) &&
+            port == other.getPort() &&
+            path.Equals(other.getPath()) &&
+            clientApplicationIdentificationHeaderValue.Equals (other.getClientApplicationIdentificationHeaderValue())) {
+                return true;
+            } else {
+                return false;
+            }
         }
 
-        public override string ToString() {
+        public override string toString() {
             //return new StringBuilder(this).
             return new StringBuilder().
                     AppendFormat("type", type).

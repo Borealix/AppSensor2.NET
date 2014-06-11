@@ -40,7 +40,7 @@ public class InMemoryResponseStore : ResponseStore {
 	private ILog Logger;
 
 	/** maintain a collection of {@link Response}s as an in-memory list */
-	private static Collection<Response> responses = new CopyOnWriteArrayList<Response>();
+    private static SynchronizedCollection<Response> responses = new SynchronizedCollection<Response>();
 	
 	/**
 	 * {@inheritDoc}
@@ -60,7 +60,7 @@ public class InMemoryResponseStore : ResponseStore {
 	//@Override
 	public override Collection<Response> findResponses(SearchCriteria criteria) {
 		if (criteria == null) {
-			throw new IllegalArgumentException("criteria must be non-null");
+			throw new ArgumentException("criteria must be non-null");
 		}
 		
 		Collection<Response> matches = new List<Response>();

@@ -1,4 +1,4 @@
-﻿namespace Util.HashCodeBuilder {
+﻿namespace Tools.HashCodeBuilder {
     /*
      * In this folder are the codes of the utilities that Appsensor Java version uses of libraries
      * that don´t exist for .NET.

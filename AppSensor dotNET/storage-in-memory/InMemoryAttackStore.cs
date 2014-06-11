@@ -33,15 +33,14 @@ using System.Collections.Generic;
  * @author Raphaël Taban
  */
 namespace org.owasp.appsensor.storage{
-[Named ("")]
 //@Loggable
-[Named("")]
+[Named("InMemoryAttackStore")]
 public class InMemoryAttackStore : AttackStore {
 	
 	private ILog Logger;
 	
 	/** maintain a collection of {@link Attack}s as an in-memory list */
-	private static Collection<Attack> attacks = new CopyOnWriteArrayList<Attack>();
+    private static SynchronizedCollection<Attack> attacks = new SynchronizedCollection<Attack>();
 	
 	/**
 	 * {@inheritDoc}
@@ -51,7 +50,8 @@ public class InMemoryAttackStore : AttackStore {
 	       
 		attacks.Add(attack);
 		
-		super.notifyListeners(attack);
+		//super.notifyListeners(attack);
+        base.notifyListeners(attack);
 	}
 	
 	/**
@@ -59,22 +59,22 @@ public class InMemoryAttackStore : AttackStore {
 	 */
 	public override Collection<Attack> findAttacks(SearchCriteria criteria) {
 		if (criteria == null) {
-			throw new IllegalArgumentException("criteria must be non-null");
+			throw new ArgumentException("criteria must be non-null");
 		}
 		
-		Collection<Attack> matches = new List<Attack>();
+		Collection<Attack> matches = new Collection<Attack>();
 		
 		User user = criteria.GetUser();
 		DetectionPoint detectionPoint = criteria.GetDetectionPoint();
 		Collection<string> detectionSystemIds = criteria.getDetectionSystemIds(); 
-		DateTime earliest = DateUtils.fromString(criteria.getEarliest());
+		DateTime? earliest = DateUtils.fromString(criteria.getEarliest());
 		
 		foreach (Attack attack in attacks) {
 			//check user match if user specified
 			bool userMatch = (user != null) ? user.Equals(attack.GetUser()) : true;
 			
 			//check detection system match if detection systems specified
-			bool detectionSystemMatch = (detectionSystemIds != null && detectionSystemIds.size() > 0) ? 
+			bool detectionSystemMatch = (detectionSystemIds != null && detectionSystemIds.Count > 0) ? 
 					detectionSystemIds.Contains(attack.GetDetectionSystemId()) : true;
 			
 			//check detection point match if detection point specified

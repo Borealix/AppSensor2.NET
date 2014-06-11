@@ -1,6 +1,6 @@
 using Ninject;
 using org.owasp.appsensor.exceptions;
-using CopyPropertiesFromOneObjectToAnother;
+using Tools.CopyProperties;
 /*
 import javax.inject.Named;
 
@@ -19,18 +19,22 @@ namespace org.owasp.appsensor.configuration.server {
 public class StaxServerConfiguration : ServerConfiguration {
 
 	public StaxServerConfiguration() {
-		this(true);
+		InitClass(true);
 	}
 	
 	public StaxServerConfiguration(bool loadConfiguration) {
-		if (loadConfiguration) {
-			ServerConfiguration configuration = loadconfiguration(new StaxServerConfigurationReader());
-			if (configuration != null) {
-				//BeanUtils.copyProperties(configuration, this);
-                PropertiesCopier.CopyProperties(configuration, this);
-			}
-		}
+        InitClass(loadConfiguration);
 	}
+
+    private void InitClass(bool loadConfiguration) {
+        if(loadConfiguration) {
+            ServerConfiguration configuration = loadconfiguration(new StaxServerConfigurationReader());
+            if(configuration != null) {
+                //BeanUtils.copyProperties(configuration, this);
+                ReflectionUtils.CopyProperties(configuration, this);
+            }
+        }
+    }
 	
 	/**
 	 * Bootstrap mechanism that loads the configuration for the server object based 

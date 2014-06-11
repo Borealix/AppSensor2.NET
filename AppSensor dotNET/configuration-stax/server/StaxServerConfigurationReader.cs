@@ -24,6 +24,7 @@ using org.owasp.appsensor.accesscontrol.Role;
 using org.owasp.appsensor.correlation.CorrelationSet;
 using org.owasp.appsensor.util.XmlUtils;
 using System;
+using System.Collections.Generic;
 /**
  * This implementation parses the {@link ServerConfiguration} objects 
  * from the specified XML file via the StAX API.
@@ -36,11 +37,21 @@ public class StaxServerConfigurationReader : ServerConfigurationReader {
 	//private static final string XSD_NAMESPACE = "https://www.owasp.org/index.php/OWASP_AppSensor_Project/xsd/appsensor_server_config_2.0.xsd";
 	private static string XSD_NAMESPACE = "https://www.owasp.org/index.php/OWASP_AppSensor_Project/xsd/appsensor_server_config_2.0.xsd";
 	
-	private Map<string, string> namespaces = new HashMap<string, string>();
+	//private Map<string, string> namespaces = new HashMap<string, string>();
+    private IDictionary<string, string> namespaces = new Dictionary<string, string>();
+
 	
 	public StaxServerConfigurationReader() {
 		/** initialize namespaces **/
-		namespaces.put(XSD_NAMESPACE, "config");
+		namespaces.Add(XSD_NAMESPACE, "config");
+        /*
+         * In Java, we use put. It does almost the same as Add, with the difference that if
+         * Put receives a existing key, replaced the old value by the newer.
+         * If Add receives a existing key, throws a exception.
+         * 
+         * Migrator's note.
+         * 
+         */
 	}
 	
 	/**
