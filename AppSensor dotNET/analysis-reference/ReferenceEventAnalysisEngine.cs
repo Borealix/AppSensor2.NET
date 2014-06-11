@@ -9,7 +9,6 @@ using System.Collections.ObjectModel;
 using System;
 using org.owasp.appsensor.util;
 using Ninject;
-using ComLib.Logging;
 
 using org.owasp.appsensor.AppSensorServer;
 using org.owasp.appsensor.Attack;
@@ -23,6 +22,7 @@ using org.owasp.appsensor.storage.AttackStore;
 using org.owasp.appsensor.storage.EventStore;
 using org.owasp.appsensor.util.DateUtils;
 using org.owasp.appsensor.criteria;
+using log4net;
 /**
  * This is a statistical {@link Event} analysis engine, 
  * and is an implementation of the Observer pattern. 
@@ -40,7 +40,7 @@ namespace org.owasp.appsensor.analysis {
 [Named("ReferenceEventAnalysisEngine")]
 public class ReferenceEventAnalysisEngine : EventAnalysisEngine {
 
-	private ILog logger;
+	private ILog Logger;
 	
 	[Inject]
 	private AppSensorServer appSensorServer;
@@ -73,7 +73,7 @@ public class ReferenceEventAnalysisEngine : EventAnalysisEngine {
 		int thresholdCount = configuredDetectionPoint.getThreshold().getCount();
 
 		if (eventCount % thresholdCount == 0) {
-			logger.Info("Violation Observed for user <" + Event.GetUser().getUsername() + "> - storing attack");
+			Logger.Info("Violation Observed for user <" + Event.GetUser().getUsername() + "> - storing attack");
 			//have determined this event triggers attack
 			appSensorServer.getAttackStore().addAttack(new Attack(Event));
 		}
@@ -92,12 +92,11 @@ public class ReferenceEventAnalysisEngine : EventAnalysisEngine {
 		//grab the startTime to begin counting from based on the current time - interval
         //DateTime startTime = DateUtils.getCurrentTimestamp().MinusMillis((int)intervalInMillis);
         DateTime startTime = DateUtils.getCurrentTimestamp().AddMilliseconds(-(intervalInMillis));
-        intervalInMillis = -(intervalInMillis);
 		//count events after most recent attack.
-		DateTime mostRecentAttackTime = findMostRecentAttackTime(triggeringEvent);
+		DateTime? mostRecentAttackTime = findMostRecentAttackTime(triggeringEvent);
 		
 		foreach (Event Event in existingEvents) {
-			DateTime eventTimestamp = DateUtils.fromString(Event.GetTimestamp());
+			DateTime? eventTimestamp = DateUtils.fromString(Event.GetTimestamp());
 			//ensure only events that have occurred since the last attack are considered
 			// if (eventTimestamp.isAfter(mostRecentAttackTime)) {
             if (eventTimestamp > mostRecentAttackTime) {
@@ -126,8 +125,8 @@ public class ReferenceEventAnalysisEngine : EventAnalysisEngine {
 	 * @param event {@link Event} to use to find matching {@link Attack}s
 	 * @return timestamp representing last matching {@link Attack}, or -1L if not found
 	 */
-	protected DateTime findMostRecentAttackTime(Event Event) {
-		DateTime newest = DateUtils.epoch();
+	protected DateTime? findMostRecentAttackTime(Event Event) {
+		DateTime? newest = DateUtils.epoch();
 		
 		SearchCriteria criteria = new SearchCriteria().
 				setUser(Event.GetUser()).
@@ -142,7 +141,6 @@ public class ReferenceEventAnalysisEngine : EventAnalysisEngine {
 				newest = DateUtils.fromString(attack.GetTimestamp());
 			}
 		}
-		
 		return newest;
 	}	
 }

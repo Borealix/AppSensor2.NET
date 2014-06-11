@@ -1,4 +1,3 @@
-// using java.io.Serializable;
 /**
  * Resource represents a generic component of an application. In many cases, 
  * it would represent a URL, but it could also presumably be used for something 

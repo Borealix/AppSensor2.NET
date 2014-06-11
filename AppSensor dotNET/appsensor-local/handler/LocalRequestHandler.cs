@@ -16,7 +16,7 @@ using org.owasp.appsensor.criteria.SearchCriteria;
 using org.owasp.appsensor.exceptions.NotAuthorizedException;
 using org.owasp.appsensor.logging.Loggable;
 using org.owasp.appsensor.util.StringUtils;
-using log4net.Repository.Hierarchy;
+using log4net;
 using System.Collections.ObjectModel;
 using org.owasp.appsensor.criteria;
 using org.owasp.appsensor.util;
@@ -39,7 +39,7 @@ namespace org.owasp.appsensor.handler {
 public class LocalRequestHandler : RequestHandler {
 
 	//@SuppressWarnings("unused")
-	private Logger logger;
+	private ILog Logger;
 	
 	[Inject]
 	private AppSensorServer appSensorServer;

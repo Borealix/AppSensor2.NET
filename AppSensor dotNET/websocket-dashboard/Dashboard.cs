@@ -7,6 +7,10 @@ using javax.websocket.OnOpen;
 using javax.websocket.Session;
 using javax.websocket.server.ServerEndpoint;
 */
+// using System.Net.WebSockets.WebSocket;
+using Microsoft.Web.WebSockets;
+using System;
+
 namespace org.owasp.appsensor.websocket {
 /**
  * A simple dashboard for the websocket implementation.
@@ -18,12 +22,14 @@ public class Dashboard {
     
     //@OnOpen
     public void onOpen(Session session) {
-        System.err.println("Opened connection with client: " + session.getId());
+        //System.Err.println("Opened connection with client: " + session.getId());
+        Console.Error.WriteLine("Opened connection with client: " + session.getId());
     }
     
     //@OnMessage
     public string onMessage(string message, Session session) {
-    	System.err.println("New message from Client " + session.getId() + ": " + message);
+    	//System.err.println
+        Console.Error.WriteLine("New message from Client " + session.getId() + ": " + message);
     	
     	//should echo back whatever is heard from any client to all clients
     	foreach (Session sess in session.getOpenSessions()) {
@@ -41,12 +47,14 @@ public class Dashboard {
     
     //@OnClose
     public void onClose(Session session) {
-    	System.err.println("Closed connection with client: " + session.getId());
+    	//System.err.println
+        Console.Error.WriteLine("Closed connection with client: " + session.getId());
     }
     
     //@OnError
-    public void onError(Throwable exception, Session session) {
-    	System.err.println("Error for client: " + session.getId());
+    public void onError(Exception exception, Session session) {
+    	//System.err.println
+        Console.Error.WriteLine("Error for client: " + session.getId());
     }
 }
 }

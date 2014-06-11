@@ -14,7 +14,7 @@ using org.owasp.appsensor.criteria.SearchCriteria;
 using org.owasp.appsensor.listener.ResponseListener;
 using org.owasp.appsensor.logging.Loggable;
 using org.owasp.appsensor.util.DateUtils;
-using log4net.Repository.Hierarchy;
+using log4net;
 using System.Collections.ObjectModel;
 using org.owasp.appsensor.criteria;
 using System;
@@ -32,27 +32,26 @@ using System.Collections.Generic;
  * @author John Melton (jtmelton@gmail.com) http://www.jtmelton.com/
  * @author Raphaël Taban
  */
-[Named ("")]
 //@Loggable
 namespace org.owasp.appsensor.storage{
 [Named("InMemoryResponseStore")]
 public class InMemoryResponseStore : ResponseStore {
 
-	private Logger logger;
+	private ILog Logger;
 
 	/** maintain a collection of {@link Response}s as an in-memory list */
-	private static Collection<Response> responses = new CopyOnWriteArrayList<Response>();
+    private static SynchronizedCollection<Response> responses = new SynchronizedCollection<Response>();
 	
 	/**
 	 * {@inheritDoc}
 	 */
 	//@Override
 	public override void addResponse(Response response) {
-		Logger.warn("Security response " + response + " triggered for user: " + response.GetUser().getUsername());
+		Logger.Warn("Security response " + response + " triggered for user: " + response.GetUser().getUsername());
 
 		responses.Add(response);
 		
-		super.notifyListeners(response);
+		base.notifyListeners(response);
 	}
 	
 	/**
@@ -61,24 +60,24 @@ public class InMemoryResponseStore : ResponseStore {
 	//@Override
 	public override Collection<Response> findResponses(SearchCriteria criteria) {
 		if (criteria == null) {
-			throw new IllegalArgumentException("criteria must be non-null");
+			throw new ArgumentException("criteria must be non-null");
 		}
 		
-		Collection<Response> matches = new List<Response>();
+		Collection<Response> matches = new Collection<Response>();
 		
 		User user = criteria.GetUser();
 		Collection<string> detectionSystemIds = criteria.getDetectionSystemIds(); 
-		DateTime earliest = DateUtils.fromString(criteria.getEarliest());
+		DateTime? earliest = DateUtils.fromString(criteria.getEarliest());
 		
 		foreach (Response response in responses) {
 			//check user match if user specified
 			bool userMatch = (user != null) ? user.Equals(response.GetUser()) : true;
 			
 			//check detection system match if detection systems specified
-			bool detectionSystemMatch = (detectionSystemIds != null && detectionSystemIds.size() > 0) ? 
+			bool detectionSystemMatch = (detectionSystemIds != null && detectionSystemIds.Count > 0) ? 
 					detectionSystemIds.Contains(response.GetDetectionSystemId()) : true;
 			
-			bool earliestMatch = (earliest != null) ? earliest.isBefore(DateUtils.fromString(response.GetTimestamp())) : true;
+			bool earliestMatch = (earliest != null) ? earliest < DateUtils.fromString(response.GetTimestamp()) : true;
 					
 			if (userMatch && detectionSystemMatch && earliestMatch) {
 				matches.Add(response);

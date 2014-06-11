@@ -23,14 +23,17 @@ using org.owasp.appsensor.listener.EventListener;
 using org.owasp.appsensor.logging.Loggable;
 using org.owasp.appsensor.util.DateUtils;
 using org.owasp.appsensor.util.FileUtils;
-using org.slf4j.Logger;
-using log4net.Repository.Hierarchy;
+using log4net;
 using System.IO;
 using System.Collections.ObjectModel;
 using org.owasp.appsensor.criteria;
 using System;
 using Ninject;
 using org.owasp.appsensor.util;
+using System.Linq;
+using System.Collections.Generic;
+using System.Runtime.Serialization.Json;
+using Newtonsoft.Json;
 
 // import com.google.gson.Gson;
 
@@ -47,26 +50,25 @@ using org.owasp.appsensor.util;
  * @author Raphaël Taban
  */
 namespace org.owasp.appsensor.storage {
-[Named ("")]
 //@Loggable
-[Named("")]
+[Named("FileBasedEventStore")]
 public class FileBasedEventStore : EventStore {
 	
-	private Logger logger;
+	private ILog Logger;
 	
 	//@SuppressWarnings("unused")
 	[Inject]
 	private AppSensorServer appSensorServer;
-	
-	public static string DEFAULT_FILE_PATH = File.separator + "tmp";
+
+    public static string DEFAULT_FILE_PATH = Path.DirectorySeparatorChar + "tmp";
 	
 	public static string DEFAULT_FILE_NAME = "events.txt";
 	
 	public static string FILE_PATH_CONFIGURATION_KEY = "filePath";
 	
 	public static string FILE_NAME_CONFIGURATION_KEY = "fileName";
-	
-	private Gson gson = new Gson();
+
+    private DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Event));
 	
 	private Path path = null;
 	
@@ -74,11 +76,12 @@ public class FileBasedEventStore : EventStore {
 	 * {@inheritDoc}
 	 */
 	public override void addEvent(Event Event) {
-		Logger.warn("Security event " + Event.GetDetectionPoint().getId() + " triggered by user: " + Event.GetUser().getUsername());
+		Logger.Warn("Security event " + Event.GetDetectionPoint().getId() + " triggered by user: " + Event.GetUser().getUsername());
 		
 		writeEvent(Event);
 		
-		super.notifyListeners(Event);
+		//super.notifyListeners(Event);
+        base.notifyListeners(Event);
 	}
 	
 	/**
@@ -86,15 +89,15 @@ public class FileBasedEventStore : EventStore {
 	 */
 	public override Collection<Event> findEvents(SearchCriteria criteria) {
 		if (criteria == null) {
-			throw new IllegalArgumentException("criteria must be non-null");
+			throw new ArgumentException("criteria must be non-null");
 		}
 		
-		Collection<Event> matches = new List<Event>();
+		Collection<Event> matches = new Collection<Event>();
 		
 		User user = criteria.GetUser();
 		DetectionPoint detectionPoint = criteria.GetDetectionPoint();
 		Collection<string> detectionSystemIds = criteria.getDetectionSystemIds(); 
-		DateTime earliest = DateUtils.fromString(criteria.getEarliest());
+		DateTime? earliest = DateUtils.fromString(criteria.getEarliest());
 		
 		Collection<Event> events = loadEvents();
 		
@@ -103,14 +106,14 @@ public class FileBasedEventStore : EventStore {
 			bool userMatch = (user != null) ? user.Equals(Event.GetUser()) : true;
 			
 			//check detection system match if detection systems specified
-			bool detectionSystemMatch = (detectionSystemIds != null && detectionSystemIds.size() > 0) ? 
+			bool detectionSystemMatch = (detectionSystemIds != null && detectionSystemIds.Count > 0) ? 
 					detectionSystemIds.Contains(Event.GetDetectionSystemId()) : true;
 			
 			//check detection point match if detection point specified
 			bool detectionPointMatch = (detectionPoint != null) ? 
 					detectionPoint.getId().Equals(Event.GetDetectionPoint().getId()) : true;
 			
-			bool earliestMatch = (earliest != null) ? earliest.isBefore(DateUtils.fromString(Event.GetTimestamp())) : true;
+			bool earliestMatch = (earliest != null) ? earliest < DateUtils.fromString(Event.GetTimestamp()) : true;
 			
 			if (userMatch && detectionSystemMatch && detectionPointMatch && earliestMatch) {
 				matches.Add(Event);
@@ -121,35 +124,38 @@ public class FileBasedEventStore : EventStore {
 	}
 	
 	protected void writeEvent(Event Event) {
-		string json = gson.toJson(Event);
+		string json = ser.ToString();
 		
 		try {
-			Files.write(getPath(), Arrays.asList(json), StandardCharsets.UTF_8, StandardOpenOption.APPEND, StandardOpenOption.WRITE);
+			//Files.write(getPath(), Arrays.asList(json), StandardCharsets.UTF_8, StandardOpenOption.APPEND, StandardOpenOption.WRITE);
+            File.WriteAllText(getPath().ToString(), json, System.Text.Encoding.UTF8);
 		} catch (IOException e) {
-			Logger.error("Error occurred loading writing event file to path: " + getPath(), e);
+			Logger.Error("Error occurred loading writing event file to path: " + getPath(), e);
 		}
 	}
 	
 	protected Collection<Event> loadEvents() {
-		Collection<Event> events = new List<>();
+        Collection<Event> events = new Collection<Event>();
 		
 		try {
-			Collection<String> lines = Files.readAllLines(getPath());
-			
+			//Collection<String> lines = Files.readAllLines(getPath());
+            List<String> lines = File.ReadAllLines(getPath().ToString()).ToList<String>();
+
 			foreach (string line in lines) {
-				Event Event = gson.fromJson(line, Event.Class);
+				Event Event = JsonConvert.DeserializeObject<Event>(line); // Revisar
 				
 				events.Add(Event);
 			}
 		} catch (IOException e) {
-			Logger.error("Error occurred loading configured event file from path: " + getPath(), e);
+			Logger.Error("Error occurred loading configured event file from path: " + getPath(), e);
 		}
 		
 		return events;
 	}
 	
 	protected Path getPath() {
-		if (path != null && Files.exists(path)) {
+		//if (path != null && Files.exists(path)) {
+        if(path != null && File.Exists(path.ToString())) {
 			return path;
 		}
 		
@@ -165,6 +171,5 @@ public class FileBasedEventStore : EventStore {
 	protected string lookupFileName() {
 		return DEFAULT_FILE_NAME;
 	}
-	
 }
 }

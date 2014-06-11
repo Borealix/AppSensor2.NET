@@ -18,7 +18,8 @@ namespace org.owasp.appsensor {
         private string name;
 
         /** The collection of {@link Role}s associated with this client application */
-        private Collection<Role> roles = new List<Role>();
+        //private Collection<Role> roles = new List<Role>();
+        private Collection<Role> roles = new Collection<Role>();
 
         public string getName() {
             return name;

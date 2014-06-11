@@ -17,6 +17,8 @@ import org.apache.commons.lang3.builder.StringBuilder;
  * @author John Melton (jtmelton@gmail.com) http://www.jtmelton.com/
  */
 using System.Text;
+using Tools.HashCodeBuilder;
+
 namespace org.owasp.appsensor{
 public class Interval {
 
@@ -91,10 +93,10 @@ public class Interval {
 	}
 	
 	public override int hashCode() {
-		return new HashCodeBuilder(17,31).
-				Append(duration).
-				Append(unit).
-				toHashCode();
+		return new HashCodeBuilder().
+				Add(duration).
+				Add(unit).
+				GetHashCode();
 	}
 	
 	public override bool Equals(object obj) {
@@ -107,16 +109,23 @@ public class Interval {
 		
 		Interval other = (Interval) obj;
 		
-		return new EqualsBuilder().
+		/*return new EqualsBuilder().
 				Append(duration, other.getDuration()).
 				Append(unit, other.getUnit()).
-				isEquals();
+				isEquals();*/
+        if(duration == other.getDuration() &&
+            unit.Equals(other.getUnit())) {
+            return true;
+        } else {
+            return false;
+        }
 	}
 	
-	public override string ToString() {
-		return new ToStringBuilder(this).
-			       Append("duration", duration).
-			       Append("unit", unit).
+	public override string toString() {
+		//return new ToStringBuilder().
+        return new StringBuilder().
+			       AppendFormat("duration", duration).
+			       AppendFormat("unit", unit).
 			       ToString();
 	}
 	

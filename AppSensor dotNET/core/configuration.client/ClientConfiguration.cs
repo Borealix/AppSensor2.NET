@@ -2,6 +2,8 @@
 //using java.util.Collection;
 using org.owasp.appsensor.accesscontrol.Role;
 using org.owasp.appsensor.configuration.client;
+using System.Text;
+using Tools.HashCodeBuilder;
 
 /**
  * The ClientApplication object represents a consumer of the AppSensor 
@@ -26,9 +28,9 @@ namespace org.owasp.appsensor.configuration.client {
         }
 
         public override int hashCode() {
-            return new HashCodeBuilder(17, 31).
-                            Append(serverConnection).
-                            toHashCode();
+            return new HashCodeBuilder().
+                            Add(serverConnection).
+                            GetHashCode();
         }
 
         public override bool Equals(object obj) {
@@ -41,14 +43,19 @@ namespace org.owasp.appsensor.configuration.client {
 
             ClientConfiguration other = (ClientConfiguration)obj;
 
-            return new EqualsBuilder().
+            /*return new EqualsBuilder().
                             Append(serverConnection, other.getServerConnection()).
-                            isEquals();
+                            isEquals();*/
+            if(serverConnection.Equals(other.getServerConnection())) {
+                return true;
+            } else {
+                return false;
+            }
         }
 
-        public override string ToString() {
-            return new StringBuilder(this).
-                            Append("serverConnection", serverConnection).
+        public override string toString() {
+            return new StringBuilder().
+                            AppendFormat("serverConnection", serverConnection).
                             ToString();
         }
     }

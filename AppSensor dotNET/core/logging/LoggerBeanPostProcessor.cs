@@ -16,28 +16,29 @@ using System;
  * @author Raphaël Taban
  */
 namespace org.owasp.appsensor.logging {
-    [Named("LoggerBeanPostProcessor")]
-    public class LoggerBeanPostProcessor : BeanPostProcessor {
+[Named("LoggerBeanPostProcessor")]
+public class LoggerBeanPostProcessor : BeanPostProcessor {
 
-        /// <exception cref="BeansException"></exception>
-        public object postProcessAfterInitialization(object bean, string beanName) {
-            //if "logger" field does not exist, exception simply logged
-            if(bean.GetType().isAnnotationPresent(Loggable.Class)) {
-                try {
-                    Field field = bean.GetType().getDeclaredField("logger");
-                    field.setAccessible(true);
-                    field.set(bean, LoggerFactory.getLogger(bean.GetType()));
-                } catch(Exception e) {
-                    System.err.println("Error processing logger for " + bean.GetType().getCanonicalName() + " for bean " + beanName);
-                    e.printStackTrace();
-                }
+    /// <exception cref="BeansException"></exception>
+    public object postProcessAfterInitialization(object bean, string beanName) {
+        //if "logger" field does not exist, exception simply logged
+        if(bean.GetType().isAnnotationPresent(Loggable.GetType)) {
+            try {
+                Field field = bean.GetType().getDeclaredField("logger");
+                field.setAccessible(true);
+                field.set(bean, LoggerFactory.getLogger(bean.GetType()));
+            } catch(Exception e) {
+                //System.err.println("Error processing logger for " + bean.GetType().getCanonicalName() + " for bean " + beanName);
+                Console.Error.WriteLine("Error processing logger for " + bean.GetType().getCanonicalName() + " for bean " + beanName);
+                e.printStackTrace();
             }
+        }
 
-            return bean;
-        }
-        /// <exception cref="BeansException"></exception>
-        public object postProcessBeforeInitialization(object bean, string beanName) {
-            return bean;
-        }
+        return bean;
     }
+    /// <exception cref="BeansException"></exception>
+    public object postProcessBeforeInitialization(object bean, string beanName) {
+        return bean;
+    }
+}
 }

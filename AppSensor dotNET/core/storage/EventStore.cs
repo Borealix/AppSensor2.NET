@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using org.owasp.appsensor.listener;
 using org.owasp.appsensor.criteria;
 using Ninject;
+using System.Collections.Generic;
 
 /**
  * A store is an observable object. 
@@ -24,7 +25,8 @@ using Ninject;
 namespace org.owasp.appsensor.storage{
 public abstract class EventStore {
 
-	private static Collection<EventListener> listeners = new CopyOnWriteArrayList<>();
+	//private static Collection<EventListener> listeners = new CopyOnWriteArrayList<>();
+    private static SynchronizedCollection<EventListener> listeners = new SynchronizedCollection<T>();
 	
 	/**
 	 * Add an {@link org.owasp.appsensor.Event} to the EventStore

@@ -22,7 +22,7 @@ using System.Collections.Generic;
  */
 using System.Collections.ObjectModel;
 using System.Text;
-using Util.HashCodeBuilder;
+using Tools.HashCodeBuilder;
 //using System.Collections.List;
 //using System.Collections.Generic.List<>;
 //using System.Collections.SortedList;
@@ -60,9 +60,14 @@ namespace org.owasp.appsensor.correlation {
 		
 		    CorrelationSet other = (CorrelationSet) obj;
 		
-		    return new EqualsBuilder().
+		    /*return new EqualsBuilder().
 				    Append(clientApplications, other.getClientApplications()).
-				    isEquals();
+				    isEquals();*/
+            if(clientApplications.Equals(other.getClientApplications())) {
+                return true;
+            } else {
+                return false;
+            }
 	    }
 	
 	    public override string toString() {

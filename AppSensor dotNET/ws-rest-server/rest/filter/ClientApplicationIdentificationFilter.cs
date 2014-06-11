@@ -33,7 +33,6 @@ using org.owasp.appsensor.handler.RestRequestHandler;
  */
 namespace org.owasp.appsensor.rest.filter {
 //@Provider
-[Named ("")]
 [Named ("ClientApplicationIdentificationFilter")]
 public class ClientApplicationIdentificationFilter : ContainerRequestFilter {
     

@@ -11,9 +11,10 @@ using org.owasp.appsensor.logging.Loggable;
 using org.owasp.appsensor.storage.AttackStoreListener;
 using org.owasp.appsensor.storage.EventStoreListener;
 using org.owasp.appsensor.storage.ResponseStoreListener;
-using log4net.Repository.Hierarchy;
+using log4net;
 using Ninject;
 using System.Collections.ObjectModel;
+using System;
 
 
 /**
@@ -38,7 +39,7 @@ namespace org.owasp.appsensor.reporting {
 [Named("SimpleLoggingReportingEngine")]
 public class SimpleLoggingReportingEngine : ReportingEngine {
 	
-	private Logger logger;
+	private ILog Logger;
 	
 	/**
 	 * {@inheritDoc}
@@ -65,15 +66,15 @@ public class SimpleLoggingReportingEngine : ReportingEngine {
 	 * {@inheritDoc}
 	 */
 	public override Collection<Event> findEvents(string earliest) {
-		throw new UnsupportedOperationException("This method is not implemented for local logging implementation");
+		//throw new UnsupportedOperationException("This method is not implemented for local logging implementation");
+        throw new NotSupportedException("This method is not implemented for local logging implementation");
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	//@Override
-	public Collection<Attack> findAttacks(string earliest) {
-		throw new UnsupportedOperationException("This method is not implemented for local logging implementation");
+	public override Collection<Attack> findAttacks(string earliest) {
+        throw new NotSupportedException("This method is not implemented for local logging implementation");
 	}
 
 	/**
@@ -81,7 +82,7 @@ public class SimpleLoggingReportingEngine : ReportingEngine {
 	 */
 
 	public override Collection<Response> findResponses(string earliest) {
-		throw new UnsupportedOperationException("This method is not implemented for local logging implementation");
+        throw new NotSupportedException("This method is not implemented for local logging implementation");
 	}
 
 }

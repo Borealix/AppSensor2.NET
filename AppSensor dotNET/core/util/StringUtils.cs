@@ -15,7 +15,8 @@ public class StringUtils {
 	public static string EMPTY = "";
 	
 	public static Collection<string> toCollection(string value) {
-		Collection<string> collection = new List<string>();
+		//Collection<string> collection = new List<string>();
+        Collection<string> collection = new Collection<string>();
 		
 		collection.Add(value);
 		

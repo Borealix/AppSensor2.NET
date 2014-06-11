@@ -2,7 +2,6 @@
 import org.joda.time.DateTimeZone;
 import org.joda.time.MutableDateTime;*/
 //using System;
-using NodaTime;
 using System;
 /**
  * Helper class for Date/time related utility methods
@@ -16,10 +15,11 @@ namespace org.owasp.appsensor.util {
          * Helper for returning current timestamp in UTC zone
          * @return current timestamp
          */
-        public static ZonedDateTime getCurrentTimestamp() {
-            return new ZonedDateTime(DateTimeZone.Utc);
-            //DateTime UTC = DateTime.UtcNow;
-            //return UTC;
+        public static DateTime getCurrentTimestamp() {
+            DateTime UTC = DateTime.UtcNow;
+            return UTC;
+            //return new DateTime(DateTime.UtcNow);
+            
         }
 
         /** 
@@ -51,13 +51,18 @@ namespace org.owasp.appsensor.util {
          * 
          * @return {@link DateTime} representing epoch
          */
+
+        /*
+         * public static DateTime epoch() {
+         *   MutableDateTime epoch = new MutableDateTime();
+         *
+         *   epoch.setDate(0);
+         *   epoch.setTime(0);
+         *
+         *   return epoch.toDateTime();
+         */
         public static DateTime epoch() {
-            MutableDateTime epoch = new MutableDateTime();
-
-            epoch.setDate(0);
-            epoch.setTime(0);
-
-            return epoch.toDateTime();
+            return new DateTime();
         }
     }
 }

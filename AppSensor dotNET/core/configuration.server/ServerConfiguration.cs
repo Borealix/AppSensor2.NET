@@ -3,7 +3,7 @@ using org.owasp.appsensor.DetectionPoint;
 using org.owasp.appsensor.User;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Util.HashCodeBuilder;
+using Tools.HashCodeBuilder;
 using System.NonSerializedAttribute;
 using System;
 using System.Text;
@@ -39,11 +39,11 @@ public abstract class ServerConfiguration {
 	
     //private static transient Map<String, DetectionPoint> detectionPointCache = Collections.synchronizedMap(new HashMap<String, DetectionPoint>());
     [NonSerialized]
-	private static IDictionary<string, DetectionPoint> detectionPointCache = new Dictionary<string, DetectionPoint>());
+    private static IDictionary<string, DetectionPoint> detectionPointCache = new Dictionary<string, DetectionPoint>();
 	
     //private static transient Map<String, ClientApplication> clientApplicationCache = Collections.synchronizedMap(new HashMap<String, ClientApplication>());
     [NonSerialized]
-	private static IDictionary<string, ClientApplication> clientApplicationCache = SynchronizedCollection(new Dictionary<string, ClientApplication>());
+	private static IDictionary<string, ClientApplication> clientApplicationCache = new Dictionary<string, ClientApplication>();
 	
 	public Collection<DetectionPoint> getDetectionPoints() {
 		return detectionPoints;
@@ -94,7 +94,8 @@ public abstract class ServerConfiguration {
 	 * @param detectionSystemId system ID to evaluate and find correlated systems
 	 * @return collection of strings representing correlation set, INCLUDING specified system ID
 	 */
-	public Collection<string> getRelatedDetectionSystems(string detectionSystemId) {
+	//public Collection<string> getRelatedDetectionSystems(string detectionSystemId) {
+    public HashSet<string> getRelatedDetectionSystems(string detectionSystemId) {
 		//Collection<string> relatedDetectionSystems = new HashSet<string>();
         HashSet<string> relatedDetectionSystems = new HashSet<string>();
 		
@@ -122,8 +123,8 @@ public abstract class ServerConfiguration {
 	 */
 	public DetectionPoint findDetectionPoint(DetectionPoint search) {
 		DetectionPoint detectionPoint = null;
-		
-		detectionPoint = detectionPointCache.get(search.getId());
+
+        detectionPoint = detectionPointCache.get(search.getId());
 
 		if (detectionPoint == null) {
 			foreach (DetectionPoint configuredDetectionPoint in getDetectionPoints()) {
@@ -131,7 +132,7 @@ public abstract class ServerConfiguration {
 					detectionPoint = configuredDetectionPoint;
 					
 					//cache
-					detectionPointCache.put(detectionPoint.getId(), detectionPoint);
+					detectionPointCache.Add(detectionPoint.getId(), detectionPoint);
 					
 					break;
 				}
@@ -152,7 +153,7 @@ public abstract class ServerConfiguration {
 					clientApplication = configuredClientApplication;
 					
 					//cache
-					clientApplicationCache.put(clientApplicationName, clientApplication);
+					clientApplicationCache.Add(clientApplicationName, clientApplication);
 					
 					break;
 				}
@@ -181,12 +182,20 @@ public abstract class ServerConfiguration {
 		
 		ServerConfiguration other = (ServerConfiguration) obj;
 		
-		return new EqualsBuilder().
+		/*return new EqualsBuilder().
 				Append(detectionPoints, other.getDetectionPoints()).
 				Append(correlationSets, other.getCorrelationSets()).
 				Append(clientApplicationIdentificationHeaderName, other.getClientApplicationIdentificationHeaderName()).
 				Append(clientApplications, other.getClientApplications()).
-				isEquals();
+				isEquals();*/
+        if(detectionPoints.Equals(other.getDetectionPoints()) &&
+            correlationSets.Equals(other.getCorrelationSets()) &&
+            clientApplicationIdentificationHeaderName.Equals(other.getClientApplicationIdentificationHeaderName()) &&
+            clientApplications.Equals(other.getClientApplications())) {
+            return true;
+        } else {
+            return false;
+        }
 	}
 	
 	public override string toString() {

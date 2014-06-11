@@ -4,6 +4,8 @@ using org.apache.commons.lang3.builder.EqualsBuilder;
 using org.apache.commons.lang3.builder.HashCodeBuilder;
 using org.apache.commons.lang3.builder.ToStringBuilder;*/
 using System;
+using System.Text;
+using Tools.HashCodeBuilder;
 namespace org.owasp.appsensor{
 /**
  * The standard User object. This represents the end user in the system, 
@@ -45,9 +47,9 @@ public class User {
 	}
 
 	public int hashCode() {
-		return new HashCodeBuilder(17,31).
-				append(username).
-				toHashCode();
+		return new HashCodeBuilder().
+				Add(username).
+				GetHashCode();
 	}
 	
 	public bool Equals(object obj) {
@@ -60,14 +62,19 @@ public class User {
 		
 		User other = (User) obj;
 		
-		return new EqualsBuilder().
+		/*return new EqualsBuilder().
 				append(username, other.getUsername()).
-				isEquals();
+				isEquals();*/
+        if(username.Equals(other.getUsername())) {
+            return true;
+        } else {
+            return false;
+        }
 	}
 	
-	public string ToString() {
-		return new ToStringBuilder(this).
-				append("username", username).
+	public string toString() {
+		return new StringBuilder().
+				AppendFormat("username", username).
 			    ToString();
 	}
 }

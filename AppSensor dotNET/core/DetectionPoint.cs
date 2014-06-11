@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 /*
 import java.io.Serializable;
 import java.util.List;
@@ -20,7 +21,7 @@ import org.apache.commons.lang3.builder.StringBuilder;
  */
 using System.Collections.ObjectModel;
 using System.Text;
-using Util.HashCodeBuilder;
+using Tools.HashCodeBuilder;
 namespace org.owasp.appsensor{
 public class DetectionPoint{
 	
@@ -40,7 +41,8 @@ public class DetectionPoint{
 	/**
 	 * Set of {@link Response}s associated with given detection point.
 	 */
-	private Collection<Response> responses = new List<Response>();
+    //private Collection<Response> responses = new ArrayList<Response>();
+    private Collection<Response> responses = new Collection<Response>();
 	
 	public DetectionPoint() {}
 	
@@ -106,11 +108,16 @@ public class DetectionPoint{
 		
 		DetectionPoint other = (DetectionPoint) obj;
 		
-		return new EqualsBuilder().
+		/*return new EqualsBuilder().
 				Append(id, other.getId()).
 				Append(threshold, other.getThreshold()).
 				Append(responses, other.getResponses()).
-				isEquals();
+				isEquals();*/
+        if (id.Equals(other.getId()) && 
+            threshold.Equals (other.getThreshold()) &&
+            responses.Equals(other.getResponses())) {
+                return true;
+        } else { return false;}
 	}
 	
 	public override string toString() {
@@ -120,6 +127,5 @@ public class DetectionPoint{
 			       AppendFormat("responses", responses).
 			       ToString();
 	}
-
 }
 }

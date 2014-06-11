@@ -22,6 +22,7 @@ using org.owasp.appsensor.listener.ResponseListener;
 using org.owasp.appsensor.logging.Loggable;
 using org.owasp.appsensor.util.DateUtils;
 using org.owasp.appsensor.util.FileUtils;
+using System.Linq;
 
 //import com.google.gson.Gson;
 
@@ -38,7 +39,7 @@ using org.owasp.appsensor.util.FileUtils;
  * @author Raphaël Taban
  */
 using org.owasp.appsensor.storage;
-using log4net.Repository.Hierarchy;
+using log4net;
 using org.owasp.appsensor;
 using System.IO;
 using System.Collections.ObjectModel;
@@ -46,27 +47,29 @@ using org.owasp.appsensor.criteria;
 using System;
 using Ninject;
 using org.owasp.appsensor.util;
+using System.Runtime.Serialization.Json;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 namespace org.owasp.appsensor.storage{
-[Named ("")]
 //@Loggable
 [Named("FileBasedResponseStore")]
 public class FileBasedResponseStore : ResponseStore {
 
-	private Logger logger;
+	private ILog Logger;
 	
 	//@SuppressWarnings("unused")
 	[Inject]
 	private AppSensorServer appSensorServer;
-	
-	public static string DEFAULT_FILE_PATH = File.separator + "tmp";
+
+    public static string DEFAULT_FILE_PATH = Path.DirectorySeparatorChar + "tmp";
 	
 	public static string DEFAULT_FILE_NAME = "responses.txt";
 	
 	public static string FILE_PATH_CONFIGURATION_KEY = "filePath";
 	
 	public static string FILE_NAME_CONFIGURATION_KEY = "fileName";
-	
-	private Gson gson = new Gson();
+
+    private DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Response));
 	
 	private Path path = null;
 	
@@ -74,11 +77,11 @@ public class FileBasedResponseStore : ResponseStore {
 	 * {@inheritDoc}
 	 */
 	public override void addResponse(Response response) {
-		Logger.warn("Security response " + response + " triggered for user: " + response.GetUser().getUsername());
+		Logger.Warn("Security response " + response + " triggered for user: " + response.GetUser().getUsername());
 
 		writeResponse(response);
 		
-		super.notifyListeners(response);
+		base.notifyListeners(response);
 	}
 	
 	/**
@@ -86,14 +89,14 @@ public class FileBasedResponseStore : ResponseStore {
 	 */
 	public override Collection<Response> findResponses(SearchCriteria criteria) {
 		if (criteria == null) {
-			throw new IllegalArgumentException("criteria must be non-null");
+			throw new ArgumentException("criteria must be non-null");
 		}
 		
-		Collection<Response> matches = new List<Response>();
+		Collection<Response> matches = new Collection<Response>();
 		
 		User user = criteria.GetUser();
 		Collection<string> detectionSystemIds = criteria.getDetectionSystemIds(); 
-		DateTime earliest = DateUtils.fromString(criteria.getEarliest());
+		DateTime? earliest = DateUtils.fromString(criteria.getEarliest());
 		
 		Collection<Response> responses = loadResponses();
 		
@@ -102,10 +105,10 @@ public class FileBasedResponseStore : ResponseStore {
 			bool userMatch = (user != null) ? user.Equals(response.GetUser()) : true;
 			
 			//check detection system match if detection systems specified
-			bool detectionSystemMatch = (detectionSystemIds != null && detectionSystemIds.size() > 0) ? 
+			bool detectionSystemMatch = (detectionSystemIds != null && detectionSystemIds.Count > 0) ? 
 					detectionSystemIds.Contains(response.GetDetectionSystemId()) : true;
 			
-			bool earliestMatch = (earliest != null) ? earliest.isBefore(DateUtils.fromString(response.GetTimestamp())) : true;
+			bool earliestMatch = (earliest != null) ? earliest < DateUtils.fromString(response.GetTimestamp()) : true;
 					
 			if (userMatch && detectionSystemMatch && earliestMatch) {
 				matches.Add(response);
@@ -116,35 +119,38 @@ public class FileBasedResponseStore : ResponseStore {
 	}
 	
 	protected void writeResponse(Response response) {
-		string json = gson.toJson(response);
+		//string json = gson.toJson(response);
+        string json = ser.ToString();
 		
 		try {
-			Files.write(getPath(), Arrays.asList(json), StandardCharsets.UTF_8, StandardOpenOption.APPEND, StandardOpenOption.WRITE);
+			//Files.write(getPath(), Arrays.asList(json), StandardCharsets.UTF_8, StandardOpenOption.APPEND, StandardOpenOption.WRITE);
+            File.WriteAllText(getPath().ToString(), json, System.Text.Encoding.UTF8);
 		} catch (IOException e) {
-			Logger.error("Error occurred loading writing event file to path: " + getPath(), e);
+			Logger.Error("Error occurred loading writing event file to path: " + getPath(), e);
 		}
 	}
 	
 	protected Collection<Response> loadResponses() {
-		Collection<Response> responses = new List<>();
+        Collection<Response> responses = new Collection<Response>();
 		
 		try {
-			Collection<String> lines = Files.readAllLines(getPath());
+            List<String> lines = File.ReadAllLines(getPath().ToString()).ToList<String>();
 			
 			foreach (string line in lines) {
-				Response response = gson.fromJson(line, Response.Class);
-				
+				//Response response = gson.fromJson(line, Response.Class);
+                Response response = JsonConvert.DeserializeObject<Response>(line); // Revisar
+
 				responses.Add(response);
 			}
 		} catch (IOException e) {
-			Logger.error("Error occurred loading configured event file from path: " + getPath(), e);
+			Logger.Error("Error occurred loading configured event file from path: " + getPath(), e);
 		}
 		
 		return responses;
 	}
 	
 	protected Path getPath() {
-		if (path != null && Files.exists(path)) {
+		if (path != null && File.Exists(path.ToString())) {
 			return path;
 		}
 		
@@ -160,6 +166,5 @@ public class FileBasedResponseStore : ResponseStore {
 	protected string lookupFileName() {
 		return DEFAULT_FILE_NAME;
 	}
-	
 }
 }

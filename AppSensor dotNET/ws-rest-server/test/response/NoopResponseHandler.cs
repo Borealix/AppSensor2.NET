@@ -1,16 +1,17 @@
 //import javax.inject.Named;
 
-using org.owasp.appsensor.Response;
+using Ninject;
+using org.owasp.appsensor.Responses;
 
-@Named
+
 namespace org.owasp.appsensor.response {
-public class NoopResponseHandler implements ResponseHandler {
+[Named ("NoopResponseHandler")]
+public class NoopResponseHandler : ResponseHandler {
 
     /**
 	 * {@inheritDoc}
 	 */
-	@Override
-	public void handle(Response response) {
+	public override void handle(Response response) {
 		//
 	}
 }

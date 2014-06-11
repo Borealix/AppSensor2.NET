@@ -14,12 +14,11 @@ using org.owasp.appsensor.logging.Loggable;
 using org.owasp.appsensor.storage.AttackStore;
 using org.owasp.appsensor.storage.ResponseStore;
 using org.owasp.appsensor.criteria;
-// using log4net.Repository.Hierarchy;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using Ninject;
 using System;
-using ComLib.Logging;
+using log4net;
 
 /**
  * This is the reference {@link Attack} analysis engine, 
@@ -38,7 +37,7 @@ namespace org.owasp.appsensor.analysis {
 public class ReferenceAttackAnalysisEngine : AttackAnalysisEngine {
 
     //private Logger logger;
-    private ILog logger;
+    private ILog Logger;
 
 	[Inject]
 	private AppSensorServer appSensorServer;
@@ -57,8 +56,7 @@ public class ReferenceAttackAnalysisEngine : AttackAnalysisEngine {
 			
 			if (response != null) {
                 //Logger.Info("Response set for user <" + attack.GetUser().getUsername() + "> - storing response action " + response.getAction());
-                //ILog logger = LogManager.GetLogger("application-log"); // Agregado
-                logger.Info ("Response set for user <" + attack.GetUser().getUsername() + "> - storing response action " + response.getAction());
+                Logger.Info ("Response set for user <" + attack.GetUser().getUsername() + "> - storing response action " + response.getAction());
 				appSensorServer.getResponseStore().addResponse(response);
 			}
 		}
@@ -83,8 +81,8 @@ public class ReferenceAttackAnalysisEngine : AttackAnalysisEngine {
 		
 		string responseAction = null;
 		Interval interval = null;
-		
-		Collection<Response> possibleResponses = findPossibleResponses(triggeringDetectionPoint);
+
+        Collection<Response> possibleResponses = findPossibleResponses(triggeringDetectionPoint);
 
 		//if (existingResponses == null || existingResponses.Size() == 0) {
         if(existingResponses == null || existingResponses.Count == 0) {
@@ -131,8 +129,9 @@ public class ReferenceAttackAnalysisEngine : AttackAnalysisEngine {
 	 * @param triggeringDetectionPoint {@link DetectionPoint} that triggered {@link Attack}
 	 * @return collection of {@link Response} objects for given {@link DetectionPoint}
 	 */
-	protected Collection<Response> findPossibleResponses(DetectionPoint triggeringDetectionPoint) {
-		Collection<Response> possibleResponses = new List<Response>();
+    protected Collection<Response> findPossibleResponses(DetectionPoint triggeringDetectionPoint) {
+		//Collection<Response> possibleResponses = new List<Response>();
+        Collection<Response> possibleResponses = new Collection<Response>();
 		
 		foreach (DetectionPoint configuredDetectionPoint in appSensorServer.getConfiguration().getDetectionPoints()) {
 			if (configuredDetectionPoint.getId().Equals(triggeringDetectionPoint.getId())) {

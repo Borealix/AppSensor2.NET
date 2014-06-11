@@ -7,6 +7,7 @@ using org.owasp.appsensor.criteria;
 using org.owasp.appsensor.criteria.SearchCriteria;
 using org.owasp.appsensor.listener;
 using org.owasp.appsensor.listener.AttackListener;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 /**
  * A store is an observable object. 
@@ -21,8 +22,8 @@ using System.Collections.ObjectModel;
 ///*
 namespace org.owasp.appsensor.storage{
     public abstract class AttackStore {
-	
-	    private static Collection<AttackListener> listeners = new CopyOnWriteArrayList<>();
+
+        private static SynchronizedCollection<AttackListener> listeners = new SynchronizedCollection<AttackListener>();
         //private static System.Collections.Concurrent.Partitioner<AttackListener> listeners = new ();
 	
 	    /// <summary>
