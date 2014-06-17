@@ -21,12 +21,15 @@ using org.owasp.appsensor.Interval;
 using org.owasp.appsensor.Response;
 using org.owasp.appsensor.Threshold;
 using org.owasp.appsensor.accesscontrol.Role;
-using org.owasp.appsensor.correlation.CorrelationSet;
+using org.owasp.appsensor.correlation;
 using org.owasp.appsensor.util.XmlUtils;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
+using org.owasp.appsensor.util;
+using org.owasp.appsensor.exceptions;
+using System.Collections.ObjectModel;
 /**
  * This implementation parses the {@link ServerConfiguration} objects 
  * from the specified XML file via the StAX API.
@@ -79,40 +82,45 @@ public class StaxServerConfigurationReader : ServerConfigurationReader {
         XmlReader xmlReader = null;
 		
 		try {
-			XMLInputFactory xmlFactory = XMLInputFactory.newInstance();
+			//XMLInputFactory xmlFactory = XMLInputFactory.newInstance();
+            XmlReaderSettings xmlFactory = new XmlReaderSettings();
 			
-			xmlFactory.setProperty(XMLInputFactory.IS_REPLACING_ENTITY_REFERENCES, false);
-			xmlFactory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
-			xmlFactory.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, true);
-			xmlFactory.setProperty(XMLInputFactory.IS_VALIDATING, false);
-			xmlFactory.setXMLResolver(new XMLResolver() {
-				public override object resolveEntity(string arg0, string arg1, string arg2, string arg3) {
-                     /// <exception cref="XMLStreamException"></exception>
-					return new ByteArrayInputStream(new byte[0]);
-				}
-			});
+			//xmlFactory.setProperty(XMLInputFactory.IS_REPLACING_ENTITY_REFERENCES, false);
+			//xmlFactory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
+            xmlFactory.DtdProcessing = DtdProcessing.Ignore;
+			//xmlFactory.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, true);
+			//xmlFactory.setProperty(XMLInputFactory.IS_VALIDATING, false);
+            xmlFactory.ValidationType = ValidationType.None;
+            xmlFactory.XmlResolver = null;
 			
 			XmlUtils.validateXMLSchema(xsd, xml);
 			
-			xmlInputStream = GetType().getResourceAsStream(xml);
+			//xmlInputStream = GetType().getResourceAsStream(xml);
+            xmlInputStream = new StreamReader(xml).BaseStream;
 			
-			xmlReader = xmlFactory.createXMLStreamReader(xmlInputStream);
+			//xmlReader = xmlFactory.createXMLStreamReader(xmlInputStream);
+            xmlReader = XmlReader.Create(xmlInputStream);
 			
 			configuration = readServerConfiguration(xmlReader);
-		} catch(XMLStreamException | IOException | SAXException e) {
-			throw new ConfigurationException(e.getMessage(), e);
+		//} catch(XMLStreamException | IOException | SAXException e) {
+			//throw new ConfigurationException(e.getMessage(), e);
+            } catch(XmlException e) {
+                throw new ConfigurationException (e.Message, e);;
+            } catch (IOException e) {
+                throw new ConfigurationException (e.Message, e);;
 		} finally {
 			if(xmlReader != null) {
 				try {
-					xmlReader.close();
-				} catch (XMLStreamException xse) {
+					//xmlReader.close();
+                    xmlReader.Close();
+				} catch (XmlException xse) {
 					/** give up **/
 				}
 			}
 			
 			if(xmlInputStream != null) {
 				try {
-					xmlInputStream.close();
+					xmlInputStream.Close();
 				} catch (IOException ioe) {
 					/** give up **/
 				}
@@ -122,16 +130,18 @@ public class StaxServerConfigurationReader : ServerConfigurationReader {
 		return configuration;
 	}
 	
-	private ServerConfiguration readServerConfiguration(XMLStreamReader xmlReader) {
+	private ServerConfiguration readServerConfiguration(XmlReader xmlReader) {
         /// <exception cref="XMLStreamException"></exception>
 		ServerConfiguration configuration = new StaxServerConfiguration(false);
 		bool finished = false;
 		
-		while(!finished && xmlReader.hasNext()) {
-			int event = xmlReader.next();
+		//while(!finished && xmlReader.hasNext()) {
+        while(!finished && xmlReader.MoveToNextAttribute()) {
+			//int Event = xmlReader.next();
+            int Event = xmlReader.read
 			string name = XmlUtils.getElementQualifiedName(xmlReader, namespaces);
 
-			switch(event) {		
+			switch(Event) {		
 				case XMLStreamConstants.START_ELEMENT:
 					if("config:appsensor-server-config".Equals(name)) {
 						//
@@ -163,15 +173,15 @@ public class StaxServerConfigurationReader : ServerConfigurationReader {
 		return configuration;
 	}
 	
-	private Collection<ClientApplication> readClientApplications(XMLStreamReader xmlReader) {
-        /// <exception cref="XMLStreamException"></exception>
-		Collection<ClientApplication> clientApplications = new List<>();
+	/// <exception cref="XMLException"></exception>
+    private Collection<ClientApplication> readClientApplications(XmlReader xmlReader) {
+		Collection<ClientApplication> clientApplications = new Collection<ClientApplication>();
 		bool finished = false;
 		
 		ClientApplication clientApplication = null;
 		
-		while(!finished && xmlReader.hasNext()) {
-			int event = xmlReader.next();
+		while(!finished && xmlReader.MoveToNextAttribute()) {
+			int Event = xmlReader.next();
 			string name = XmlUtils.getElementQualifiedName(xmlReader, namespaces);
 			
 			switch(Event) {
@@ -204,17 +214,17 @@ public class StaxServerConfigurationReader : ServerConfigurationReader {
 		return clientApplications;
 	}
 	/// <exception cref="XMLStreamException"></exception>
-	private Collection<CorrelationSet> readCorrelationSets(XMLStreamReader xmlReader) {
-		Collection<CorrelationSet> correlationSets = new List<>();
+	private Collection<CorrelationSet> readCorrelationSets(XmlReader xmlReader) {
+		Collection<CorrelationSet> correlationSets = new Collection<CorrelationSet>();
 		bool finished = false;
 		
 		CorrelationSet correlationSet = null;
 		
-		while(!finished && xmlReader.hasNext()) {
-			int event = xmlReader.next();
+		while(!finished && xmlReader.MoveToNextAttribute()) {
+			int Event = xmlReader.next();
 			string name = XmlUtils.getElementQualifiedName(xmlReader, namespaces);
 			
-			switch(event) {
+			switch(Event) {
 				case XMLStreamConstants.START_ELEMENT:
 					if("config:correlated-client-set".Equals(name)) {
 						correlationSet = new CorrelationSet();
@@ -242,15 +252,15 @@ public class StaxServerConfigurationReader : ServerConfigurationReader {
 		return correlationSets;
 	}
 	/// <exception cref="XMLStreamException"></exception>
-	private DetectionPoint readDetectionPoint(XMLStreamReader xmlReader) {
+	private DetectionPoint readDetectionPoint(XmlReader xmlReader) {
 		DetectionPoint detectionPoint = new DetectionPoint();
 		bool finished = false;
 		
-		while(!finished && xmlReader.hasNext()) {
-			int event = xmlReader.next();
+		while(!finished && xmlReader.MoveToNextAttribute()) {
+			int Event = xmlReader.next();
 			string name = XmlUtils.getElementQualifiedName(xmlReader, namespaces);
 			
-			switch(event) {
+			switch(Event) {
 				case XMLStreamConstants.START_ELEMENT:
 					if("config:id".Equals(name)) {
 						detectionPoint.setId(xmlReader.getElementText().Trim());
@@ -278,15 +288,16 @@ public class StaxServerConfigurationReader : ServerConfigurationReader {
 		return detectionPoint;
 	}
 	
-	private Threshold readThreshold(XMLStreamReader xmlReader) throws XMLStreamException {
+    /// <exception cref="XMLStreamException"></exception>
+	private Threshold readThreshold(XmlReader xmlReader) {
 		Threshold threshold = new Threshold();
 		bool finished = false;
 		
-		while(!finished && xmlReader.hasNext()) {
-			int event = xmlReader.next();
+		while(!finished && xmlReader.MoveToNextAttribute()) {
+			int Event = xmlReader.next();
 			string name = XmlUtils.getElementQualifiedName(xmlReader, namespaces);
 			
-			switch(event) {
+			switch(Event) {
 				case XMLStreamConstants.START_ELEMENT:
 					if("config:count".Equals(name)) {
 						threshold.setCount(Integer.parseInt(xmlReader.getElementText().Trim()));
@@ -315,15 +326,16 @@ public class StaxServerConfigurationReader : ServerConfigurationReader {
 		return threshold;
 	}
 	
-	private Response readResponse(XMLStreamReader xmlReader) throws XMLStreamException {
+    /// <exception cref="XMLStreamException"></exception>
+	private Response readResponse(XmlReader xmlReader) {
 		Response response = new Response();
 		bool finished = false;
 		
-		while(!finished && xmlReader.hasNext()) {
-			int event = xmlReader.next();
+		while(!finished && xmlReader.MoveToNextAttribute()) {
+			int Event = xmlReader.next();
 			string name = XmlUtils.getElementQualifiedName(xmlReader, namespaces);
 			
-			switch(event) {
+			switch(Event) {
 				case XMLStreamConstants.START_ELEMENT:
 					if("config:action".Equals(name)) {
 						response.setAction(xmlReader.getElementText().Trim());

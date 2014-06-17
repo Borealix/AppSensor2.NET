@@ -14,9 +14,10 @@ public class StringUtils {
 	/** Empty string */
 	public static string EMPTY = "";
 	
-	public static Collection<string> toCollection(string value) {
+	//public static Collection<string> toCollection(string value) {
+    public static HashSet<string> toCollection(string value) {
 		//Collection<string> collection = new List<string>();
-        Collection<string> collection = new Collection<string>();
+        HashSet<string> collection = new HashSet<string>();
 		
 		collection.Add(value);
 		

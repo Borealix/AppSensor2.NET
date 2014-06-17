@@ -33,11 +33,11 @@ public class Dashboard {
     	
     	//should echo back whatever is heard from any client to all clients
     	//foreach (Session sess in session.getOpenSessions()) {
-        foreach(AppSession sess in session.SocketSession.AppSession) {
-            if(sess.isOpen()) {
+        foreach(AppSession sess in session.AppServer.GetAllSessions()) {
+            if(sess.Connected) {
     			try {
 					//sess.RemoteEndPoint.sendText(message);
-                    sess.RemoteEndPoint.Send(message);
+                    sess.Send(message);
 				} catch (IOException e) {
                     Console.WriteLine(System.Environment.StackTrace);
 				}

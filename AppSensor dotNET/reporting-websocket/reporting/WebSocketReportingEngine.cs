@@ -113,13 +113,13 @@ public class WebSocketReportingEngine : ReportingEngine {
 		ensureConnected();
 		
 		//if (localSession != null && localSession.isOpen()) {
-        if (localSession != null && localSession.IsOpen()) {
+        if (localSession != null && localSession.Connected) {
 			try {
 				WebSocketJsonObject jsonObject = new WebSocketJsonObject(type, Object);
 				//string json = gson.toJson(jsonObject);
                 string json = jsonObject.ToString();
 				//localSession.getBasicRemote().sendText(json);
-                localSession.RemoteEndPoint.sendText(json);
+                localSession.Send(json);
 			} catch (IOException e) {
 				Logger.Error("Error sending data to websocket", e);
 			}
@@ -146,13 +146,15 @@ public class WebSocketReportingEngine : ReportingEngine {
 	private void ensureConnected() {
 		if (! webSocketInitialized) {
 			WebSocketContainer client = ContainerProvider.getWebSocketContainer();
-	
-			try {
-	            localSession = client.connectToServer(WebSocketReportingEngine.GetType, new Uri ("ws://localhost:8080/simple-websocket-dashboard/dashboard"));
-	            webSocketInitialized = true;
-	        } catch (DeploymentException | UriFormatException | IOException e) {
-	            throw new ApplicationException(e);
-	        }
+
+            try {
+                localSession = client.connectToServer(WebSocketReportingEngine.GetType, new Uri("ws://localhost:8080/simple-websocket-dashboard/dashboard"));
+                webSocketInitialized = true;
+            } catch(IOException e) {
+                throw new SystemException(e.Message);
+            } catch (SystemException e) {
+                throw new SystemException(e.Message);
+            }
 	    	Console.Error.WriteLine("started and connected");
 		}
 	}

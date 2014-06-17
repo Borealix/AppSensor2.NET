@@ -39,9 +39,9 @@ public class XmlUtils {
     /// /// <exception cref="SAXException"></exception>
 	public static void validateXMLSchema(string xsdPath, string xmlPath){
 		//InputStream xsdStream = XmlUtils.Class.getResourceAsStream(xsdPath);
-        Stream xsdStream = XmlUtils.GetType(new ResourceManager.GetStream(xsdPath));
+        Stream xsdStream = new StreamReader(xsdPath).BaseStream;
 		//InputStream xmlStream = XmlUtils.Class.getResourceAsStream(xmlPath);
-        Stream xmlStream = XmlUtils.GetType(new ResourceManager.GetStream(xmlPath));
+        Stream xmlStream = new StreamReader(xmlPath).BaseStream;
 		
 		validateXMLSchema(xsdStream, xmlStream);
     }
@@ -58,14 +58,12 @@ public class XmlUtils {
     /// /// <exception cref="SAXException"></exception>
 	//public static void validateXMLSchema(InputStream xsdStream, InputStream xmlStream) {
     public static void validateXMLSchema(Stream xsdStream, Stream xmlStream) {
-        //SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        XmlSchema factory = new XmlSchema (XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        //Schema schema = factory.newSchema(new StreamSource(xsdStream));
-        XmlSchemaElement schema = new XmlSchemaElement();
+        SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        Schema schema = factory.newSchema(new StreamSource(xsdStream));
         Validator validator = schema.newValidator();
         validator.validate(new StreamSource(xmlStream));
     }
-	
+
 	/**
 	 * Helper method for getting qualified name from stax reader given a set of specified schema namespaces
 	 * 
@@ -89,7 +87,8 @@ public class XmlUtils {
 				break;
 		}
 		
-		return namespaces.get(namespaceUri) + ":" + localName;
+		//return namespaces.get(namespaceUri) + ":" + localName;
+        return namespaces[namespaceUri] + ":" + localName;
 	}
 	
 }

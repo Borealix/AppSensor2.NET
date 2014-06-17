@@ -96,7 +96,8 @@ namespace org.owasp.appsensor.storage {
             Collection<Response> matches = new Collection<Response>();
 
             User user = criteria.GetUser();
-            Collection<string> detectionSystemIds = criteria.getDetectionSystemIds();
+            //Collection<string> detectionSystemIds = criteria.getDetectionSystemIds();
+            HashSet<string> detectionSystemIds = criteria.getDetectionSystemIds();
             DateTime? earliest = DateUtils.fromString(criteria.getEarliest());
 
             Collection<Response> responses = loadResponses();

@@ -19,6 +19,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using System.Configuration.ConfigurationException;
+using org.owasp.appsensor.util;
+using org.owasp.appsensor.exceptions;
 /**
  * This implementation parses the {@link ClientConfiguration} objects 
  * from the specified XML file via the StAX API.
@@ -68,50 +70,47 @@ public class StaxClientConfigurationReader : ClientConfigurationReader {
 		//InputStream xmlInputStream = null;
         Stream xmlInputStream = null;
 		//XMLStreamReader xmlReader = null;
-        StreamReader xmlReader = null;
+        XmlReader xmlReader = null;
 
 		try {
 			//XMLInputFactory xmlFactory = XMLInputFactory.newInstance();
 			XmlReaderSettings xmlFactory = new XmlReaderSettings();
 
-            // setProperty - Allows the user to set specific feature/property on the underlying implementation.
-            // IS_REPLACING_ENTITY_REFERENCES - Requires the parser to replace internal entity references with their replacement text and report them as characters.
-			xmlFactory.setProperty(XMLInputFactory.IS_REPLACING_ENTITY_REFERENCES, false);
-            // IS_SUPPORTING_EXTERNAL_ENTITIES - The property that requires the parser to resolve external parsed entities.
-			xmlFactory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
-			// IS_NAMESPACE_AWARE - The property used to turn on/off namespace support, this is to support XML 1.0 documents, only the true setting must be supported
-            xmlFactory.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, true);
-            // IS_VALIDATING - The property used to turn on/off implementation specific validation
-			xmlFactory.setProperty(XMLInputFactory.IS_VALIDATING, false);
-			//xmlFactory.setXmlResolver(new XmlResolver() {
-            xmlFactory.seXmlResolver(new XmlResolver() {
-			/// <exception cref="XMLStreamException"></exception>
-            public override object resolveEntity(string arg0, string arg1, string arg2, string arg3) {
-					return new ByteArrayInputStream(new byte[0]);
-				}
-			});
+			//xmlFactory.setProperty(XMLInputFactory.IS_REPLACING_ENTITY_REFERENCES, false);
+			//xmlFactory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
+            xmlFactory.DtdProcessing = DtdProcessing.Ignore;
+            //xmlFactory.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, true);
+            //xmlFactory.setProperty(XMLInputFactory.IS_VALIDATING, false);
+            xmlFactory.ValidationType = ValidationType.None;
+			xmlFactory.XmlResolver = null;
 			
 			XmlUtils.validateXMLSchema(xsd, xml);
 			
-			xmlInputStream = GetType().getResourceAsStream(xml);
+			//xmlInputStream = GetType().getResourceAsStream(xml);
+            xmlInputStream = new StreamReader(xml).BaseStream;
 			
-			xmlReader = xmlFactory.createXMLStreamReader(xmlInputStream);
+			//xmlReader = xmlFactory.createXMLStreamReader(xmlInputStream);
+            xmlReader = XmlReader.Create(xmlInputStream);
 			
 			configuration = readClientConfiguration(xmlReader);
-		} catch(XMLStreamException | IOException | SAXException e) {
-			throw new ConfigurationException (e.getMessage(), e);
+		/*} catch(XMLStreamException | IOException | SAXException e) {*/
+            //throw new ConfigurationException(e.getMessage(), e);
+            } catch(XmlException e) {
+                throw new ConfigurationException (e.Message, e);;
+            } catch (IOException e) {
+                throw new ConfigurationException (e.Message, e);;
 		} finally {
 			if(xmlReader != null) {
 				try {
-					xmlReader.close();
-				} catch (XMLStreamException xse) {
+					xmlReader.Close();
+				} catch (XmlException xse) {
 					/** give up **/
 				}
 			}
 			
 			if(xmlInputStream != null) {
 				try {
-					xmlInputStream.close();
+					xmlInputStream.Close();
 				} catch (IOException ioe) {
 					/** give up **/
 				}
@@ -121,15 +120,16 @@ public class StaxClientConfigurationReader : ClientConfigurationReader {
 		return configuration;
 	}
 	
-	private ClientConfiguration readClientConfiguration(XMLStreamReader xmlReader) throws XMLStreamException {
+    /// <exception cref="XMLException"></exception>
+	private ClientConfiguration readClientConfiguration(XmlReader xmlReader) {
 		ClientConfiguration configuration = new ClientConfiguration();
 		bool finished = false;
 
-		while(!finished && xmlReader.hasNext()) {
-			int event = xmlReader.next();
+		while(!finished && xmlReader.MoveToNextAttribute()) {
+			int Event = xmlReader.next();
 			string name = XmlUtils.getElementQualifiedName(xmlReader, namespaces);
 			
-			switch(event) {			
+			switch(Event) {			
 				case XMLStreamConstants.START_ELEMENT:
 					if("config:appsensor-client-config".Equals(name)) {
 						//
@@ -155,17 +155,18 @@ public class StaxClientConfigurationReader : ClientConfigurationReader {
 		return configuration;
 	}
 	
-	private ServerConnection readServerConnection(XMLStreamReader xmlReader) throws XMLStreamException {
+    /// <exception cref="XMLException"></exception>
+	private ServerConnection readServerConnection(XmlReader xmlReader) {
 		ServerConnection serverConnection = new ServerConnection();
 		bool finished = false;
 		
 		serverConnection.setType(xmlReader.getAttributeValue(null, "type"));
 		
-		while(!finished && xmlReader.hasNext()) {
-			int event = xmlReader.next();
+		while(!finished && xmlReader.MoveToNextAttribute()) {
+			int Event = xmlReader.next();
 			string name = XmlUtils.getElementQualifiedName(xmlReader, namespaces);
 			
-			switch(event) {
+			switch(Event) {
 				case XMLStreamConstants.START_ELEMENT:
 					if("config:protocol".Equals(name)) {
 						serverConnection.setProtocol(xmlReader.getElementText().Trim());

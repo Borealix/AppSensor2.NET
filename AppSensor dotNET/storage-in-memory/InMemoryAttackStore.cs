@@ -66,7 +66,8 @@ public class InMemoryAttackStore : AttackStore {
 		
 		User user = criteria.GetUser();
 		DetectionPoint detectionPoint = criteria.GetDetectionPoint();
-		Collection<string> detectionSystemIds = criteria.getDetectionSystemIds(); 
+		//Collection<string> detectionSystemIds = criteria.getDetectionSystemIds(); 
+        HashSet<string> detectionSystemIds = criteria.getDetectionSystemIds(); 
 		DateTime? earliest = DateUtils.fromString(criteria.getEarliest());
 		
 		foreach (Attack attack in attacks) {
