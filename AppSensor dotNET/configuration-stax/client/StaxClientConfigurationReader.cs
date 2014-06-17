@@ -14,11 +14,11 @@ using org.owasp.appsensor.util.XmlUtils;
  
 import org.xml.sax.SAXException;
  */
-using org.owasp.appsensor.exceptions.ConfigurationException;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
+using System.Configuration.ConfigurationException;
 /**
  * This implementation parses the {@link ClientConfiguration} objects 
  * from the specified XML file via the StAX API.
@@ -68,17 +68,23 @@ public class StaxClientConfigurationReader : ClientConfigurationReader {
 		//InputStream xmlInputStream = null;
         Stream xmlInputStream = null;
 		//XMLStreamReader xmlReader = null;
-        XmlReader xmlReader = null;
+        StreamReader xmlReader = null;
 
 		try {
 			//XMLInputFactory xmlFactory = XMLInputFactory.newInstance();
-			XmlReader xmlFactory = XmlReader.Create();
+			XmlReaderSettings xmlFactory = new XmlReaderSettings();
 
+            // setProperty - Allows the user to set specific feature/property on the underlying implementation.
+            // IS_REPLACING_ENTITY_REFERENCES - Requires the parser to replace internal entity references with their replacement text and report them as characters.
 			xmlFactory.setProperty(XMLInputFactory.IS_REPLACING_ENTITY_REFERENCES, false);
+            // IS_SUPPORTING_EXTERNAL_ENTITIES - The property that requires the parser to resolve external parsed entities.
 			xmlFactory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
-			xmlFactory.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, true);
+			// IS_NAMESPACE_AWARE - The property used to turn on/off namespace support, this is to support XML 1.0 documents, only the true setting must be supported
+            xmlFactory.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, true);
+            // IS_VALIDATING - The property used to turn on/off implementation specific validation
 			xmlFactory.setProperty(XMLInputFactory.IS_VALIDATING, false);
-			xmlFactory.setXmlResolver(new XmlResolver() {
+			//xmlFactory.setXmlResolver(new XmlResolver() {
+            xmlFactory.seXmlResolver(new XmlResolver() {
 			/// <exception cref="XMLStreamException"></exception>
             public override object resolveEntity(string arg0, string arg1, string arg2, string arg3) {
 					return new ByteArrayInputStream(new byte[0]);

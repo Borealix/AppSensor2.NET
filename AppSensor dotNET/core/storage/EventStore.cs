@@ -26,7 +26,7 @@ namespace org.owasp.appsensor.storage{
 public abstract class EventStore {
 
 	//private static Collection<EventListener> listeners = new CopyOnWriteArrayList<>();
-    private static SynchronizedCollection<EventListener> listeners = new SynchronizedCollection<T>();
+    private static SynchronizedCollection<EventListener> listeners = new SynchronizedCollection<EventListener>();
 	
 	/**
 	 * Add an {@link org.owasp.appsensor.Event} to the EventStore

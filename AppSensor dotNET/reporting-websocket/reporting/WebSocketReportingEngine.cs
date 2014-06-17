@@ -23,6 +23,12 @@ using Ninject;
 using System.Collections.ObjectModel;
 using log4net;
 using System;
+using SuperSocket.SocketBase;
+using System.IO;
+using System.Uri;
+using System.Deployment.Application.DeploymentException;
+using System.Deployment.Application;
+using System.Runtime.Serialization.Json;
 
 /**
  * This is the websocket-based reporting engine, and is an implementation of the observer pattern. 
@@ -44,13 +50,14 @@ namespace org.owasp.appsensor.reporting {
 [Named("WebSocketReportingEngine")]
 public class WebSocketReportingEngine : ReportingEngine {
 	
-	private Session localSession = null;
+	//private Session localSession = null;
+    private AppSession localSession = null;
 	
 	private ILog Logger;
 	
 	private bool webSocketInitialized = false;
 	
-	private Gson gson = new Gson();
+	//private Gson gson = new Gson();
 	
 	public WebSocketReportingEngine() { }
 	
@@ -105,11 +112,14 @@ public class WebSocketReportingEngine : ReportingEngine {
 	private void notifyWebSocket(string type, object Object) {
 		ensureConnected();
 		
-		if (localSession != null && localSession.isOpen()) {
+		//if (localSession != null && localSession.isOpen()) {
+        if (localSession != null && localSession.IsOpen()) {
 			try {
 				WebSocketJsonObject jsonObject = new WebSocketJsonObject(type, Object);
-				string json = gson.toJson(jsonObject);
-				localSession.getBasicRemote().sendText(json);
+				//string json = gson.toJson(jsonObject);
+                string json = jsonObject.ToString();
+				//localSession.getBasicRemote().sendText(json);
+                localSession.RemoteEndPoint.sendText(json);
 			} catch (IOException e) {
 				Logger.Error("Error sending data to websocket", e);
 			}
@@ -117,19 +127,20 @@ public class WebSocketReportingEngine : ReportingEngine {
 	}
 	
 	//@OnOpen
-	public void onOpen(Session session) {
-		Logger.Info("Connected ... " + session.getId());
+	//public void onOpen(Session session) {
+    public void onOpen(AppSession session) {
+		Logger.Info("Connected ... " + session.SessionID);
 	}
 
 	//@OnMessage
-	public string onMessage(string message, Session session) {
+	public string onMessage(string message, AppSession session) {
 		return null;
 	}
 
 	//@OnClose
-	public void onClose(Session session, CloseReason closeReason) {
-		Logger.Info(String.format("Session %s close because of %s",
-				session.getId(), closeReason));
+	public void onClose(AppSession session, CloseReason closeReason) {
+		Logger.Info(String.Format("Session %s close because of %s",
+				session.SessionID, closeReason));
 	}
 
 	private void ensureConnected() {
@@ -137,12 +148,12 @@ public class WebSocketReportingEngine : ReportingEngine {
 			WebSocketContainer client = ContainerProvider.getWebSocketContainer();
 	
 			try {
-	            localSession = client.connectToServer(WebSocketReportingEngine.class, new URI("ws://localhost:8080/simple-websocket-dashboard/dashboard"));
+	            localSession = client.connectToServer(WebSocketReportingEngine.GetType, new Uri ("ws://localhost:8080/simple-websocket-dashboard/dashboard"));
 	            webSocketInitialized = true;
-	        } catch (DeploymentException | URISyntaxException | IOException e) {
+	        } catch (DeploymentException | UriFormatException | IOException e) {
 	            throw new ApplicationException(e);
 	        }
-	    	System.err.println("started and connected");
+	    	Console.Error.WriteLine("started and connected");
 		}
 	}
 	

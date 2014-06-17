@@ -25,6 +25,8 @@ using org.owasp.appsensor.correlation.CorrelationSet;
 using org.owasp.appsensor.util.XmlUtils;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Xml;
 /**
  * This implementation parses the {@link ServerConfiguration} objects 
  * from the specified XML file via the StAX API.
@@ -71,8 +73,10 @@ public class StaxServerConfigurationReader : ServerConfigurationReader {
 	public override ServerConfiguration read(string xml, string xsd) {
          /// <exception cref="ConfigurationException"></exception>
 		ServerConfiguration configuration = null;
-		InputStream xmlInputStream = null;
-		XMLStreamReader xmlReader = null;
+		//InputStream xmlInptStream = null;
+        Stream xmlInputStream = null; 
+		//XMLStreamReader xmlReader = null;
+        XmlReader xmlReader = null;
 		
 		try {
 			XMLInputFactory xmlFactory = XMLInputFactory.newInstance();

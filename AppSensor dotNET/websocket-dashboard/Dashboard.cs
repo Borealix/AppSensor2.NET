@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 //import java.io.IOException;
 /*
 using javax.websocket.OnClose;
@@ -9,8 +8,9 @@ using javax.websocket.Session;
 using javax.websocket.server.ServerEndpoint;
 */
 // using System.Net.WebSockets.WebSocket;
-using Microsoft.Web.WebSockets;
+using SuperSocket.SocketBase;
 using System;
+using System.IO;
 
 namespace org.owasp.appsensor.websocket {
 /**
@@ -22,23 +22,24 @@ namespace org.owasp.appsensor.websocket {
 public class Dashboard {
     
     //@OnOpen
-    public void onOpen(Session session) {
-        //System.Err.println("Opened connection with client: " + session.getId());
-        Console.Error.WriteLine("Opened connection with client: " + session.getId());
+    public void onOpen(AppSession session) {
+        //Console.Error.WriteLine("Opened connection with client: " + session.getId());
+        Console.Error.WriteLine("Opened connection with client: " + session.SessionID);
     }
     
     //@OnMessage
-    public string onMessage(string message, Session session) {
-    	//System.err.println
-        Console.Error.WriteLine("New message from Client " + session.getId() + ": " + message);
+    public string onMessage(string message, AppSession session) {
+        Console.Error.WriteLine("New message from Client " + session.SessionID + ": " + message);
     	
     	//should echo back whatever is heard from any client to all clients
-    	foreach (Session sess in session.getOpenSessions()) {
-    		if (sess.isOpen()) {
+    	//foreach (Session sess in session.getOpenSessions()) {
+        foreach(AppSession sess in session.SocketSession.AppSession) {
+            if(sess.isOpen()) {
     			try {
-					sess.getBasicRemote().sendText(message);
+					//sess.RemoteEndPoint.sendText(message);
+                    sess.RemoteEndPoint.Send(message);
 				} catch (IOException e) {
-					e.printStackTrace();
+                    Console.WriteLine(System.Environment.StackTrace);
 				}
     		}
     	}
@@ -47,76 +48,13 @@ public class Dashboard {
     }
     
     //@OnClose
-    public void onClose(Session session) {
-    	//System.err.println
-        Console.Error.WriteLine("Closed connection with client: " + session.getId());
+    public void onClose(AppSession session) {
+        Console.Error.WriteLine("Closed connection with client: " + session.SessionID);
     }
     
     //@OnError
-    public void onError(Exception exception, Session session) {
-    	//System.err.println
-        Console.Error.WriteLine("Error for client: " + session.getId());
+    public void onError(Exception exception, AppSession session) {
+        Console.Error.WriteLine("Error for client: " + session.SessionID);
     }
 }
-=======
-//import java.io.IOException;
-/*
-using javax.websocket.OnClose;
-using javax.websocket.OnError;
-using javax.websocket.OnMessage;
-using javax.websocket.OnOpen;
-using javax.websocket.Session;
-using javax.websocket.server.ServerEndpoint;
-*/
-// using System.Net.WebSockets.WebSocket;
-using Microsoft.Web.WebSockets;
-using System;
-
-namespace org.owasp.appsensor.websocket {
-/**
- * A simple dashboard for the websocket implementation.
- * 
- * @author John Melton (jtmelton@gmail.com) http://www.jtmelton.com/
- */
-//@ServerEndpoint(value = "/dashboard")
-public class Dashboard {
-    
-    //@OnOpen
-    public void onOpen(Session session) {
-        //System.Err.println("Opened connection with client: " + session.getId());
-        Console.Error.WriteLine("Opened connection with client: " + session.getId());
-    }
-    
-    //@OnMessage
-    public string onMessage(string message, Session session) {
-    	//System.err.println
-        Console.Error.WriteLine("New message from Client " + session.getId() + ": " + message);
-    	
-    	//should echo back whatever is heard from any client to all clients
-    	foreach (Session sess in session.getOpenSessions()) {
-    		if (sess.isOpen()) {
-    			try {
-					sess.getBasicRemote().sendText(message);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-    		}
-    	}
-
-    	return null;
-    }
-    
-    //@OnClose
-    public void onClose(Session session) {
-    	//System.err.println
-        Console.Error.WriteLine("Closed connection with client: " + session.getId());
-    }
-    
-    //@OnError
-    public void onError(Exception exception, Session session) {
-    	//System.err.println
-        Console.Error.WriteLine("Error for client: " + session.getId());
-    }
-}
->>>>>>> 4c5c488bf1830235869add0196d743908c2981c2
 }

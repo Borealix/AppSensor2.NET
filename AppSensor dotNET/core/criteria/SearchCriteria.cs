@@ -1,6 +1,7 @@
 //using java.util.Collection;
 using org.owasp.appsensor.DetectionPoint;
 using org.owasp.appsensor.User;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace org.owasp.appsensor.criteria {
@@ -11,7 +12,8 @@ namespace org.owasp.appsensor.criteria {
 
         private DetectionPoint detectionPoint;
 
-        private Collection<string> detectionSystemIds;
+        //private Collection<string> detectionSystemIds;
+        private HashSet<string> detectionSystemIds;
 
         private string earliest;
 
@@ -33,11 +35,13 @@ namespace org.owasp.appsensor.criteria {
             return this;
         }
 
-        public Collection<string> getDetectionSystemIds() {
+        //public Collection<string> getDetectionSystemIds() {
+        public HashSet<string> getDetectionSystemIds() {
             return detectionSystemIds;
         }
 
-        public SearchCriteria setDetectionSystemIds(Collection<string> detectionSystemIds) {
+        //public SearchCriteria setDetectionSystemIds(Collection<string> detectionSystemIds) {
+        public SearchCriteria setDetectionSystemIds(HashSet<string> detectionSystemIds) {
             this.detectionSystemIds = detectionSystemIds;
             return this;
         }
