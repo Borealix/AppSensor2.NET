@@ -1,6 +1,6 @@
 //using java.util.List;
 //using java.util.Collection;
-using org.owasp.appsensor.accesscontrol.Role;
+using org.owasp.appsensor.accesscontrol;
 using org.owasp.appsensor.configuration.client;
 using System.Text;
 using Tools.HashCodeBuilder;

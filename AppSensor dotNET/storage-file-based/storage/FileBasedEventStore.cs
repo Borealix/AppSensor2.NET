@@ -1,41 +1,17 @@
-/*
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
-import java.util.List;
-import java.util.Arrays;
-import java.util.Collection;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import org.joda.time.DateTime;
- */
-using org.owasp.appsensor.AppSensorServer;
-using org.owasp.appsensor.DetectionPoint;
-using org.owasp.appsensor.Event;
-using org.owasp.appsensor.User;
-using org.owasp.appsensor.criteria.SearchCriteria;
-using org.owasp.appsensor.listener.EventListener;
-using org.owasp.appsensor.logging.Loggable;
-using org.owasp.appsensor.util.DateUtils;
-using org.owasp.appsensor.util.FileUtils;
+using org.owasp.appsensor;
+using org.owasp.appsensor.criteria;
+using org.owasp.appsensor.listener;
+using org.owasp.appsensor.logging;
+using org.owasp.appsensor.util;
 using log4net;
 using System.IO;
 using System.Collections.ObjectModel;
-using org.owasp.appsensor.criteria;
 using System;
 using Ninject;
-using org.owasp.appsensor.util;
 using System.Linq;
 using System.Collections.Generic;
 using System.Runtime.Serialization.Json;
 using Newtonsoft.Json;
-
-// import com.google.gson.Gson;
 
 /**
  * This is a reference implementation of the {@link EventStore}.

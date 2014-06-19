@@ -1,8 +1,5 @@
 //using java.util.Collection;
-using org.owasp.appsensor.Attack;
-using org.owasp.appsensor.ClientApplication;
-using org.owasp.appsensor.Event;
-using org.owasp.appsensor.Response;
+using org.owasp.appsensor;
 using System.Collections.ObjectModel;
 /**
  * The EventManager is the key interface that the {@link ClientApplication} accesses to 
@@ -10,7 +7,7 @@ using System.Collections.ObjectModel;
  * 
  * @author John Melton (jtmelton@gmail.com) http://www.jtmelton.com/
  */
-namespace org.owasp.appsensor.Events {
+namespace org.owasp.appsensor.events {
     /** In AppSensor Java version appears "event" in place of "Event" but "event" is a reseved word in C#.
      *  I decided to use:
      *  Events for the namespace.

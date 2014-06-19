@@ -6,7 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 */
-using org.owasp.appsensor.logging.Loggable;
+using org.owasp.appsensor.logging;
 using System;
 using System.IO;
 

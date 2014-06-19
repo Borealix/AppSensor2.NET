@@ -1,8 +1,6 @@
-using org.owasp.appsensor.Attack;
+using org.owasp.appsensor;
 using org.owasp.appsensor.listener;
-using org.owasp.appsensor.listener.AttackListener;
-using org.owasp.appsensor.storage.AttackStore;
-using org.owasp.appsensor.storage.AttackStoreListener;
+using org.owasp.appsensor.storage;
 
 /**
  * The attack analysis engine is an implementation of the Observer pattern. 

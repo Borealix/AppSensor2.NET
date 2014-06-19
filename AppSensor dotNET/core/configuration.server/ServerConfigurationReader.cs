@@ -1,4 +1,4 @@
-using org.owasp.appsensor.exceptions.ConfigurationException;
+using org.owasp.appsensor.exceptions;
 /**
  * This interface is to be fulfilled by implementations that load a configuration 
  * file and provide an object representation of it. 
@@ -31,6 +31,7 @@ public interface ServerConfigurationReader {
 	 * @throws ConfigurationException
 	 */
     /// <exception cref="ConfigurationException"></exception>
-    public ServerConfiguration read(string configurationLocation, string validatorLocation);
+    //public ServerConfiguration read(string configurationLocation, string validatorLocation);
+    ServerConfiguration read(string configurationLocation, string validatorLocation);
 }
 }

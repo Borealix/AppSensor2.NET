@@ -1,5 +1,4 @@
 using org.owasp.appsensor.exceptions;
-using org.owasp.appsensor.exceptions.ConfigurationException;
 /**
  * This interface is to be fulfilled by implementations that load a configuration 
  * file and provide an object representation of it. 
@@ -27,7 +26,8 @@ namespace org.owasp.appsensor.configuration.client {
 	 * @throws ConfigurationException
 	 */
     /// <exception cref="ConfigurationException"></exception>
-	public ClientConfiguration read();
+	//public ClientConfiguration read();
+        ClientConfiguration read();
 	
 	/**
 	 * 
@@ -37,6 +37,7 @@ namespace org.owasp.appsensor.configuration.client {
 	 * @throws ConfigurationException
 	 */
 	/// <exception cref="ConfigurationException"></exception>
-        public ClientConfiguration read(string configurationLocation, string validatorLocation);
+        //public ClientConfiguration read(string configurationLocation, string validatorLocation);
+        ClientConfiguration read(string configurationLocation, string validatorLocation);
     }
 }

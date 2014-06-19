@@ -8,3 +8,4 @@ C:\Users\Luis Serna González\Documents\Borealix\Códigos\AppSensor dotNET\AppSe
 C:\Users\Luis Serna González\Desktop\AppSensor dotNET\AppSensor dotNET\bin\Debug\AppSensor dotNET.exe.config
 C:\Users\Luis Serna González\Desktop\AppSensor dotNET\AppSensor dotNET\obj\Debug\AppSensor dotNET.csprojResolveAssemblyReference.cache
 C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor dotNET\bin\Debug\AppSensor dotNET.exe.config
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor dotNET\obj\Debug\AppSensor dotNET.csprojResolveAssemblyReference.cache

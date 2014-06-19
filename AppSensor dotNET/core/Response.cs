@@ -3,7 +3,6 @@ using org.owasp.appsensor.util;
 using org.apache.commons.lang3.builder.EqualsBuilder;
 using org.apache.commons.lang3.builder.HashCodeBuilder;
 using org.apache.commons.lang3.builder.StringBuilder;*/
-using org.owasp.appsensor.util.DateUtils;
 using System;
 using System.Text;
 using Tools.HashCodeBuilder;

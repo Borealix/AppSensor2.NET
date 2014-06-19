@@ -1,14 +1,8 @@
-/*
-import javax.inject.Named;
-
-import org.slf4j.Logger;
- */
 using System;
 using Ninject;
-using org.owasp.appsensor.ClientApplication;
-using org.owasp.appsensor.exceptions.NotAuthorizedException;
-using org.owasp.appsensor.logging.Loggable;
+using org.owasp.appsensor;
 using org.owasp.appsensor.exceptions;
+using org.owasp.appsensor.logging;
 using log4net;
 
 /**

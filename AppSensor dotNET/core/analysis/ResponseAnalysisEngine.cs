@@ -1,7 +1,5 @@
-using org.owasp.appsensor.Response;
-using org.owasp.appsensor.listener.ResponseListener;
-using org.owasp.appsensor.storage.ResponseStore;
-using org.owasp.appsensor.storage.ResponseStoreListener;
+using org.owasp.appsensor;
+using org.owasp.appsensor.storage;
 using org.owasp.appsensor.listener;
 
 /**

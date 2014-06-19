@@ -1,17 +1,11 @@
 using log4net;
 using Ninject;
 using org.owasp.appsensor.configuration.client;
-/*
- * import javax.inject.Inject;
- * import javax.inject.Named;
- */
-using org.owasp.appsensor.configuration.client.ClientConfiguration;
-using org.owasp.appsensor.Events;
-using org.owasp.appsensor.Events.EventManager;
-using org.owasp.appsensor.logging.Loggable;
-using org.owasp.appsensor.Responses;
-using org.owasp.appsensor.response.UserManager;
+using org.owasp.appsensor;
+using org.owasp.appsensor.events;
+using org.owasp.appsensor.logging;
 using org.owasp.appsensor.response;
+using org.owasp.appsensor.responses;
 
 /**
  * AppSensor core class for accessing client-side components. Most components

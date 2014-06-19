@@ -1,16 +1,9 @@
-/*import java.util.Collection;
-import java.util.concurrent.CopyOnWriteArrayList;
-
-import javax.inject.Inject;*/
-
-using org.owasp.appsensor.Response;
-using org.owasp.appsensor.criteria.SearchCriteria;
-using org.owasp.appsensor.listener.ResponseListener;
+using org.owasp.appsensor;
 using System.Collections.ObjectModel;
 using org.owasp.appsensor.listener;
 using org.owasp.appsensor.criteria;
 using Ninject;
-using System.Object;
+using System;
 using System.Collections.Generic;
 
 /**

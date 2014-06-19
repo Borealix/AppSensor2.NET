@@ -1,24 +1,10 @@
-/*
-import java.util.Collection;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import org.slf4j.Logger;
- */
 using Ninject;
-using org.owasp.appsensor.AppSensorServer;
-using org.owasp.appsensor.Attack;
-using org.owasp.appsensor.Event;
-using org.owasp.appsensor.RequestHandler;
-using org.owasp.appsensor.Response;
-using org.owasp.appsensor.criteria.SearchCriteria;
-using org.owasp.appsensor.exceptions.NotAuthorizedException;
-using org.owasp.appsensor.logging.Loggable;
-using org.owasp.appsensor.util.StringUtils;
+using org.owasp.appsensor;
+using org.owasp.appsensor.criteria;
+using org.owasp.appsensor.exceptions;
+using org.owasp.appsensor.logging;
 using log4net;
 using System.Collections.ObjectModel;
-using org.owasp.appsensor.criteria;
 using org.owasp.appsensor.util;
 /**
  * This is the local endpoint that handles requests on the server-side.

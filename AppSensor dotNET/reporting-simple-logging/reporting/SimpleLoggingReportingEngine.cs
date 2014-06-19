@@ -1,16 +1,6 @@
-/*
-import java.util.Collection;
-
-import javax.inject.Named;
-
- */
-using org.owasp.appsensor.Attack;
-using org.owasp.appsensor.Event;
-using org.owasp.appsensor.Response;
-using org.owasp.appsensor.logging.Loggable;
-using org.owasp.appsensor.storage.AttackStoreListener;
-using org.owasp.appsensor.storage.EventStoreListener;
-using org.owasp.appsensor.storage.ResponseStoreListener;
+using org.owasp.appsensor;
+using org.owasp.appsensor.logging;
+using org.owasp.appsensor.storage;
 using log4net;
 using Ninject;
 using System.Collections.ObjectModel;

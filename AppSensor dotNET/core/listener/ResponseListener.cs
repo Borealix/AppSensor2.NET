@@ -1,6 +1,5 @@
-using org.owasp.appsensor.Response;
-using org.owasp.appsensor.storage.ResponseStore;
-using org.owasp.appsensor.storage.ResponseStoreListener;
+using org.owasp.appsensor;
+using org.owasp.appsensor.storage;
 /**
  * This interface is implemented by classes that want to be notified
  * when a new {@link Response} is created and stored in the AppSensor system. 
@@ -18,6 +17,7 @@ namespace org.owasp.appsensor.listener {
          * 
          * @param attack {@link Response} that is added to the {@link ResponseStore}
          */
-        public void OnAdd(Response response);
+        //public void OnAdd(Response response);
+        void OnAdd(Response response);
     }
 }

@@ -1,24 +1,8 @@
-/*
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLResolver;
-import javax.xml.stream.XMLStreamConstants;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-using org.owasp.appsensor.util.XmlUtils;
- 
-import org.xml.sax.SAXException;
- */
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
-using System.Configuration.ConfigurationException;
+using System.Configuration;
 using org.owasp.appsensor.util;
 using org.owasp.appsensor.exceptions;
 /**
@@ -81,7 +65,8 @@ public class StaxClientConfigurationReader : ClientConfigurationReader {
             xmlFactory.DtdProcessing = DtdProcessing.Ignore;
             //xmlFactory.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, true);
             //xmlFactory.setProperty(XMLInputFactory.IS_VALIDATING, false);
-            xmlFactory.ValidationType = ValidationType.None;
+            //xmlFactory.ValidationType = ValidationType.None;
+            xmlFactory.ValidationType = ValidationType.Schema;
 			xmlFactory.XmlResolver = null;
 			
 			XmlUtils.validateXMLSchema(xsd, xml);
@@ -126,11 +111,11 @@ public class StaxClientConfigurationReader : ClientConfigurationReader {
 		bool finished = false;
 
 		while(!finished && xmlReader.MoveToNextAttribute()) {
-			int Event = xmlReader.next();
+			//int Event = xmlReader.next();
 			string name = XmlUtils.getElementQualifiedName(xmlReader, namespaces);
 			
-			switch(Event) {			
-				case XMLStreamConstants.START_ELEMENT:
+			switch(xmlReader.NodeType) {			
+				case XmlNodeType.Element:
 					if("config:appsensor-client-config".Equals(name)) {
 						//
 					} else if("config:server-connection".Equals(name)) {
@@ -139,7 +124,7 @@ public class StaxClientConfigurationReader : ClientConfigurationReader {
 						/** unexpected start element **/
 					}
 					break;
-				case XMLStreamConstants.END_ELEMENT:
+				case XmlNodeType.EndElement:
 					if("config:appsensor-client-config".Equals(name)) {
 						finished = true;
 					} else {
@@ -160,29 +145,30 @@ public class StaxClientConfigurationReader : ClientConfigurationReader {
 		ServerConnection serverConnection = new ServerConnection();
 		bool finished = false;
 		
-		serverConnection.setType(xmlReader.getAttributeValue(null, "type"));
+		//serverConnection.setType(xmlReader.getAttributeValue(null, "type"));
+        serverConnection.setType(xmlReader.GetAttribute("type", null));
 		
 		while(!finished && xmlReader.MoveToNextAttribute()) {
-			int Event = xmlReader.next();
+			//int Event = xmlReader.next();
 			string name = XmlUtils.getElementQualifiedName(xmlReader, namespaces);
 			
-			switch(Event) {
-				case XMLStreamConstants.START_ELEMENT:
+			switch(xmlReader.NodeType) {
+				case XmlNodeType.Element:
 					if("config:protocol".Equals(name)) {
-						serverConnection.setProtocol(xmlReader.getElementText().Trim());
+						serverConnection.setProtocol(xmlReader.ReadString().Trim());
 					} else if("config:host".Equals(name)) {
-						serverConnection.setHost(xmlReader.getElementText().Trim());
+						serverConnection.setHost(xmlReader.ReadString().Trim());
 					} else if("config:port".Equals(name)) {
-						serverConnection.setPort(Integer.parseInt(xmlReader.getElementText().Trim()));
+						serverConnection.setPort(Int32.Parse(xmlReader.ReadString().Trim()));
 					} else if("config:path".Equals(name)) {
-						serverConnection.setPath(xmlReader.getElementText().Trim());
+						serverConnection.setPath(xmlReader.ReadString().Trim());
 					} else if("config:client-application-identification-header-value".Equals(name)) {
-						serverConnection.setClientApplicationIdentificationHeaderValue(xmlReader.getElementText().Trim());
+						serverConnection.setClientApplicationIdentificationHeaderValue(xmlReader.ReadString().Trim());
 					} else {
 						/** unexpected start element **/
 					}
 					break;
-				case XMLStreamConstants.END_ELEMENT:
+				case XmlNodeType.EndElement:
 					if("config:server-connection".Equals(name)) {
 						finished = true;
 					} else {

@@ -1,6 +1,5 @@
 //using java.util.Collection;
-using org.owasp.appsensor.DetectionPoint;
-using org.owasp.appsensor.User;
+using org.owasp.appsensor;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 

@@ -1,30 +1,18 @@
-/*
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
-import java.util.List;
-import java.util.Arrays;
-import java.util.Collection;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import org.joda.time.DateTime;
- */
-using org.owasp.appsensor.AppSensorServer;
-using org.owasp.appsensor.Response;
-using org.owasp.appsensor.User;
-using org.owasp.appsensor.criteria.SearchCriteria;
-using org.owasp.appsensor.listener.ResponseListener;
-using org.owasp.appsensor.logging.Loggable;
-using org.owasp.appsensor.util.DateUtils;
-using org.owasp.appsensor.util.FileUtils;
+using org.owasp.appsensor;
+using org.owasp.appsensor.criteria;
+using org.owasp.appsensor.listener;
+using org.owasp.appsensor.logging;
+using org.owasp.appsensor.util;
 using System.Linq;
-
-//import com.google.gson.Gson;
+using org.owasp.appsensor.storage;
+using log4net;
+using System.IO;
+using System.Collections.ObjectModel;
+using System;
+using Ninject;
+using System.Runtime.Serialization.Json;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 /**
  * This is a reference implementation of the {@link ResponseStore}.
@@ -38,18 +26,6 @@ using System.Linq;
  * @author John Melton (jtmelton@gmail.com) http://www.jtmelton.com/
  * @author Raphaël Taban
  */
-using org.owasp.appsensor.storage;
-using log4net;
-using org.owasp.appsensor;
-using System.IO;
-using System.Collections.ObjectModel;
-using org.owasp.appsensor.criteria;
-using System;
-using Ninject;
-using org.owasp.appsensor.util;
-using System.Runtime.Serialization.Json;
-using System.Collections.Generic;
-using Newtonsoft.Json;
 namespace org.owasp.appsensor.storage {
     //@Loggable
     [Named("FileBasedResponseStore")]

@@ -1,6 +1,6 @@
 // import java.util.Collection;
 
-using org.owasp.appsensor.exceptions.NotAuthorizedException;
+using org.owasp.appsensor.exceptions;
 using System.Collections.ObjectModel;
 /**
  * The RequestHandler is the key interface that the server side of 
@@ -11,7 +11,8 @@ using System.Collections.ObjectModel;
 namespace org.owasp.appsensor{
 public interface RequestHandler {
 	
-	public static string APPSENSOR_CLIENT_APPLICATION_IDENTIFIER_ATTR = "APPSENSOR_CLIENT_APPLICATION_IDENTIFIER_ATTR";
+	//public static string APPSENSOR_CLIENT_APPLICATION_IDENTIFIER_ATTR = "APPSENSOR_CLIENT_APPLICATION_IDENTIFIER_ATTR";
+    static string APPSENSOR_CLIENT_APPLICATION_IDENTIFIER_ATTR = "APPSENSOR_CLIENT_APPLICATION_IDENTIFIER_ATTR";
 	
 	/**
 	 * Add an Event.
@@ -19,13 +20,15 @@ public interface RequestHandler {
 	 * @param event Event to Add
 	 */
     /// <exception cref="NotAuthorizedException"></exception>
-	public void addEvent (Event Event);
+	//public void addEvent (Event Event);
+    void addEvent(Event Event);
 	/**
 	 * Add an Attack
 	 * @param attack Attack to Add
 	 */
     /// <exception cref="NotAuthorizedException"></exception>
-	public void addAttack(Attack attack);
+	//public void addAttack(Attack attack);
+    void addAttack(Attack attack);
 	
 	/**
 	 * Retrieve any responses generated that apply to this client application 
@@ -35,6 +38,7 @@ public interface RequestHandler {
 	 * @return a Collection of Response objects 
 	 */
     /// <exception cref="NotAuthorizedException"></exception>
-	public Collection<Response> getResponses(string earliest);	
+	//public Collection<Response> getResponses(string earliest);
+    Collection<Response> getResponses(string earliest);
 }
 }

@@ -1,4 +1,4 @@
-using org.owasp.appsensor.ClientApplication;
+using org.owasp.appsensor;
 /**
  * Role is the standard attribution of an access to be used by the {@link AccessController} 
  * to determine {@link ClientApplication} access to the different pieces of functionality.

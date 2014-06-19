@@ -6,7 +6,7 @@ using org.owasp.appsensor.response;
  * 
  * @author John Melton (jtmelton@gmail.com) http://www.jtmelton.com/
  */
-namespace org.owasp.appsensor.Responses {
+namespace org.owasp.appsensor.responses {
 
     public interface ResponseHandler {
 	
@@ -27,7 +27,8 @@ namespace org.owasp.appsensor.Responses {
 	     * 
 	     * @param response {@link org.owasp.appsensor.Response} object that should be processed
 	     */
-	    public void handle(Response response);
+	    //public void handle(Response response);
+        void handle(Response response);
 	
     }
 }

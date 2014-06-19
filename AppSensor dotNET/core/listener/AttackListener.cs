@@ -1,6 +1,5 @@
-using org.owasp.appsensor.Attack;
-using org.owasp.appsensor.storage.AttackStore;
-using org.owasp.appsensor.storage.AttackStoreListener;
+using org.owasp.appsensor;
+using org.owasp.appsensor.storage;
 /**
  * This interface is implemented by classes that want to be notified
  * when a new {@link Attack} is created and stored in the AppSensor system. 
@@ -18,6 +17,7 @@ namespace org.owasp.appsensor.listener {
          * 
          * @param attack {@link Attack} that is added to the {@link AttackStore}
          */
-        public void onAdd(Attack attack);
+        //public void OnAdd(Response response);
+        void OnAdd(Response response);
     }
 }

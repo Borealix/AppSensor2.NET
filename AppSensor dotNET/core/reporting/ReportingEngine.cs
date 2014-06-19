@@ -1,14 +1,8 @@
 //using java.util.Collection;
-using org.owasp.appsensor.Attack;
-using org.owasp.appsensor.ClientApplication;
-using org.owasp.appsensor.Event;
-using org.owasp.appsensor.Response;
-using org.owasp.appsensor.exceptions.NotAuthorizedException;
-using org.owasp.appsensor.listener.AttackListener;
-using org.owasp.appsensor.listener.EventListener;
-using org.owasp.appsensor.listener.ResponseListener;
-using System.Collections.ObjectModel;
+using org.owasp.appsensor;
+using org.owasp.appsensor.exceptions;
 using org.owasp.appsensor.listener;
+using System.Collections.ObjectModel;
 /**
  * A reporting engine is an implementation of the observer pattern and 
  * extends the *Listener interfaces. 
@@ -30,7 +24,8 @@ namespace org.owasp.appsensor.reporting {
 	     * @throws NotAuthorizedException thrown if {@link ClientApplication} is not authorized for reporting
 	     */
         /// <exception cref="NotAuthorizedException"></exception>
-	    public Collection<Event> findEvents(string earliest);
+	    //public Collection<Event> findEvents(string earliest);
+        Collection<Event> findEvents(string earliest);
 	    /**
 	     * Find {@link Attack}s starting from specified time (unix timestamp)
 	     * 
@@ -39,7 +34,8 @@ namespace org.owasp.appsensor.reporting {
 	     * @throws NotAuthorizedException thrown if {@link ClientApplication} is not authorized for reporting
 	     */
 	    /// <exception cref="NotAuthorizedException"></exception>
-        public Collection<Attack> findAttacks(string earliest);
+        //public Collection<Attack> findAttacks(string earliest);
+        Collection<Attack> findAttacks(string earliest);
 	    /**
 	     * Find {@link Response}s starting from specified time (unix timestamp)
 	     * 
@@ -48,6 +44,7 @@ namespace org.owasp.appsensor.reporting {
 	     * @throws NotAuthorizedException thrown if {@link ClientApplication} is not authorized for reporting
 	     */
         /// <exception cref="NotAuthorizedException"></exception>
-        public Collection<Response> findResponses(string earliest);
+        //public Collection<Response> findResponses(string earliest);
+        Collection<Response> findResponses(string earliest);
     }
 }

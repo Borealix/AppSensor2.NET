@@ -4,12 +4,12 @@ import javax.inject.Named;
 
 import org.slf4j.Logger;
 */
-using org.owasp.appsensor.Responses;
-using org.owasp.appsensor.AppSensorClient;
-using org.owasp.appsensor.logging.Loggable;
+using org.owasp.appsensor;
+using org.owasp.appsensor.logging;
 using Ninject;
 using System;
 using log4net;
+using org.owasp.appsensor.responses;
 /**
  * This class should only be used as the server-side response handler
  * if you are in local mode. Otherwise, use a NO-OP implementation 

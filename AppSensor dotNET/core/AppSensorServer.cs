@@ -1,21 +1,10 @@
 using log4net;
 using Ninject;
 using org.owasp.appsensor.accesscontrol;
-/*import javax.inject.Inject;
-import javax.inject.Named;
-*/
-using org.owasp.appsensor.accesscontrol.AccessController;
 using org.owasp.appsensor.analysis;
-using org.owasp.appsensor.analysis.AttackAnalysisEngine;
-using org.owasp.appsensor.analysis.EventAnalysisEngine;
-using org.owasp.appsensor.analysis.ResponseAnalysisEngine;
 using org.owasp.appsensor.configuration.server;
-using org.owasp.appsensor.configuration.server.ServerConfiguration;
-using org.owasp.appsensor.logging.Loggable;
+using org.owasp.appsensor.logging;
 using org.owasp.appsensor.storage;
-using org.owasp.appsensor.storage.AttackStore;
-using org.owasp.appsensor.storage.EventStore;
-using org.owasp.appsensor.storage.ResponseStore;
 
 /**
  * AppSensor core class for accessing server-side components. Most components

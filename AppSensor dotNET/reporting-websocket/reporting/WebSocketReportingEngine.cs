@@ -1,34 +1,16 @@
-/*
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.Collection;
-
-import javax.inject.Named;
-import javax.websocket.ClientEndpoint;
-import javax.websocket.CloseReason;
-import javax.websocket.ContainerProvider;
-import javax.websocket.DeploymentException;
-import javax.websocket.OnClose;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
-import javax.websocket.Session;
-import javax.websocket.WebSocketContainer;
-*/
-using org.owasp.appsensor.Attack;
-using org.owasp.appsensor.Event;
-using org.owasp.appsensor.Response;
-using org.owasp.appsensor.logging.Loggable;
+using org.owasp.appsensor;
+using org.owasp.appsensor.logging;
 using Ninject;
 using System.Collections.ObjectModel;
 using log4net;
 using System;
 using SuperSocket.SocketBase;
 using System.IO;
-using System.Uri;
-using System.Deployment.Application.DeploymentException;
 using System.Deployment.Application;
 using System.Runtime.Serialization.Json;
+using SuperSocket.ClientEngine;
+using WebSocket4Net;
+//using System.Net.Sockets;
 
 /**
  * This is the websocket-based reporting engine, and is an implementation of the observer pattern. 
@@ -145,10 +127,13 @@ public class WebSocketReportingEngine : ReportingEngine {
 
 	private void ensureConnected() {
 		if (! webSocketInitialized) {
-			WebSocketContainer client = ContainerProvider.getWebSocketContainer();
+			//WebSocketContainer client = ContainerProvider.getWebSocketContainer();
+            WebSocket client = new WebSocket("ws://simple-websocket-dashboard/dashboard:8080");
+            //Socket client = new Socket(SocketType.Stream, ProtocolType.Tcp);
 
             try {
-                localSession = client.connectToServer(WebSocketReportingEngine.GetType, new Uri("ws://localhost:8080/simple-websocket-dashboard/dashboard"));
+                localSession = client.
+                //localSession = client.Connect("/simple-websocket-dashboard/dashboard", 8080);
                 webSocketInitialized = true;
             } catch(IOException e) {
                 throw new SystemException(e.Message);
@@ -158,6 +143,5 @@ public class WebSocketReportingEngine : ReportingEngine {
 	    	Console.Error.WriteLine("started and connected");
 		}
 	}
-	
 }
 }

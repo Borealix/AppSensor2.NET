@@ -1,12 +1,5 @@
-/*
-import javax.inject.Named;
-
-import org.springframework.beans.BeanUtils;
- */
-
 using Ninject;
 using org.owasp.appsensor.exceptions;
-using org.owasp.appsensor.exceptions.ConfigurationException;
 using System;
 using Tools.CopyProperties;
 //using 

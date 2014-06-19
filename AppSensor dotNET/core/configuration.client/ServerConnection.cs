@@ -1,5 +1,5 @@
 using Ninject;
-using org.owasp.appsensor.exceptions.ConfigurationException;
+using org.owasp.appsensor.exceptions;
 using System.Text;
 using Tools.HashCodeBuilder;
 /**

@@ -2,11 +2,9 @@
 using java.util.concurrent.CopyOnWriteArrayList;
 using javax.inject.Inject;*/
 using Ninject;
-using org.owasp.appsensor.Attack;
+using org.owasp.appsensor;
 using org.owasp.appsensor.criteria;
-using org.owasp.appsensor.criteria.SearchCriteria;
 using org.owasp.appsensor.listener;
-using org.owasp.appsensor.listener.AttackListener;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 /**

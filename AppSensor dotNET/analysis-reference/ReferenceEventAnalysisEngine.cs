@@ -1,26 +1,10 @@
-/*
-import java.util.Collection;
-import javax.inject.Inject;
-import javax.inject.Named;
-import org.joda.time.DateTime;
-import org.slf4j.Logger;
- */
 using System.Collections.ObjectModel;
 using System;
 using org.owasp.appsensor.util;
 using Ninject;
-
-using org.owasp.appsensor.AppSensorServer;
-using org.owasp.appsensor.Attack;
-using org.owasp.appsensor.DetectionPoint;
-using org.owasp.appsensor.Event;
-using org.owasp.appsensor.Interval;
-using org.owasp.appsensor.Threshold;
-using org.owasp.appsensor.User;
-using org.owasp.appsensor.logging.Loggable;
-using org.owasp.appsensor.storage.AttackStore;
-using org.owasp.appsensor.storage.EventStore;
-using org.owasp.appsensor.util.DateUtils;
+using org.owasp.appsensor;
+using org.owasp.appsensor.logging;
+using org.owasp.appsensor.storage;
 using org.owasp.appsensor.criteria;
 using log4net;
 /**

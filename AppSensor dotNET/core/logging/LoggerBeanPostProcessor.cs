@@ -1,14 +1,7 @@
-/*using java.lang.reflect.Field;
-using javax.inject.Named;
-using org.slf4j.LoggerFactory;
-using org.springframework.beans.BeansException;
-using org.springframework.beans.factory.config.BeanPostProcessor;*/
-
 using log4net;
 using Ninject;
 using System;
 using System.Reflection;
-using System.Reflection.TypeInfo;
 /**
  * This class is a Spring post-processor to use reflection to set
  * the logger fields of all classes marked as {@link Loggable}. 

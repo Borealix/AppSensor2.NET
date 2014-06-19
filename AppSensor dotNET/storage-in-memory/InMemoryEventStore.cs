@@ -1,27 +1,13 @@
-/*
-import java.util.List;
-import java.util.Collection;
-import java.util.concurrent.CopyOnWriteArrayList;
-import org.joda.time.DateTime;
-import org.slf4j.Logger;
-
-import javax.inject.Named;
-*/
-
-using org.owasp.appsensor.DetectionPoint;
-using org.owasp.appsensor.Event;
-using org.owasp.appsensor.User;
-using org.owasp.appsensor.criteria.SearchCriteria;
-using org.owasp.appsensor.listener.EventListener;
-using org.owasp.appsensor.logging.Loggable;
-using org.owasp.appsensor.util.DateUtils;
+using org.owasp.appsensor;
+using org.owasp.appsensor.criteria;
+using org.owasp.appsensor.listener;
+using org.owasp.appsensor.logging;
+using org.owasp.appsensor.util;
 using log4net;
 using System.Collections.ObjectModel;
-using org.owasp.appsensor.criteria;
 using System;
 using Ninject;
 using System.Collections.Generic;
-using org.owasp.appsensor.util;
 
 
 /**

@@ -1,8 +1,6 @@
-using org.owasp.appsensor.Event;
+using org.owasp.appsensor;
 using org.owasp.appsensor.listener;
-using org.owasp.appsensor.listener.EventListener;
-using org.owasp.appsensor.storage.EventStore;
-using org.owasp.appsensor.storage.EventStoreListener;
+using org.owasp.appsensor.storage;
 
 /**
  * The event analysis engine is an implementation of the Observer pattern. 

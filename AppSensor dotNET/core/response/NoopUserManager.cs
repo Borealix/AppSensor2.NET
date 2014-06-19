@@ -1,10 +1,9 @@
 //using javax.inject.Named;
 //using org.slf4j.Logger;
 
-using org.owasp.appsensor.User;
-using org.owasp.appsensor.logging.Loggable;
+using org.owasp.appsensor;
+using org.owasp.appsensor.logging;
 using log4net;
-using log4net.Config;
 using Ninject;
 
 

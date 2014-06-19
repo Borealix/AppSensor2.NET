@@ -3,9 +3,7 @@ using java.util.concurrent.CopyOnWriteArrayList;
 
 using javax.inject.Inject;
 */
-using org.owasp.appsensor.Event;
-using org.owasp.appsensor.criteria.SearchCriteria;
-using org.owasp.appsensor.listener.EventListener;
+using org.owasp.appsensor;
 using System.Collections.ObjectModel;
 using org.owasp.appsensor.listener;
 using org.owasp.appsensor.criteria;

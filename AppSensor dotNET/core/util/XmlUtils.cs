@@ -12,6 +12,7 @@ import javax.xml.validation.Validator;
 
 import org.xml.sax.SAXException;*/
 
+using System;
 using System.Collections.Generic;
 /**
  * Helper class for XML related utility methods
@@ -22,7 +23,6 @@ using System.IO;
 using System.Resources;
 using System.Xml;
 using System.Xml.Schema;
-using System.Xml.Schema.XmlSchema;
 namespace org.owasp.appsensor.util{
 public class XmlUtils {
 	
@@ -54,15 +54,35 @@ public class XmlUtils {
 	 * @throws IOException io exception for loading files
 	 * @throws SAXException sax exception for parsing files
 	 */
-    /// <exception cref="IOException"></exception>
-    /// /// <exception cref="SAXException"></exception>
-	//public static void validateXMLSchema(InputStream xsdStream, InputStream xmlStream) {
-    public static void validateXMLSchema(Stream xsdStream, Stream xmlStream) {
+
+    /*  public static void validateXMLSchema(InputStream xsdStream, InputStream xmlStream) throws IOException, SAXException {
         SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        Schema schema = factory.newSchema(new StreamSource(xsdStream));
+        Schema schema = factory.newSchema(new StreamSource(xsdStream)); Define un schema con "http://www.w3.org/2001/XMLSchema-instance" definido
         Validator validator = schema.newValidator();
         validator.validate(new StreamSource(xmlStream));
+    } */
+
+    /// <exception cref="IOException"></exception>
+    /// /// <exception cref="SAXException"></exception>
+    public static void validateXMLSchema(Stream xsdStream, Stream xmlStream) {
+        //XmlSchema schema = XmlSchema.Read(xsdStream, null);        
+        //schema.Namespaces.Add(string.Empty, "http://www.w3.org/2001/XMLSchema");
+        XmlReaderSettings schema = new XmlReaderSettings();
+        schema.Schemas.Add("http://www.w3.org/2001/XMLSchema", xsdStream.ToString());
+        schema.ValidationType = ValidationType.Schema;
+        schema.ValidationEventHandler += new ValidationEventHandler(schemaValidationEventHandler);
+        }
+
+    static void schemaValidationEventHandler(object sender, ValidationEventArgs e) {
+        if(e.Severity == XmlSeverityType.Warning) {
+            Console.Write("WARNING: ");
+            Console.WriteLine(e.Message);
+        } else if(e.Severity == XmlSeverityType.Error) {
+            Console.Write("ERROR: ");
+            Console.WriteLine(e.Message);
+        }
     }
+
 
 	/**
 	 * Helper method for getting qualified name from stax reader given a set of specified schema namespaces
@@ -76,11 +96,13 @@ public class XmlUtils {
 		string namespaceUri = null;
 		string localName = null;
 		
-		switch(xmlReader.getEventType()) {
-			case XMLStreamConstants.START_ELEMENT:
-			case XMLStreamConstants.END_ELEMENT:
-				namespaceUri = xmlReader.getNamespaceURI();
-				localName = xmlReader.getLocalName();
+		switch(xmlReader.NodeType) {
+			case XmlNodeType.Element:
+			case XmlNodeType.EndElement:
+				//namespaceUri = xmlReader.getNamespaceURI();
+                //localName = xmlReader.getLocalName();
+                namespaceUri = xmlReader.NamespaceURI;
+				localName = xmlReader.LocalName;
 				break;
 			default:
 				localName = StringUtils.EMPTY;

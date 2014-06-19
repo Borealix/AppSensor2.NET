@@ -1,33 +1,11 @@
-/*
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLResolver;
-import javax.xml.stream.XMLStreamConstants;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
- 
-import org.xml.sax.SAXException;
- */
-using org.owasp.appsensor.ClientApplication;
-using org.owasp.appsensor.DetectionPoint;
-using org.owasp.appsensor.Interval;
-using org.owasp.appsensor.Response;
-using org.owasp.appsensor.Threshold;
-using org.owasp.appsensor.accesscontrol.Role;
+using org.owasp.appsensor;
+using org.owasp.appsensor.accesscontrol;
 using org.owasp.appsensor.correlation;
-using org.owasp.appsensor.util.XmlUtils;
+using org.owasp.appsensor.util;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
-using org.owasp.appsensor.util;
 using org.owasp.appsensor.exceptions;
 using System.Collections.ObjectModel;
 /**
@@ -90,7 +68,8 @@ public class StaxServerConfigurationReader : ServerConfigurationReader {
             xmlFactory.DtdProcessing = DtdProcessing.Ignore;
 			//xmlFactory.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, true);
 			//xmlFactory.setProperty(XMLInputFactory.IS_VALIDATING, false);
-            xmlFactory.ValidationType = ValidationType.None;
+            //xmlFactory.ValidationType = ValidationType.None;
+            xmlFactory.ValidationType = ValidationType.Schema;
             xmlFactory.XmlResolver = null;
 			
 			XmlUtils.validateXMLSchema(xsd, xml);
@@ -129,35 +108,73 @@ public class StaxServerConfigurationReader : ServerConfigurationReader {
 		    
 		return configuration;
 	}
-	
+
+    /*private ServerConfiguration readServerConfiguration(XmlReader xmlReader) {
+        ServerConfiguration configuration = new StaxServerConfiguration(false);
+        bool finished = false;
+
+        while(!finished && xmlReader.hasNext()) {
+            //int Event = xmlReader.next();
+            string name = XmlUtils.getElementQualifiedName(xmlReader, namespaces);
+
+            switch(Event) {
+                case XMLStreamConstants.START_ELEMENT:
+                    if("config:appsensor-server-config".Equals(name)) {
+                        //
+                    } else if("config:client-application-identification-header-name".Equals(name)) {
+                        configuration.setClientApplicationIdentificationHeaderName(xmlReader.getElementText().Trim());
+                    } else if("config:client-applications".Equals(name)) {
+                        configuration.getClientApplications().addAll(readClientApplications(xmlReader));
+                    } else if("config:correlation-config".Equals(name)) {
+                        configuration.getCorrelationSets().addAll(readCorrelationSets(xmlReader));
+                    } else if("config:detection-point".Equals(name)) {
+                        configuration.getDetectionPoints().Add(readDetectionPoint(xmlReader));
+                    } else {
+                        /** unexpected start element **
+                    }
+                    break;
+                case XMLStreamConstants.END_ELEMENT:
+                    if("config:appsensor-server-config".Equals(name)) {
+                        finished = true;
+                    } else {
+                        /** unexpected end element **
+                    }
+                    break;
+                default:
+                    /** unused xml element - nothing to do **
+                    break;
+            }
+        }
+
+        return configuration;
+    }*/
+
+    /// <exception cref="XMLStreamException"></exception>
 	private ServerConfiguration readServerConfiguration(XmlReader xmlReader) {
-        /// <exception cref="XMLStreamException"></exception>
 		ServerConfiguration configuration = new StaxServerConfiguration(false);
 		bool finished = false;
 		
-		//while(!finished && xmlReader.hasNext()) {
-        while(!finished && xmlReader.MoveToNextAttribute()) {
-			//int Event = xmlReader.next();
-            int Event = xmlReader.read
+		while(!finished && xmlReader.Read()) {
+            //int Event = xmlReader.next();
 			string name = XmlUtils.getElementQualifiedName(xmlReader, namespaces);
 
-			switch(Event) {		
-				case XMLStreamConstants.START_ELEMENT:
+			switch(xmlReader.NodeType) {
+                case XmlNodeType.Element:
 					if("config:appsensor-server-config".Equals(name)) {
 						//
 					} else if("config:client-application-identification-header-name".Equals(name)) {
-						configuration.setClientApplicationIdentificationHeaderName(xmlReader.getElementText().Trim());
+                        configuration.setClientApplicationIdentificationHeaderName(xmlReader.ReadString().Trim());
 					} else if("config:client-applications".Equals(name)) {
-						configuration.getClientApplications().addAll(readClientApplications(xmlReader));
+						configuration.getClientApplications().UnionWith(readClientApplications(xmlReader));
 					} else if("config:correlation-config".Equals(name)) {
-						configuration.getCorrelationSets().addAll(readCorrelationSets(xmlReader));
+						configuration.getCorrelationSets().UnionWith(readCorrelationSets(xmlReader));
 					} else if("config:detection-point".Equals(name)) {
 						configuration.getDetectionPoints().Add(readDetectionPoint(xmlReader));
 					} else {
 						/** unexpected start element **/
 					}
 					break;
-				case XMLStreamConstants.END_ELEMENT:
+				case XmlNodeType.EndElement:
 					if("config:appsensor-server-config".Equals(name)) {
 						finished = true;
 					} else {
@@ -180,23 +197,24 @@ public class StaxServerConfigurationReader : ServerConfigurationReader {
 		
 		ClientApplication clientApplication = null;
 		
-		while(!finished && xmlReader.MoveToNextAttribute()) {
-			int Event = xmlReader.next();
+		while(!finished && xmlReader.Read()) {
+			//int Event = xmlReader.next();
 			string name = XmlUtils.getElementQualifiedName(xmlReader, namespaces);
 			
-			switch(Event) {
-				case XMLStreamConstants.START_ELEMENT:
+			switch(xmlReader.NodeType) {
+				case XmlNodeType.Element:
 					if("config:client-application".Equals(name)) {
 						clientApplication = new ClientApplication();
 					} else if("config:name".Equals(name)) {
-						clientApplication.setName(xmlReader.getElementText().Trim());
+						clientApplication.setName(xmlReader.ReadString().Trim());
 					} else if("config:role".Equals(name)) {
-						clientApplication.getRoles().Add(Role.valueOf(xmlReader.getElementText().Trim()));
+                        // clientApplication.getRoles().add(Role.valueOf(xmlReader.getElementText().trim()));
+                        clientApplication.getRoles().Add((Role)Enum.Parse(typeof(Role), xmlReader.ReadString().Trim()));
 					} else {
 						/** unexpected start element **/
 					}
 					break;
-				case XMLStreamConstants.END_ELEMENT:
+				case XmlNodeType.EndElement:
 					if("config:client-application".Equals(name)) {
 						clientApplications.Add(clientApplication);
 					} else if("config:client-applications".Equals(name)) {
@@ -221,20 +239,20 @@ public class StaxServerConfigurationReader : ServerConfigurationReader {
 		CorrelationSet correlationSet = null;
 		
 		while(!finished && xmlReader.MoveToNextAttribute()) {
-			int Event = xmlReader.next();
+			//int Event = xmlReader.next();
 			string name = XmlUtils.getElementQualifiedName(xmlReader, namespaces);
 			
-			switch(Event) {
-				case XMLStreamConstants.START_ELEMENT:
+			switch(xmlReader.NodeType) {
+				case XmlNodeType.Element:
 					if("config:correlated-client-set".Equals(name)) {
 						correlationSet = new CorrelationSet();
 					} else if("config:client-application-name".Equals(name)) {
-						correlationSet.getClientApplications().Add(xmlReader.getElementText().Trim());
+						correlationSet.getClientApplications().Add(xmlReader.ReadString().Trim());
 					} else {
 						/** unexpected start element **/
 					}
 					break;
-				case XMLStreamConstants.END_ELEMENT:
+				case XmlNodeType.EndElement:
 					if("config:correlated-client-set".Equals(name)) {
 						correlationSets.Add(correlationSet);
 					} else if("config:correlation-config".Equals(name)) {
@@ -257,13 +275,13 @@ public class StaxServerConfigurationReader : ServerConfigurationReader {
 		bool finished = false;
 		
 		while(!finished && xmlReader.MoveToNextAttribute()) {
-			int Event = xmlReader.next();
+			//int Event = xmlReader.next();
 			string name = XmlUtils.getElementQualifiedName(xmlReader, namespaces);
 			
-			switch(Event) {
-				case XMLStreamConstants.START_ELEMENT:
+			switch(xmlReader.NodeType) {
+				case XmlNodeType.Element:
 					if("config:id".Equals(name)) {
-						detectionPoint.setId(xmlReader.getElementText().Trim());
+						detectionPoint.setId(xmlReader.ReadString().Trim());
 					} else if("config:threshold".Equals(name)) {
 						detectionPoint.setThreshold(readThreshold(xmlReader));
 					} else if("config:response".Equals(name)) {
@@ -272,7 +290,7 @@ public class StaxServerConfigurationReader : ServerConfigurationReader {
 						/** unexpected start element **/
 					}
 					break;
-				case XMLStreamConstants.END_ELEMENT:
+				case XmlNodeType.EndElement:
 					if("config:detection-point".Equals(name)) {
 						finished = true;
 					} else {
@@ -294,23 +312,24 @@ public class StaxServerConfigurationReader : ServerConfigurationReader {
 		bool finished = false;
 		
 		while(!finished && xmlReader.MoveToNextAttribute()) {
-			int Event = xmlReader.next();
+			//int Event = xmlReader.next();
 			string name = XmlUtils.getElementQualifiedName(xmlReader, namespaces);
 			
-			switch(Event) {
-				case XMLStreamConstants.START_ELEMENT:
+			switch(xmlReader.NodeType) {
+				case XmlNodeType.Element:
 					if("config:count".Equals(name)) {
-						threshold.setCount(Integer.parseInt(xmlReader.getElementText().Trim()));
+						threshold.setCount(Int32.Parse(xmlReader.ReadString().Trim()));
 					} else if("config:interval".Equals(name)) {
 						Interval interval = new Interval();
-						interval.setUnit(xmlReader.getAttributeValue(null, "unit").Trim());
-						interval.setDuration(Integer.parseInt(xmlReader.getElementText().Trim()));
+						//interval.setUnit(xmlReader.getAttributeValue(null, "unit").Trim());
+                        interval.setUnit(xmlReader.GetAttribute("unit", null).Trim());
+						interval.setDuration(Int32.Parse(xmlReader.ReadString().Trim()));
 						threshold.setInterval(interval);
 					} else {
 						/** unexpected start element **/
 					}
 					break;
-				case XMLStreamConstants.END_ELEMENT:
+				case XmlNodeType.EndElement:
 					if("config:threshold".Equals(name)) {
 						finished = true;
 					} else {
@@ -332,23 +351,30 @@ public class StaxServerConfigurationReader : ServerConfigurationReader {
 		bool finished = false;
 		
 		while(!finished && xmlReader.MoveToNextAttribute()) {
-			int Event = xmlReader.next();
+			//int Event = xmlReader.next();
 			string name = XmlUtils.getElementQualifiedName(xmlReader, namespaces);
 			
-			switch(Event) {
-				case XMLStreamConstants.START_ELEMENT:
+			switch(xmlReader.NodeType) {
+				case XmlNodeType.Element:
 					if("config:action".Equals(name)) {
-						response.setAction(xmlReader.getElementText().Trim());
+						response.setAction(xmlReader.ReadString().Trim());
 					} else if("config:interval".Equals(name)) {
 						Interval interval = new Interval();
-						interval.setUnit(xmlReader.getAttributeValue(null, "unit").Trim());
-						interval.setDuration(Integer.parseInt(xmlReader.getElementText().Trim()));
+                        // interval.setUnit(xmlReader.getAttributeValue(null, "unit").Trim());
+                        interval.setUnit(xmlReader.GetAttribute("unit", null).Trim());
+                        /*
+                         * getAttributeValue takes as parameters namespaceURI and localName
+                         * GetAttribute takes as parameters localName and namespaceURI
+                         * 
+                         * Migrator's note.
+                         */
+                        interval.setDuration(Int32.Parse(xmlReader.ReadString().Trim()));
 						response.setInterval(interval);
 					} else {
 						/** unexpected start element **/
-					}
+                    }
 					break;
-				case XMLStreamConstants.END_ELEMENT:
+				case XmlNodeType.EndElement:
 					if("config:response".Equals(name)) {
 						finished = true;
 					} else {

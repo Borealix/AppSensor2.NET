@@ -1,24 +1,12 @@
-/*
-import java.util.Collection;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import org.joda.time.DateTime;
-import org.slf4j.Logger;
-*/
-using org.owasp.appsensor.Attack;
-using org.owasp.appsensor.Events;
-using org.owasp.appsensor.Response;
-using org.owasp.appsensor.handler.LocalRequestHandler;
-using org.owasp.appsensor.logging.Loggable;
-using org.owasp.appsensor.util.DateUtils;
+using org.owasp.appsensor;
 using org.owasp.appsensor.handler;
-using System;
+using org.owasp.appsensor.logging;
 using org.owasp.appsensor.util;
+using System;
 using System.Collections.ObjectModel;
 using Ninject;
 using log4net;
+using org.owasp.appsensor.events;
 /**
  * Local {@link EventManager} that is used when the application is configured
  * to run within the same JVM as the Analysis Engine.  

@@ -1,16 +1,8 @@
-/*
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import org.slf4j.Logger;
- */
 using Ninject;
-
-using org.owasp.appsensor.AppSensorClient;
-using org.owasp.appsensor.Response;
-using org.owasp.appsensor.logging.Loggable;
-using org.owasp.appsensor.Responses;
-using org.owasp.appsensor.storage.ResponseStore;
+using org.owasp.appsensor;
+using org.owasp.appsensor.logging;
+using org.owasp.appsensor.responses;
+using org.owasp.appsensor.storage;
 using log4net;
 /**
  * This is a reference {@link Response} analysis engine, 

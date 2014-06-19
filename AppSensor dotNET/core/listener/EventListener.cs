@@ -1,6 +1,5 @@
-using org.owasp.appsensor.Event;
-using org.owasp.appsensor.storage.EventStore;
-using org.owasp.appsensor.storage.EventStoreListener;
+using org.owasp.appsensor;
+using org.owasp.appsensor.storage;
 /**
  * This interface is implemented by classes that want to be notified
  * when a new {@link Event} is created and stored in the AppSensor system. 
@@ -17,6 +16,7 @@ namespace org.owasp.appsensor.listener {
 	     * 
 	     * @param event {@link Event} that is added to the {@link EventStore}
 	     */
-	    public void OnAdd(Event Event);
+	    //public void OnAdd(Event Event);
+        void OnAdd(Event Event);
     }
 }

@@ -1,18 +1,6 @@
-/*
-import java.util.List;
-import java.util.Collection;
-import javax.inject.Inject;
-import javax.inject.Named;
-import org.slf4j.Logger;
- */
-using org.owasp.appsensor.AppSensorServer;
-using org.owasp.appsensor.Attack;
-using org.owasp.appsensor.DetectionPoint;
-using org.owasp.appsensor.Interval;
-using org.owasp.appsensor.Response;
-using org.owasp.appsensor.logging.Loggable;
-using org.owasp.appsensor.storage.AttackStore;
-using org.owasp.appsensor.storage.ResponseStore;
+using org.owasp.appsensor;
+using org.owasp.appsensor.logging;
+using org.owasp.appsensor.storage;
 using org.owasp.appsensor.criteria;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
