@@ -21,7 +21,7 @@ using System.Collections.Generic;
  */
 //@Loggable
 namespace org.owasp.appsensor.storage {
-    [Named("InMemoryResponseStore")]
+    // [Named("InMemoryResponseStore")]
     public class InMemoryResponseStore : ResponseStore {
 
         private ILog Logger;

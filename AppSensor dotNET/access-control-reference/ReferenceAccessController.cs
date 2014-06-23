@@ -15,7 +15,7 @@ using log4net;
  */
 namespace org.owasp.appsensor.accesscontrol {
 //@Loggable
-[Named("ReferenceAccessController")]
+// [Named("ReferenceAccessController")]
 public class ReferenceAccessController : AccessController {
 	
 	//@SuppressWarnings("unused")
@@ -24,7 +24,8 @@ public class ReferenceAccessController : AccessController {
 	/**
 	 * {@inheritDoc}
 	 */
-	public override bool isAuthorized(ClientApplication ClientApplication, Action Action, Context Context) {
+    //public override bool isAuthorized(ClientApplication ClientApplication, Action Action, Context Context) {
+	public bool isAuthorized(ClientApplication ClientApplication, Action Action, Context Context) {
 		bool authorized = false;
 
 		//if (ClientApplication != null && Action != null && Action.ToString() != null && Action.ToString().Trim().Length() > 0) {
@@ -47,7 +48,8 @@ public class ReferenceAccessController : AccessController {
 	/**
 	 * {@inheritDoc}
 	 */
-	public override void assertAuthorized(ClientApplication clientApplication, Action action, Context context) {
+	//public override void assertAuthorized(ClientApplication clientApplication, Action action, Context context) {
+    public void assertAuthorized(ClientApplication clientApplication, Action action, Context context) {
         //throws NotAuthorizedException {
         /// <exception cref="NotAuthorizedException"></exception>
 		if (! isAuthorized(clientApplication, action, context)) {

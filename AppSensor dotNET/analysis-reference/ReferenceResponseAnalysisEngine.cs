@@ -17,7 +17,7 @@ using log4net;
  */
 namespace org.owasp.appsensor.analysis {
     //@Loggable
-    [Named("ReferenceResponseAnalysisEngine")]
+    // [Named("ReferenceResponseAnalysisEngine")]
     public class ReferenceResponseAnalysisEngine : ResponseAnalysisEngine {
 
         private ILog Logger;
@@ -31,7 +31,8 @@ namespace org.owasp.appsensor.analysis {
          * 
          * @param response {@link Response} that has been added to the {@link ResponseStore}.
          */
-        public override void analyze(Response response) {
+        //public override void analyze(Response response) {
+        public void analyze(Response response) {
             if(response != null) {
                 Logger.Info("Response executed for user <" + response.GetUser().getUsername() + "> - executing response action " + response.getAction());
 

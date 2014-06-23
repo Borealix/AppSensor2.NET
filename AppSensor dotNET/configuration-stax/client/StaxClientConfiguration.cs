@@ -9,7 +9,7 @@ using Tools.CopyProperties;
  * @author John Melton (jtmelton@gmail.com) http://www.jtmelton.com/
  */
 namespace org.owasp.appsensor.configuration.client {
-[Named("StaxClientConfiguration")]
+// [Named("StaxClientConfiguration")]
 public class StaxClientConfiguration : ClientConfiguration {
     public StaxClientConfiguration() {
         InitClass(true);
@@ -46,7 +46,7 @@ public class StaxClientConfiguration : ClientConfiguration {
             configuration = configurationReader.read();
         } catch(ConfigurationException pe) {
             //throw new RuntimeException(pe);
-            throw new SystemException(pe.Message);
+            throw new Exception(pe.Message);
         }
 
         return configuration;

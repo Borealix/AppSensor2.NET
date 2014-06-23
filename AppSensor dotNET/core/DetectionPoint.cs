@@ -90,7 +90,8 @@ public class DetectionPoint{
 		return this;
 	}
 
-	public override int hashCode() {
+	//public override int hashCode() {
+    public int hashCode() {
 		return new HashCodeBuilder().
 				Add(id).
                 Add(threshold).
@@ -120,7 +121,8 @@ public class DetectionPoint{
         } else { return false;}
 	}
 	
-	public override string toString() {
+	//public override string toString() {
+    public string toString() {
 		return new StringBuilder().
 			       AppendFormat("id", id).
 			       AppendFormat("threshold", threshold).

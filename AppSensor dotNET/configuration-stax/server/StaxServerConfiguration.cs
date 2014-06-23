@@ -9,7 +9,7 @@ using System;
  */
 namespace org.owasp.appsensor.configuration.server {
 
-[Named("StaxServerConfiguration")]
+// [Named("StaxServerConfiguration")]
 public class StaxServerConfiguration : ServerConfiguration {
 
 	public StaxServerConfiguration() {

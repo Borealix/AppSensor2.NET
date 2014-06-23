@@ -100,7 +100,8 @@ public class Event{
 		return this;
 	}
 	
-	public override int hashCode() {
+	//public override int hashCode() {
+    public int hashCode() {
 		return new HashCodeBuilder().
 				Add(user).
 				Add(detectionPoint).
@@ -138,7 +139,8 @@ public class Event{
         }
 	}
 	
-	public override string toString() {
+	//public override string toString() {
+    public string toString() {
 		//return new StringBuilder(this).
         return new StringBuilder().
 				AppendFormat("user", user).

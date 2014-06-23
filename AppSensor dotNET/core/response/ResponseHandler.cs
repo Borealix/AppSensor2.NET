@@ -8,7 +8,8 @@ using org.owasp.appsensor.response;
  */
 namespace org.owasp.appsensor.responses {
 
-    public interface ResponseHandler {
+    //public interface ResponseHandler {
+    public abstract class ResponseHandler {
 	
 	    /** provide increased logging for this specific user */
 	    public static string LOG = "log";
@@ -28,7 +29,8 @@ namespace org.owasp.appsensor.responses {
 	     * @param response {@link org.owasp.appsensor.Response} object that should be processed
 	     */
 	    //public void handle(Response response);
-        void handle(Response response);
+        public void handle(Response response) {
+        }
 	
     }
 }

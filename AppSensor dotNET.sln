@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppSensor dotNET", "AppSensor dotNET\AppSensor dotNET.csproj", "{7686FB7F-F993-4624-A965-A39C473C0374}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{F9BEAC1C-D316-4E8C-A532-523316786D39}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{7686FB7F-F993-4624-A965-A39C473C0374}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7686FB7F-F993-4624-A965-A39C473C0374}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7686FB7F-F993-4624-A965-A39C473C0374}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9BEAC1C-D316-4E8C-A532-523316786D39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9BEAC1C-D316-4E8C-A532-523316786D39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9BEAC1C-D316-4E8C-A532-523316786D39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9BEAC1C-D316-4E8C-A532-523316786D39}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

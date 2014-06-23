@@ -1,6 +1,7 @@
 // import java.util.Collection;
 
 using org.owasp.appsensor.exceptions;
+using System;
 using System.Collections.ObjectModel;
 /**
  * The RequestHandler is the key interface that the server side of 
@@ -9,7 +10,8 @@ using System.Collections.ObjectModel;
  * @author John Melton (jtmelton@gmail.com) http://www.jtmelton.com/
  */
 namespace org.owasp.appsensor{
-public interface RequestHandler {
+    //public interface RequestHandler {
+    public abstract class RequestHandler {
 	
 	//public static string APPSENSOR_CLIENT_APPLICATION_IDENTIFIER_ATTR = "APPSENSOR_CLIENT_APPLICATION_IDENTIFIER_ATTR";
     static string APPSENSOR_CLIENT_APPLICATION_IDENTIFIER_ATTR = "APPSENSOR_CLIENT_APPLICATION_IDENTIFIER_ATTR";
@@ -21,14 +23,16 @@ public interface RequestHandler {
 	 */
     /// <exception cref="NotAuthorizedException"></exception>
 	//public void addEvent (Event Event);
-    void addEvent(Event Event);
+    void addEvent(Event Event) {
+    }
 	/**
 	 * Add an Attack
 	 * @param attack Attack to Add
 	 */
     /// <exception cref="NotAuthorizedException"></exception>
 	//public void addAttack(Attack attack);
-    void addAttack(Attack attack);
+    void addAttack(Attack attack) {
+    }
 	
 	/**
 	 * Retrieve any responses generated that apply to this client application 
@@ -39,6 +43,8 @@ public interface RequestHandler {
 	 */
     /// <exception cref="NotAuthorizedException"></exception>
 	//public Collection<Response> getResponses(string earliest);
-    Collection<Response> getResponses(string earliest);
+    Collection<Response> getResponses(string earliest) {
+        throw new Exception();
+    }
 }
 }

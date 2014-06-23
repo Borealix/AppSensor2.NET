@@ -21,7 +21,7 @@ public interface ServerConfigurationReader {
 	 * @return populated configuration object
 	 * @throws ConfigurationException
 	 */
-	public  ServerConfiguration read();  //throws ConfigurationException{
+	ServerConfiguration read();  //throws ConfigurationException{
 	
 	/**
 	 * 

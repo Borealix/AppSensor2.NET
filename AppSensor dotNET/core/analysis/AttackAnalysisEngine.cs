@@ -16,7 +16,8 @@ using org.owasp.appsensor.storage;
 
 namespace org.owasp.appsensor.analysis {
     //@AttackStoreListener
-    public abstract class AttackAnalysisEngine : AttackListener {
+    //public abstract class AttackAnalysisEngine : AttackListener {
+    public abstract class AttackAnalysisEngine {
 
         public void onAdd(Attack attack) {
             analyze(attack);

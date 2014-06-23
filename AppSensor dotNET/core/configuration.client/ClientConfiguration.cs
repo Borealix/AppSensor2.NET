@@ -27,7 +27,8 @@ namespace org.owasp.appsensor.configuration.client {
             return this;
         }
 
-        public override int hashCode() {
+        //public override int hashCode() {
+        public int hashCode() {
             return new HashCodeBuilder().
                             Add(serverConnection).
                             GetHashCode();
@@ -53,7 +54,8 @@ namespace org.owasp.appsensor.configuration.client {
             }
         }
 
-        public override string toString() {
+        //public override string toString() {
+        public string toString() {
             return new StringBuilder().
                             AppendFormat("serverConnection", serverConnection).
                             ToString();

@@ -23,7 +23,7 @@ using System.Collections.Generic;
  */
 namespace org.owasp.appsensor.storage{
 //@Loggable
-[Named("InMemoryEventStore")]
+// [Named("InMemoryEventStore")]
 public class InMemoryEventStore : EventStore {
 	
 	private ILog Logger;

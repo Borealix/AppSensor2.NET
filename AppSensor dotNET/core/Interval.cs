@@ -92,7 +92,8 @@ public class Interval {
 		return millis;
 	}
 	
-	public override int hashCode() {
+	//public override int hashCode() {
+    public int hashCode() {
 		return new HashCodeBuilder().
 				Add(duration).
 				Add(unit).
@@ -121,7 +122,8 @@ public class Interval {
         }
 	}
 	
-	public override string toString() {
+	//public override string toString() {
+    public string toString() {
 		//return new ToStringBuilder().
         return new StringBuilder().
 			       AppendFormat("duration", duration).

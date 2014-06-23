@@ -162,7 +162,8 @@ public abstract class ServerConfiguration {
 		return clientApplication;
 	}
 
-	public override int hashCode() {
+	//public override int hashCode() {
+    public int hashCode() {
 		return new HashCodeBuilder().
 				Add(detectionPoints).
 				Add(correlationSets).
@@ -171,7 +172,8 @@ public abstract class ServerConfiguration {
 				GetHashCode();
 	}
 	
-	public override bool equals(object obj) {
+	//public override bool equals(object obj) {
+    public bool equals(object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -197,7 +199,8 @@ public abstract class ServerConfiguration {
         }
 	}
 	
-	public override string toString() {
+	//public override string toString() {
+    public string toString() {
 		return new StringBuilder().
 			    AppendFormat("detectionPoints", detectionPoints).
 			    AppendFormat("correlationSets", correlationSets).

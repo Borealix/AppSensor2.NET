@@ -17,7 +17,7 @@ using Ninject;
  */
 namespace org.owasp.appsensor.response {
     //@Loggable
-    [Named("NoopUserManager")]
+    // [Named("NoopUserManager")]
     public class NoopUserManager : UserManager {
 
         private ILog logger;

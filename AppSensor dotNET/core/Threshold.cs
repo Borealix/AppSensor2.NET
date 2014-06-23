@@ -59,7 +59,8 @@ public class Threshold {
 		return this;
 	}
 	
-	public override int hashCode() {
+	//public override int hashCode() {
+    public int hashCode() {
 		return new HashCodeBuilder().
 				Add(count).
 				Add(interval).
@@ -88,7 +89,8 @@ public class Threshold {
         }
 	}
 	
-	public override string toString() {
+	//public override string toString() {
+    public string toString() {
 		return new StringBuilder().
 			       AppendFormat("count", count).
 			       AppendFormat("interval", interval).

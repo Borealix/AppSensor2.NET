@@ -15,7 +15,7 @@ using org.owasp.appsensor.storage;
  * @author Raphaël Taban
  */
 namespace org.owasp.appsensor{
-[Named("AppSensorServer")]
+// [Named("AppSensorServer")]
 public class AppSensorServer {
 	
 	//@SuppressWarnings("unused")

@@ -37,7 +37,8 @@ public class StaxClientConfigurationReader : ClientConfigurationReader {
 	/**
 	 * {@inheritDoc}
 	 */
-	public override ClientConfiguration read() {
+	//public override ClientConfiguration read() {
+    public ClientConfiguration read() {
         /// <exception cref="ConfigurationException"></exception>
 		string defaultXmlLocation = "/appsensor-client-config.xml";
 		string defaultXsdLocation = "/appsensor_client_config_2.0.xsd";
@@ -48,7 +49,8 @@ public class StaxClientConfigurationReader : ClientConfigurationReader {
 	/**
 	 * {@inheritDoc}
 	 */
-	public override ClientConfiguration read(string xml, string xsd) {
+	//public override ClientConfiguration read(string xml, string xsd) {
+    public ClientConfiguration read(string xml, string xsd) {
         /// <exception cref="ConfigurationException"></exception>
 		ClientConfiguration configuration = null;
 		//InputStream xmlInputStream = null;
@@ -81,9 +83,9 @@ public class StaxClientConfigurationReader : ClientConfigurationReader {
 		/*} catch(XMLStreamException | IOException | SAXException e) {*/
             //throw new ConfigurationException(e.getMessage(), e);
             } catch(XmlException e) {
-                throw new ConfigurationException (e.Message, e);;
+                throw new org.owasp.appsensor.exceptions.ConfigurationException (e.Message, e);;
             } catch (IOException e) {
-                throw new ConfigurationException (e.Message, e);;
+                throw new org.owasp.appsensor.exceptions.ConfigurationException (e.Message, e);;
 		} finally {
 			if(xmlReader != null) {
 				try {

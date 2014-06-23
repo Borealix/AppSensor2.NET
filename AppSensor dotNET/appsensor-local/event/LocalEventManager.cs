@@ -16,7 +16,7 @@ using org.owasp.appsensor.events;
  */
 namespace org.owasp.appsensor.events {
 //@Loggable
-[Named("LocalEventManager")]
+// [Named("LocalEventManager")]
 public class LocalEventManager : EventManager {
 	
 	//@SuppressWarnings("unused")
@@ -30,21 +30,24 @@ public class LocalEventManager : EventManager {
 	/**
 	 * {@inheritDoc}
 	 */
-	public override void addEvent(Event Event) {
+    // public override void addEvent(Event Event) {
+    public void addEvent(Event Event) {
 		requestHandler.addEvent(Event);
 	}
 	
 	/**
 	 * {@inheritDoc}
 	 */
-	public override void addAttack(Attack attack) {
+	//public override void addAttack(Attack attack) {
+    public void addAttack(Attack attack) {
 		requestHandler.addAttack(attack);
 	}
 	
 	/**
 	 * {@inheritDoc}
 	 */
-	public override Collection<Response> getResponses() {
+	//public override Collection<Response> getResponses() {
+    public Collection<Response> getResponses() {
 		Collection<Response> responses = requestHandler.getResponses(responsesLastChecked.ToString());
 		
 		//now update last checked

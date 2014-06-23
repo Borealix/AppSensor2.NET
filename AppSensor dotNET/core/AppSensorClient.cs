@@ -16,9 +16,8 @@ using org.owasp.appsensor.responses;
  * @author Raphaël Taban
  */
 namespace org.owasp.appsensor{
-[Named ("")]
 //@Loggable
-[Named("AppSensorClient")]
+// [Named("AppSensorClient")]
 public class AppSensorClient {
 	
 	//@SuppressWarnings("unused")

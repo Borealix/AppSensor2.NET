@@ -16,11 +16,12 @@ using org.owasp.appsensor.listener;
 
 namespace org.owasp.appsensor.analysis {
     //@ResponseStoreListener
-    public abstract class ResponseAnalysisEngine :  ResponseListener {
+    //public abstract class ResponseAnalysisEngine :  ResponseListener {
+    public abstract class ResponseAnalysisEngine {
         public void onAdd(Response response) {
             analyze( response); 
         }
-        public abstract void analyze(Response response) {
+        public void analyze(Response response) {
         }
     }
 }

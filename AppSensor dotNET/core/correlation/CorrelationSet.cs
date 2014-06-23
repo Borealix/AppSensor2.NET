@@ -43,7 +43,8 @@ namespace org.owasp.appsensor.correlation {
 		    return this;
 	    }
 
-	    public override int hashCode() {
+	    //public override int hashCode() {
+        public int hashCode() {
 		    return new HashCodeBuilder().
 				    Add(clientApplications).
 				    GetHashCode();
@@ -70,7 +71,8 @@ namespace org.owasp.appsensor.correlation {
             }
 	    }
 	
-	    public override string toString() {
+	    //public override string toString() {
+        public string toString() {
 		    //return new StringBuilder(this).
             return new StringBuilder().
 			           AppendFormat("clientApplications", clientApplications).

@@ -12,9 +12,10 @@ using System.Reflection;
  * @author Raphaël Taban
  */
 namespace org.owasp.appsensor.logging {
-[Named("LoggerBeanPostProcessor")]
+// [Named("LoggerBeanPostProcessor")]
 //public class LoggerBeanPostProcessor : BeanPostProcessor {
-    public class LoggerBeanPostProcessor : TypeInfo {
+    //public class LoggerBeanPostProcessor : TypeInfo {
+    public class LoggerBeanPostProcessor {
 
     /// <exception cref="BeansException"></exception>
     public object postProcessAfterInitialization(object bean, string beanName) {

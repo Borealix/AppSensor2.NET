@@ -29,8 +29,9 @@ namespace org.owasp.appsensor.reporting {
 /*
 @Loggable
 @ClientEndpoint*/
-[Named("WebSocketReportingEngine")]
-public class WebSocketReportingEngine : ReportingEngine {
+// [Named("WebSocketReportingEngine")]
+//public class WebSocketReportingEngine : ReportingEngine {
+    public class WebSocketReportingEngine {
 	
 	//private Session localSession = null;
     private AppSession localSession = null;
@@ -46,7 +47,8 @@ public class WebSocketReportingEngine : ReportingEngine {
 	/**
 	 * {@inheritDoc}
 	 */
-	public override void onAdd(Event Event) {
+	//public override void onAdd(Event Event) {
+    public void onAdd(Event Event) {
 		notifyWebSocket("event", Event);
 		
 		Logger.Info("Reporter observed event by user [" + Event.GetUser().getUsername() + "]");
@@ -55,7 +57,8 @@ public class WebSocketReportingEngine : ReportingEngine {
 	/**
 	 * {@inheritDoc}
 	 */
-	public override void onAdd(Attack attack) {
+	//public override void onAdd(Attack attack) {
+    public void onAdd(Attack attack) {
 		notifyWebSocket("attack", attack);
 		
 		Logger.Info("Reporter observed attack by user [" + attack.GetUser().getUsername() + "]");
@@ -64,7 +67,8 @@ public class WebSocketReportingEngine : ReportingEngine {
 	/**
 	 * {@inheritDoc}
 	 */
-	public override void onAdd(Response response) {
+	//public override void onAdd(Response response) {
+    public void onAdd(Response response) {
 		notifyWebSocket("response", response);
 		
 		Logger.Info("Reporter observed response for user [" + response.GetUser().getUsername() + "]");
@@ -73,21 +77,24 @@ public class WebSocketReportingEngine : ReportingEngine {
 	/**
 	 * {@inheritDoc}
 	 */
-	public override Collection<Event> findEvents(string earliest) {
+	//public override Collection<Event> findEvents(string earliest) {
+    public Collection<Event> findEvents(string earliest) {
 		throw new NotSupportedException("This method is not implemented for WebSocket reporting implementation");
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public override Collection<Attack> findAttacks(string earliest) {
+	//public override Collection<Attack> findAttacks(string earliest) {
+    public Collection<Attack> findAttacks(string earliest) {
 		throw new NotSupportedException("This method is not implemented for WebSocket reporting implementation");
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public override Collection<Response> findResponses(string earliest) {
+	//public override Collection<Response> findResponses(string earliest) {
+    public Collection<Response> findResponses(string earliest) {
 		throw new NotSupportedException("This method is not implemented for WebSocket reporting implementation");
 	}
 	
@@ -125,7 +132,7 @@ public class WebSocketReportingEngine : ReportingEngine {
 				session.SessionID, closeReason));
 	}
 
-	private void ensureConnected() {
+	/*private void ensureConnected() {
 		if (! webSocketInitialized) {
 			//WebSocketContainer client = ContainerProvider.getWebSocketContainer();
             WebSocket client = new WebSocket("ws://simple-websocket-dashboard/dashboard:8080");
@@ -136,11 +143,28 @@ public class WebSocketReportingEngine : ReportingEngine {
                 //localSession = client.Connect("/simple-websocket-dashboard/dashboard", 8080);
                 webSocketInitialized = true;
             } catch(IOException e) {
-                throw new SystemException(e.Message);
-            } catch (SystemException e) {
-                throw new SystemException(e.Message);
+                throw new Exception(e.Message);
+            } catch (Exception e) {
+                throw new Exception(e.Message);
             }
 	    	Console.Error.WriteLine("started and connected");
+		}
+	}*/
+    private void ensureConnected() {
+		if (! webSocketInitialized) {
+			//WebSocketContainer client = ContainerProvider.getWebSocketContainer();
+            WebSocket client;
+	
+			try {
+	            //localSession = client.connectToServer(WebSocketReportingEngine.class, new URI("ws://localhost:8080/simple-websocket-dashboard/dashboard"));
+                client = new WebSocket("ws://simple-websocket-dashboard/dashboard:8080");
+	            webSocketInitialized = true;
+            } catch(IOException e) {
+                throw new Exception(e.Message);
+            } catch(Exception e) {
+                throw new Exception(e.Message);
+            }
+            Console.Error.WriteLine("started and connected");
 		}
 	}
 }

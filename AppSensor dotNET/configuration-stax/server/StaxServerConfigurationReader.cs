@@ -40,7 +40,8 @@ public class StaxServerConfigurationReader : ServerConfigurationReader {
 	/**
 	 * {@inheritDoc}
 	 */
-	public override ServerConfiguration read() {
+	//public override ServerConfiguration read() {
+    public ServerConfiguration read() {
         /// <exception cref="ConfigurationException"></exception>
 		string defaultXmlLocation = "/appsensor-server-config.xml";
 		string defaultXsdLocation = "/appsensor_server_config_2.0.xsd";
@@ -51,7 +52,8 @@ public class StaxServerConfigurationReader : ServerConfigurationReader {
 	/**
 	 * {@inheritDoc}
 	 */
-	public override ServerConfiguration read(string xml, string xsd) {
+	//public override ServerConfiguration read(string xml, string xsd) {
+    public ServerConfiguration read(string xml, string xsd) {
          /// <exception cref="ConfigurationException"></exception>
 		ServerConfiguration configuration = null;
 		//InputStream xmlInptStream = null;

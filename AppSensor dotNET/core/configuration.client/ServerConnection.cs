@@ -17,7 +17,7 @@ using Tools.HashCodeBuilder;
  */
 
 namespace org.owasp.appsensor.configuration.client {
-    [Named("ServerConnection")]
+    // [Named("ServerConnection")]
     public class ServerConnection {
 
         /** type of server connection: rest/soap */
@@ -94,7 +94,8 @@ namespace org.owasp.appsensor.configuration.client {
             return this;
         }
 
-        public override int hashCode() {
+        //public override int hashCode() {
+        public int hashCode() {
             //return new HashCodeBuilder(17, 31).
             return new HashCodeBuilder().
                     Add(type).
@@ -136,7 +137,8 @@ namespace org.owasp.appsensor.configuration.client {
             }
         }
 
-        public override string toString() {
+        //public override string toString() {
+        public string toString() {
             //return new StringBuilder(this).
             return new StringBuilder().
                     AppendFormat("type", type).

@@ -51,8 +51,9 @@ public class User {
 				Add(username).
 				GetHashCode();
 	}
-	
-	public bool Equals(object obj) {
+
+    //public bool Equals(object obj) {
+    public override bool Equals(object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)

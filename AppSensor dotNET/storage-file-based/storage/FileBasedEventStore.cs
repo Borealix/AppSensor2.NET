@@ -27,7 +27,7 @@ using Newtonsoft.Json;
  */
 namespace org.owasp.appsensor.storage {
     //@Loggable
-    [Named("FileBasedEventStore")]
+    // [Named("FileBasedEventStore")]
     public class FileBasedEventStore : EventStore {
 
         private ILog Logger;

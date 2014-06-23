@@ -21,7 +21,7 @@ using log4net;
  */
 namespace org.owasp.appsensor.analysis {
 //@Loggable
-[Named("ReferenceEventAnalysisEngine")]
+// [Named("ReferenceEventAnalysisEngine")]
 public class ReferenceEventAnalysisEngine : EventAnalysisEngine {
 
 	private ILog Logger;
@@ -36,7 +36,8 @@ public class ReferenceEventAnalysisEngine : EventAnalysisEngine {
 	 * 
 	 * @param event the {@link Event} that was added to the {@link EventStore}
 	 */
-	public override void analyze(Event Event) {
+	//public override void analyze(Event Event) {
+    public void analyze(Event Event) {
 		SearchCriteria criteria = new SearchCriteria().
 				setUser(Event.GetUser()).
 				setDetectionPoint(Event.GetDetectionPoint()).

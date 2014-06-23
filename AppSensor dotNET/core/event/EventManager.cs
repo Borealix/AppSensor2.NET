@@ -17,7 +17,7 @@ namespace org.owasp.appsensor.events {
      * by Luis Serna (luis.sego@yahoo.com.mx)
      */
 
-    public class EventManager{
+    public abstract class EventManager{
     /**
     * Add an {@link Event}.
     * 
@@ -37,6 +37,7 @@ namespace org.owasp.appsensor.events {
     *  
     * @return a Collection of {@link Response} objects 
     */
-    public Collection<Response> getResponses();
+    //public Collection<Response> getResponses();
+   Collection<Response> getResponses = new Collection<Response>();
     }
 }

@@ -16,9 +16,11 @@ using org.owasp.appsensor.storage;
 
 namespace org.owasp.appsensor.analysis {
     //@EventStoreListener
-    public abstract class EventAnalysisEngine :  EventListener{
+    //public abstract class EventAnalysisEngine :  EventListener{
+    public abstract class EventAnalysisEngine {
         
-        public abstract void analyze(Event Event) {
+        //public abstract void analyze(Event Event) {
+        public void analyze(Event Event) {
         }
 
         public void onAdd(Event Event) {

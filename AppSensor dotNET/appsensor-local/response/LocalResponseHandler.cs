@@ -20,7 +20,7 @@ using org.owasp.appsensor.responses;
  */
 namespace org.owasp.appsensor.response {
 //@Loggable
-[Named("LocalResponseHandler")]
+// [Named("LocalResponseHandler")]
 public class LocalResponseHandler : ResponseHandler {
 
 	/** Logger */
@@ -32,27 +32,28 @@ public class LocalResponseHandler : ResponseHandler {
 	/**
 	 * {@inheritDoc}
 	 */
-	public override void handle(Response response) {
+	//public override void handle(Response response) {
+    public new void handle(Response response) {
 
-        if(org.owasp.appsensor.Responses.ResponseHandler.LOG.Equals(response.getAction())) {
+        if(ResponseHandler.LOG.Equals(response.getAction())) {
 			Logger.Error("Response executed for user:" + response.GetUser().getUsername() + 
 					", Action: Increased Logging");
-        } else if(org.owasp.appsensor.Responses.ResponseHandler.LOGOUT.Equals(response.getAction())) {
+        } else if(ResponseHandler.LOGOUT.Equals(response.getAction())) {
 			Logger.Error("Response executed for user:" + response.GetUser().getUsername() + 
 					", Action: Logging out malicious account");
 			
 			appSensorClient.getUserManager().logout(response.GetUser());
-        } else if(org.owasp.appsensor.Responses.ResponseHandler.DISABLE_USER.Equals(response.getAction())) {
+        } else if(ResponseHandler.DISABLE_USER.Equals(response.getAction())) {
 			Logger.Error("Response executed for user:" + response.GetUser().getUsername() + 
 					", Action: Disabling malicious account");
 			
 			appSensorClient.getUserManager().logout(response.GetUser());
-        } else if(org.owasp.appsensor.Responses.ResponseHandler.DISABLE_COMPONENT_FOR_SPECIFIC_USER.Equals(response.getAction())) {
+        } else if(ResponseHandler.DISABLE_COMPONENT_FOR_SPECIFIC_USER.Equals(response.getAction())) {
 			Logger.Error("Response executed for user:" + response.GetUser().getUsername() + 
 					", Action: Disabling Component for Specific User");
 			
 			//TODO: fill in real code for disabling component for specific user
-        } else if(org.owasp.appsensor.Responses.ResponseHandler.DISABLE_COMPONENT_FOR_ALL_USERS.Equals(response.getAction())) {
+        } else if(ResponseHandler.DISABLE_COMPONENT_FOR_ALL_USERS.Equals(response.getAction())) {
 			Logger.Error("Response executed for user:" + response.GetUser().getUsername() + 
 					", Action: Disabling Component for All Users");
 			

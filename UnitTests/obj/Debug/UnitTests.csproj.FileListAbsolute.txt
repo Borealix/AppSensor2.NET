@@ -1,0 +1,1 @@
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\UnitTests\obj\Debug\UnitTests.csprojResolveAssemblyReference.cache

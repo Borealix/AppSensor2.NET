@@ -21,7 +21,7 @@ using log4net;
  */
 namespace org.owasp.appsensor.analysis {
 //@Loggable
-[Named("ReferenceAttackAnalysisEngine")]
+// [Named("ReferenceAttackAnalysisEngine")]
 public class ReferenceAttackAnalysisEngine : AttackAnalysisEngine {
 
     //private Logger logger;

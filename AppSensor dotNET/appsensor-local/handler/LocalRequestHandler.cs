@@ -21,7 +21,7 @@ using org.owasp.appsensor.util;
  */
 namespace org.owasp.appsensor.handler {
 //@Loggable
-[Named("LocalRequestHandler")]
+// [Named("LocalRequestHandler")]
 public class LocalRequestHandler : RequestHandler {
 
 	//@SuppressWarnings("unused")
@@ -35,7 +35,8 @@ public class LocalRequestHandler : RequestHandler {
 	/**
 	 * {@inheritDoc}
 	 */
-	public override void addEvent(Event Event) {
+	//public override void addEvent(Event Event) {
+    public void addEvent(Event Event) {
         /// <exception cref="NotAuthorizedException"></exception>
 		if (detectionSystemId == null) {
 			detectionSystemId = Event.GetDetectionSystemId();
@@ -47,7 +48,8 @@ public class LocalRequestHandler : RequestHandler {
 	/**
 	 * {@inheritDoc}
 	 */
-	public override void addAttack(Attack attack) {
+	//public override void addAttack(Attack attack) {
+    public void addAttack(Attack attack) {
         /// <exception cref="NotAuthorizedException"></exception>
 		if (detectionSystemId == null) {
 			detectionSystemId = attack.GetDetectionSystemId();
@@ -59,7 +61,8 @@ public class LocalRequestHandler : RequestHandler {
 	/**
 	 * {@inheritDoc}
 	 */
-	public override Collection<Response> getResponses(string earliest) {
+	//public override Collection<Response> getResponses(string earliest) {
+    public Collection<Response> getResponses(string earliest) {
         /// <exception cref="NotAuthorizedException"></exception>
 		SearchCriteria criteria = new SearchCriteria().
                 setDetectionSystemIds(StringUtils.toCollection(detectionSystemId != null ? detectionSystemId : "")).
