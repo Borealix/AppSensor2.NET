@@ -132,7 +132,7 @@ namespace org.owasp.appsensor.storage {
         }
 
         //protected Path getPath() {
-        protected String getPath() {
+        public String getPath() {
             //if (path != null && Files.exists(path)) {
             if(path != null && File.Exists(path.ToString())) {
                 return path;

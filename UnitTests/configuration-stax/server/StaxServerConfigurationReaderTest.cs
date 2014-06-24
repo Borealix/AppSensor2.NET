@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Ninject;
+using org.owasp.appsensor.correlation;
+using System.Collections.Generic;
 
 /**
  * Test server xml configuration reader
@@ -23,8 +25,10 @@ namespace org.owasp.appsensor.configuration.server {
 		        ServerConfiguration configuration = reader.read();
 
                 Assert.AreEqual(3, configuration.getCorrelationSets().Count);
+                
+                //Assert.AreEqual("server1", configuration.getCorrelationSets().iterator().next().getClientApplications().iterator().next());
 
-                Assert.AreEqual("server1", configuration.getCorrelationSets().iterator().next().getClientApplications().iterator().next());
+                Assert.AreEqual("server1", configuration.getCorrelationSets().GetEnumerator().getClientApplications().iterator().next());
 
                 //		Assert.AreEqual("org.owasp.appsensor.analysis.ReferenceEventAnalysisEngine", configuration.getEventAnalysisEngineImplementation());
                 //		Assert.AreEqual("org.owasp.appsensor.analysis.ReferenceAttackAnalysisEngine", configuration.getAttackAnalysisEngineImplementation());

@@ -9,3 +9,26 @@ C:\Users\Luis Serna González\Desktop\AppSensor dotNET\AppSensor dotNET\bin\Debu
 C:\Users\Luis Serna González\Desktop\AppSensor dotNET\AppSensor dotNET\obj\Debug\AppSensor dotNET.csprojResolveAssemblyReference.cache
 C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor dotNET\bin\Debug\AppSensor dotNET.exe.config
 C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor dotNET\obj\Debug\AppSensor dotNET.csprojResolveAssemblyReference.cache
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor dotNET\bin\Debug\AppSensor dotNET.dll.config
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor dotNET\bin\Debug\AppSensor dotNET.dll
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor dotNET\bin\Debug\AppSensor dotNET.pdb
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor dotNET\bin\Debug\Common.Logging.dll
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor dotNET\bin\Debug\CommonLibrary.dll
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor dotNET\bin\Debug\log4net.dll
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor dotNET\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor dotNET\bin\Debug\Ninject.dll
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor dotNET\bin\Debug\Spring.Core.dll
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor dotNET\bin\Debug\SuperSocket.Common.dll
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor dotNET\bin\Debug\SuperSocket.SocketBase.dll
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor dotNET\bin\Debug\WebSocket4Net.dll
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor dotNET\bin\Debug\log4net.xml
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor dotNET\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor dotNET\bin\Debug\Ninject.xml
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor dotNET\bin\Debug\Spring.Core.pdb
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor dotNET\bin\Debug\Spring.Core.xml
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor dotNET\bin\Debug\SuperSocket.Common.pdb
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor dotNET\bin\Debug\SuperSocket.Common.xml
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor dotNET\bin\Debug\SuperSocket.SocketBase.pdb
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor dotNET\bin\Debug\SuperSocket.SocketBase.xml
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor dotNET\obj\Debug\AppSensor dotNET.dll
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor dotNET\obj\Debug\AppSensor dotNET.pdb

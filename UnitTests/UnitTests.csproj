@@ -59,6 +59,8 @@
     <Compile Include="configuration-stax\client\XmlClientConfigurationReaderTest.cs" />
     <Compile Include="configuration-stax\server\XmlServerConfigurationReaderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="reporting-websocket\reporting\DemoDataPopulator.cs" />
+    <Compile Include="storage-file-based\storage\FileBasedEventStorageTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AppSensor dotNET\AppSensor dotNET.csproj">
