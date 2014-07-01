@@ -1,0 +1,59 @@
+<objects xmlns="http://www.springframework.net"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.net http://www.springframework.net/schema/objects/spring-objects-1.3.xsd
+  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+  <!--<object id="AppSensorServer" class="org.owasp.appsensor.AppSensorServer">-->
+  <object id="org.owasp.appsensor.AppSensorServer">
+    
+  </object>
+  <!-- <object id="myclientapp">
+      <property name="name" value="myclientapp"/>
+      <property name="roles">
+        <list>
+          <value type="org.owasp.appsensor.accesscontrol.Role">ADD_EVENT</value>
+          <value type="org.owasp.appsensor.accesscontrol.Role">ADD_ATTACK</value>
+        </list>
+      </property>
+  </object>
+
+  <object id="ie1" class="org.owasp.appsensor.DetectionPoint">
+ 		<property name="id" value="IE1"/>
+ 		<property name="threshold">
+ 			<object class="org.owasp.appsensor.Threshold">
+ 				<property name="count" value="11"/>
+ 				<property name="interval">
+ 					<object class="org.owasp.appsensor.Interval">
+ 						<constructor-arg><value>4</value></constructor-arg>
+ 						<constructor-arg><value>minutes</value></constructor-arg>
+ 					</object>
+ 				</property>
+ 			</object>
+ 		</property>
+	</object>
+
+ 	<object id="example1CorrelationSet" class="org.owasp.appsensor.correlation.CorrelationSet">
+ 		<property name="clientApplications">
+    		<list>
+    			<value>server1</value>
+    			<value>server3</value>
+    		</list>
+    	</property>
+ 	</object>
+ 	<object id="example2CorrelationSet" class="org.owasp.appsensor.correlation.CorrelationSet">
+ 		<property name="clientApplications">
+    		<list>
+    			<value>server2</value>
+    			<value>server4</value>
+    		</list>
+    	</property>
+ 	</object>
+ 	<object id="example3CorrelationSet" class="org.owasp.appsensor.correlation.CorrelationSet">
+ 		<property name="clientApplications">
+    		<list>
+    			<value>server1</value>
+    			<value>server5</value>
+    		</list>
+    	</property>
+ 	</object>-->
+</objects>

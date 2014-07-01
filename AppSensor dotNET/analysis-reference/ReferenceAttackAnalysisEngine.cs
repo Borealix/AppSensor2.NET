@@ -1,12 +1,9 @@
-using org.owasp.appsensor;
-using org.owasp.appsensor.logging;
-using org.owasp.appsensor.storage;
-using org.owasp.appsensor.criteria;
-using System.Collections.ObjectModel;
-using System.Collections.Generic;
-using Ninject;
-using System;
 using log4net;
+using Ninject;
+using org.owasp.appsensor.criteria;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 /**
  * This is the reference {@link Attack} analysis engine, 

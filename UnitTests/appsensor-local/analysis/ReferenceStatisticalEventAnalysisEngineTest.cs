@@ -5,28 +5,8 @@ using Ninject;
 using org.owasp.appsensor.configuration.server;
 using org.owasp.appsensor.criteria;
 using System.Collections.Generic;
-
-/*
-import java.util.ArrayList;
-import java.util.Collection;
-
-import javax.inject.Inject;
-
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.owasp.appsensor.AppSensorClient;
-import org.owasp.appsensor.AppSensorServer;
-import org.owasp.appsensor.Attack;
-import org.owasp.appsensor.DetectionPoint;
-import org.owasp.appsensor.Event;
-import org.owasp.appsensor.Interval;
-import org.owasp.appsensor.Response;
-import org.owasp.appsensor.Threshold;
-import org.owasp.appsensor.User;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
- */
+using Spring.Context;
+using Spring.Context.Support;
 
 namespace org.owasp.appsensor.analysis {
     /**
@@ -49,12 +29,10 @@ namespace org.owasp.appsensor.analysis {
 	    private static HashSet<String> detectionSystems1 = new HashSet<String>();
 	
 	    private static String detectionSystem1 = "localhostme";
+
+        // AppSensorServer appSensorServer;
 	
-	    [Inject]
-	    AppSensorServer appSensorServer;
-	
-	    [Inject]
-	    AppSensorClient appSensorClient;
+	    // AppSensorClient appSensorClient;
 	
 	    //@BeforeClass
         public static void doSetup() {
@@ -62,10 +40,15 @@ namespace org.owasp.appsensor.analysis {
 		
 		    detectionSystems1.Add(detectionSystem1);
 	    }
-	
-	    [TestMethod]
+
         /// <exception cref="InvalidOperationException"></exception>
+	    [TestMethod]
         public void testAttackCreation() {
+            IApplicationContext context = new XmlApplicationContext("base-context.xml");
+
+            AppSensorServer appSensorServer = (AppSensorServer)context.GetObject("AppSensorServer");
+            AppSensorClient appSensorClient = (AppSensorClient)context.GetObject("AppSensorClient");
+
 		    ServerConfiguration updatedConfiguration = appSensorServer.getConfiguration();
 		    updatedConfiguration.setDetectionPoints(loadMockedDetectionPoints());
 		    appSensorServer.setConfiguration(updatedConfiguration);
@@ -114,8 +97,10 @@ namespace org.owasp.appsensor.analysis {
 		    Assert.AreEqual(2, appSensorServer.getAttackStore().findAttacks(criteria).Count);
 	    }
 	
-	    private Collection<DetectionPoint> loadMockedDetectionPoints() {
-		    Collection<DetectionPoint> configuredDetectionPoints = new Collection<DetectionPoint>();
+	    //private Collection<DetectionPoint> loadMockedDetectionPoints() {
+        private HashSet<DetectionPoint> loadMockedDetectionPoints() {
+		    //Collection<DetectionPoint> configuredDetectionPoints = new Collection<DetectionPoint>();
+            HashSet<DetectionPoint> configuredDetectionPoints = new HashSet<DetectionPoint>();
 
 		    Interval minutes5 = new Interval(5, Interval.MINUTES);
 		    Interval minutes6 = new Interval(6, Interval.MINUTES);

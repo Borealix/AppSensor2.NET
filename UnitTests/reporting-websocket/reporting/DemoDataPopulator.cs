@@ -4,18 +4,21 @@ using Ninject;
 using System.Collections.ObjectModel;
 using org.owasp.appsensor.configuration.server;
 using System.Threading;
+using System.Collections.Generic;
+using Spring.Context;
+using Spring.Context.Support;
 
-/*
-
-import org.owasp.appsensor.AppSensorClient;
-import org.owasp.appsensor.AppSensorServer;
-import org.owasp.appsensor.DetectionPoint;
-import org.owasp.appsensor.Event;
-import org.owasp.appsensor.Interval;
-import org.owasp.appsensor.Response;
-import org.owasp.appsensor.Threshold;
-import org.owasp.appsensor.User;
-import org.owasp.appsensor.configuration.server.ServerConfiguration; */
+/**
+ * import org.owasp.appsensor.AppSensorClient;
+ * import org.owasp.appsensor.AppSensorServer;
+ * import org.owasp.appsensor.DetectionPoint;
+ * import org.owasp.appsensor.Event;
+ * import org.owasp.appsensor.Interval;
+ * import org.owasp.appsensor.Response;
+ * import org.owasp.appsensor.Threshold;
+ * import org.owasp.appsensor.User;
+ * import org.owasp.appsensor.configuration.server.ServerConfiguration;
+ */
 
 namespace org.owasp.appsensor.reporting {
     /**
@@ -27,11 +30,13 @@ namespace org.owasp.appsensor.reporting {
     [TestClass]
     public class DemoDataPopulator {
 	
-	[Inject]
-	private static AppSensorClient appSensorClient;
-	
-	[Inject]
-	private AppSensorServer appSensorServer;
+	// [Inject]
+    // private static AppSensorClient appSensorClient = (AppSensorClient)context.GetObject("AppSensorServer");
+    IApplicationContext contextClient = new XmlApplicationContext("base-context.xml", "appsensor-client-config.xml");
+		
+	// [Inject]
+	// private AppSensorServer appSensorServer;
+    IApplicationContext contextServer = new XmlApplicationContext("base-context.xml", "appsensor-server-config.xml");
 	
 	private static User bob = new User("bob");
 	
@@ -42,12 +47,14 @@ namespace org.owasp.appsensor.reporting {
 	private static String detectionSystem1 = "localhostme";
 	
     /// <exception cref="Exception"></exception>
-	public static void main(String[] args) {
+	public static void main() {
 		new DemoDataPopulator().populateData();
 	}
 	
     /// <exception cref="Exception"></exception>
 	private void populateData() {
+        AppSensorClient appSensorClient = (AppSensorClient)contextClient.GetObject("AppSensorClient");
+        AppSensorServer appSensorServer = (AppSensorServer)contextServer.GetObject("AppSensorServer");
 		int delay = 500;
 		detectionPoint1.setId("IE1");
 		detectionSystems1.Add(detectionSystem1);
@@ -73,8 +80,10 @@ namespace org.owasp.appsensor.reporting {
 		Thread.Sleep(delay);
 	}
 	
-	private Collection<DetectionPoint> loadMockedDetectionPoints() {
-		Collection<DetectionPoint> configuredDetectionPoints = new Collection<DetectionPoint>();
+	//private Collection<DetectionPoint> loadMockedDetectionPoints() {
+    private HashSet<DetectionPoint> loadMockedDetectionPoints() {
+		//Collection<DetectionPoint> configuredDetectionPoints = new Collection<DetectionPoint>();
+        HashSet<DetectionPoint> configuredDetectionPoints = new HashSet<DetectionPoint>();
 
 		Interval minutes5 = new Interval(5, Interval.MINUTES);
 		Interval minutes6 = new Interval(6, Interval.MINUTES);

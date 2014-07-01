@@ -1,5 +1,5 @@
 using log4net;
-using Ninject;
+//using Ninject;
 using org.owasp.appsensor.accesscontrol;
 using org.owasp.appsensor.analysis;
 using org.owasp.appsensor.configuration.server;
@@ -15,7 +15,7 @@ using org.owasp.appsensor.storage;
  * @author Raphaël Taban
  */
 namespace org.owasp.appsensor{
-// [Named("AppSensorServer")]
+//[Named("AppSensorServer")]
 public class AppSensorServer {
 	
 	//@SuppressWarnings("unused")
@@ -55,7 +55,7 @@ public class AppSensorServer {
 		return configuration;
 	}
 	
-	[Inject]
+	// [Inject]
 	public void setConfiguration(ServerConfiguration updatedConfiguration) {
 		configuration = updatedConfiguration;
 	}
@@ -88,37 +88,37 @@ public class AppSensorServer {
 		return accessController;
 	}
 	
-	[Inject]
+	 //[Inject]
 	public void setEventStore(EventStore eventStore) {
 		this.eventStore = eventStore;
 	}
 
-	[Inject]
+	 //[Inject]
 	public void setAttackStore(AttackStore attackStore) {
 		this.attackStore = attackStore;
 	}
 
-	[Inject]
+	 //[Inject]
 	public void setResponseStore(ResponseStore responseStore) {
 		this.responseStore = responseStore;
 	}
 
-	[Inject]
+	 //[Inject]
 	public void setEventAnalysisEngine(EventAnalysisEngine eventAnalysisEngine) {
 		this.eventAnalysisEngine = eventAnalysisEngine;
 	}
 
-	[Inject]
+	 //[Inject]
 	public void setAttackAnalysisEngine(AttackAnalysisEngine attackAnalysisEngine) {
 		this.attackAnalysisEngine = attackAnalysisEngine;
 	}
 
-	[Inject]
+	 //[Inject]
 	public void setResponseAnalysisEngine(ResponseAnalysisEngine responseAnalysisEngine) {
 		this.responseAnalysisEngine = responseAnalysisEngine;
 	}
 	
-	[Inject]
+	 //[Inject]
 	public void setAccessController(AccessController accessController) {
 		this.accessController = accessController;
 	}

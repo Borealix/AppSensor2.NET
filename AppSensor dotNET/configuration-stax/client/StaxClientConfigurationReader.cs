@@ -67,8 +67,8 @@ public class StaxClientConfigurationReader : ClientConfigurationReader {
             xmlFactory.DtdProcessing = DtdProcessing.Ignore;
             //xmlFactory.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, true);
             //xmlFactory.setProperty(XMLInputFactory.IS_VALIDATING, false);
-            //xmlFactory.ValidationType = ValidationType.None;
-            xmlFactory.ValidationType = ValidationType.Schema;
+            xmlFactory.ValidationType = ValidationType.None;
+            //xmlFactory.ValidationType = ValidationType.Schema;
 			xmlFactory.XmlResolver = null;
 			
 			XmlUtils.validateXMLSchema(xsd, xml);
@@ -80,12 +80,12 @@ public class StaxClientConfigurationReader : ClientConfigurationReader {
             xmlReader = XmlReader.Create(xmlInputStream);
 			
 			configuration = readClientConfiguration(xmlReader);
-		/*} catch(XMLStreamException | IOException | SAXException e) {*/
+		//} catch(XMLStreamException | IOException | SAXException e) {
             //throw new ConfigurationException(e.getMessage(), e);
             } catch(XmlException e) {
-                throw new org.owasp.appsensor.exceptions.ConfigurationException (e.Message, e);;
-            } catch (IOException e) {
-                throw new org.owasp.appsensor.exceptions.ConfigurationException (e.Message, e);;
+                throw new org.owasp.appsensor.exceptions.ConfigurationException(e.Message, e);
+            } catch(IOException e) {
+                throw new org.owasp.appsensor.exceptions.ConfigurationException(e.Message, e);
 		} finally {
 			if(xmlReader != null) {
 				try {

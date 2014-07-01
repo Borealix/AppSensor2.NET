@@ -3,6 +3,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using org.owasp.appsensor.analysis;
 using Ninject;
 using System.IO;
+using Spring.Context;
+using Spring.Context.Support;
 
 namespace org.owasp.appsensor.storage {
     /**
@@ -16,12 +18,15 @@ namespace org.owasp.appsensor.storage {
     [TestClass]
     public class FileBasedEventStorageTest : ReferenceStatisticalEventAnalysisEngineTest {
 
-	[Inject]
-	private AppSensorServer appSensorServer;
-	
+	// [Inject]
+	// private AppSensorServer appSensorServer;
+    IApplicationContext context = new XmlApplicationContext("base-context.xml", "appsensor-server-config.xml");
+        	
 	//@Before
     /// <exception cref="Exception"></exception>
+    [TestMethod]
 	public void deleteTestFiles() {
+        AppSensorServer appSensorServer = (AppSensorServer)context.GetObject("AppSensorServer");
 		FileBasedEventStore eventStore = (FileBasedEventStore)appSensorServer.getEventStore();
 		FileBasedAttackStore attackStore = (FileBasedAttackStore)appSensorServer.getAttackStore();
 		FileBasedResponseStore responseStore = (FileBasedResponseStore)appSensorServer.getResponseStore();
@@ -30,6 +35,5 @@ namespace org.owasp.appsensor.storage {
 		File.Delete(attackStore.getPath());
 		File.Delete(responseStore.getPath());
 	}
-	
 }
 }

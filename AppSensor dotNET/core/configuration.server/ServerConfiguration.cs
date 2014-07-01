@@ -24,7 +24,7 @@ namespace org.owasp.appsensor.configuration.server {
 public abstract class ServerConfiguration {
 	
 	//private Collection<DetectionPoint> detectionPoints = new ArrayList<>(); 
-    private Collection<DetectionPoint> detectionPoints = new Collection<DetectionPoint>();
+    private HashSet<DetectionPoint> detectionPoints = new HashSet<DetectionPoint>();
   
 	//private Collection<CorrelationSet> correlationSets = new HashSet<>();
 	private HashSet<CorrelationSet> correlationSets = new HashSet<CorrelationSet>();
@@ -33,7 +33,7 @@ public abstract class ServerConfiguration {
 	private string clientApplicationIdentificationHeaderName;
 	
     //private Collection<ClientApplication> clientApplications = new HashSet<>();
-	private HashSet<ClientApplication> clientApplications = new HashSet<ClientApplication>();
+    private HashSet<ClientApplication> clientApplications = new HashSet<ClientApplication>();
 	
     //private static transient Map<String, DetectionPoint> detectionPointCache = Collections.synchronizedMap(new HashMap<String, DetectionPoint>());
     [NonSerialized]
@@ -43,11 +43,11 @@ public abstract class ServerConfiguration {
     [NonSerialized]
 	private static IDictionary<string, ClientApplication> clientApplicationCache = new Dictionary<string, ClientApplication>();
 	
-	public Collection<DetectionPoint> getDetectionPoints() {
+	public HashSet<DetectionPoint> getDetectionPoints() {
 		return detectionPoints;
 	}
 
-	public ServerConfiguration setDetectionPoints(Collection<DetectionPoint> detectionPoints) {
+	public ServerConfiguration setDetectionPoints(HashSet<DetectionPoint> detectionPoints) {
 		this.detectionPoints = detectionPoints;
 		return this;
 	}
@@ -73,7 +73,7 @@ public abstract class ServerConfiguration {
 		return this;
 	}
 
-	//public Collection<ClientApplication> getClientApplications() {
+    //public Collection<ClientApplication> getClientApplications() {
     public HashSet<ClientApplication> getClientApplications() {
 		return clientApplications;
 	}

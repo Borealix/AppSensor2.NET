@@ -12,8 +12,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace org.owasp.appsensor.configuration.client {
     [TestClass]
     public class XmlClientConfigurationReaderTest {
+        /// <exception cref="Exception"></exception>
         [TestMethod]
-        public void TestMethod1() {
+        public void testConfigLoad() {
             ClientConfigurationReader reader = new StaxClientConfigurationReader();
 		    ClientConfiguration configuration = reader.read("/appsensor-client-config.xml", "/appsensor_client_config_2.0.xsd");
 		

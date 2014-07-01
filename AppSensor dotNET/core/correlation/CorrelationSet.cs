@@ -1,44 +1,34 @@
-/*
-using java.util.List;
-using java.util.Collection;
-
-using org.apache.commons.lang3.builder.EqualsBuilder;
-using org.apache.commons.lang3.builder.HashCodeBuilder;
-using org.apache.commons.lang3.builder.StringBuilder;
-*/
-
-using System.Collections.Generic;
-/**
- * The CorrelationSet represents a set of {@link ClientApplication}s that 
- * should be considered to share the same {@link User} base. 
- * 
- * For example if server1 and server2 are part of a correlation set, 
- * then client1/userA is considered the same {@link User} as client2/userA. 
- * 
- * This can be useful for simple tracking of {@link User} activity across multiple
- * {@link ClientApplication}s.
- * 
- * @author John Melton (jtmelton@gmail.com) http://www.jtmelton.com/
- */
 using System.Collections.ObjectModel;
 using System.Text;
 using Tools.HashCodeBuilder;
-//using System.Collections.List;
-//using System.Collections.Generic.List<>;
-//using System.Collections.SortedList;
+using System.Collections.Generic;
 
 namespace org.owasp.appsensor.correlation {
+    /**
+     * The CorrelationSet represents a set of {@link ClientApplication}s that 
+     * should be considered to share the same {@link User} base. 
+     * 
+     * For example if server1 and server2 are part of a correlation set, 
+     * then client1/userA is considered the same {@link User} as client2/userA. 
+     * 
+     * This can be useful for simple tracking of {@link User} activity across multiple
+     * {@link ClientApplication}s.
+     * 
+     * @author John Melton (jtmelton@gmail.com) http://www.jtmelton.com/
+     */
     public class CorrelationSet {
 
 	    /** {@link ClientApplication}s that are represented in this correlation set */
 	    //private Collection<string> clientApplications = new List<>();
-        private Collection<string> clientApplications = new Collection<string>();
+        private HashSet<string> clientApplications = new HashSet<string>();
 	
-	    public Collection<string> getClientApplications() {
+	    //public Collection<string> getClientApplications() {
+        public HashSet<string> getClientApplications() {
 		    return clientApplications;
 	    }
 
-	    public CorrelationSet setClientApplications(Collection<string> clientApplications) {
+	    //public CorrelationSet setClientApplications(Collection<string> clientApplications) {
+        public CorrelationSet setClientApplications(HashSet<string> clientApplications) {
 		    this.clientApplications = clientApplications;
 		    return this;
 	    }

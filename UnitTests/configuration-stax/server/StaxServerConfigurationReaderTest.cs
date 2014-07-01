@@ -4,16 +4,14 @@ using Ninject;
 using org.owasp.appsensor.correlation;
 using System.Collections.Generic;
 
-/**
- * Test server xml configuration reader
- * 
- * @author John Melton (jtmelton@gmail.com) http://www.jtmelton.com/
- */
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration(locations={"classpath:base-context.xml"})
-
 namespace org.owasp.appsensor.configuration.server {
-
+    /**
+     * Test server xml configuration reader
+     * 
+     * @author John Melton (jtmelton@gmail.com) http://www.jtmelton.com/
+     */
+        //@RunWith(SpringJUnit4ClassRunner.class)
+        //@ContextConfiguration(locations={"classpath:base-context.xml"})
     [TestClass]
     public class StaxServerConfigurationReaderTest {
         //	ServerConfiguration configuration;
@@ -24,11 +22,15 @@ namespace org.owasp.appsensor.configuration.server {
 		        ServerConfigurationReader reader = new StaxServerConfigurationReader();
 		        ServerConfiguration configuration = reader.read();
 
-                Assert.AreEqual(3, configuration.getCorrelationSets().Count);
-                
-                //Assert.AreEqual("server1", configuration.getCorrelationSets().iterator().next().getClientApplications().iterator().next());
+                HashSet<CorrelationSet>.Enumerator valCorrelationSets = configuration.getCorrelationSets().GetEnumerator();
+                HashSet<String>.Enumerator valClientApplications = configuration.getClientApplications().GetEnumerator();
 
-                Assert.AreEqual("server1", configuration.getCorrelationSets().GetEnumerator().getClientApplications().iterator().next());
+                Assert.AreEqual(3, configuration.getCorrelationSets().Count);
+
+                valCorrelationSets.MoveNext();
+                valClientApplications.MoveNext();
+                Assert.AreEqual("server1", valCorrelationSets.Current.getClientApplications().GetEnumerator);
+
 
                 //		Assert.AreEqual("org.owasp.appsensor.analysis.ReferenceEventAnalysisEngine", configuration.getEventAnalysisEngineImplementation());
                 //		Assert.AreEqual("org.owasp.appsensor.analysis.ReferenceAttackAnalysisEngine", configuration.getAttackAnalysisEngineImplementation());
@@ -51,13 +53,20 @@ namespace org.owasp.appsensor.configuration.server {
                 //		Assert.AreEqual(2, configuration.getResponseStoreObserverImplementations().Count);
                 //		Assert.AreEqual("org.owasp.appsensor.analysis.ReferenceResponseAnalysisEngine", configuration.getResponseStoreObserverImplementations().iterator().next());
 
+                HashSet<DetectionPoint>.Enumerator valDetectionPoints = configuration.getDetectionPoints().GetEnumerator();
+                
                 Assert.AreEqual(5, configuration.getDetectionPoints().Count);
-                Assert.AreEqual("IE1", configuration.getDetectionPoints().iterator().next().getId());
-                Assert.AreEqual(4, configuration.getDetectionPoints().iterator().next().getThreshold().getInterval().getDuration());
-                Assert.AreEqual("minutes", configuration.getDetectionPoints().iterator().next().getThreshold().getInterval().getUnit());
+                valDetectionPoints.MoveNext();
+                Assert.AreEqual("IE1", valDetectionPoints.Current.getId());
+                valDetectionPoints.MoveNext();
+                Assert.AreEqual(4, valDetectionPoints.Current.getThreshold().getInterval().getDuration());
+                valDetectionPoints.MoveNext();
+                Assert.AreEqual("minutes", valDetectionPoints.Current.getThreshold().getInterval().getUnit());
 
-                Assert.AreEqual(5, configuration.getDetectionPoints().iterator().next().getResponses().Count);
-                Assert.AreEqual("log", configuration.getDetectionPoints().iterator().next().getResponses().iterator().next().getAction());
+                valDetectionPoints.MoveNext();
+                Assert.AreEqual(5, valDetectionPoints.Current.getResponses().Count);
+                valDetectionPoints.MoveNext();
+                Assert.AreEqual("log", valDetectionPoints.Current.getResponses().iterator().next().getAction());
 	        }
         }
     }

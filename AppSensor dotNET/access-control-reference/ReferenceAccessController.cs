@@ -1,8 +1,4 @@
-using System;
-using Ninject;
-using org.owasp.appsensor;
 using org.owasp.appsensor.exceptions;
-using org.owasp.appsensor.logging;
 using log4net;
 
 /**
