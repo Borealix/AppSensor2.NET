@@ -1,6 +1,6 @@
 /**
  * This exception is thrown by the {@link org.owasp.appsensor.accesscontrol.AccessController}
- * when a {@link org.owasp.appsensor.ClientApplication} is not authorized to perform a 
+ * when a {@link org.owasp.appsensor.clientApplication} is not authorized to perform a 
  * specific action
  * 
  * @author John Melton (jtmelton@gmail.com) http://www.jtmelton.com/

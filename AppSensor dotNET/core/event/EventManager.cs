@@ -2,7 +2,7 @@
 using org.owasp.appsensor;
 using System.Collections.ObjectModel;
 /**
- * The EventManager is the key interface that the {@link ClientApplication} accesses to 
+ * The EventManager is the key interface that the {@link clientApplication} accesses to 
  * interact with AppSensor.
  * 
  * @author John Melton (jtmelton@gmail.com) http://www.jtmelton.com/
@@ -18,26 +18,26 @@ namespace org.owasp.appsensor.events {
      */
 
     public abstract class EventManager{
-    /**
-    * Add an {@link Event}.
-    * 
-    * @param event {@link Event} to Add
-    */
-    public void addEvent(Event Event) {
-    }
-    /**
-    * Add an {@link Attack}
-    * @param attack {@link Attack} to Add
-    */
-    public void addAttack(Attack attack) {
-    }
-    /**
-    * Retrieve any {@link Response}s generated that apply to this 
-    * client since the last time the client called this method.
-    *  
-    * @return a Collection of {@link Response} objects 
-    */
-    //public Collection<Response> getResponses();
-   Collection<Response> getResponses = new Collection<Response>();
-    }
+        /**
+        * Add an {@link Event}.
+        * 
+        * @param event {@link Event} to Add
+        */
+        public void addEvent(Event Event) {
+        }
+        /**
+        * Add an {@link Attack}
+        * @param attack {@link Attack} to Add
+        */
+        public void addAttack(Attack attack) {
+        }
+        /**
+        * Retrieve any {@link Response}s generated that apply to this 
+        * client since the last time the client called this method.
+        *  
+        * @return a Collection of {@link Response} objects 
+        */
+        //public Collection<Response> getResponses();
+       Collection<Response> getResponses = new Collection<Response>();
+        }
 }

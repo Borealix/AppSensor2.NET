@@ -13,8 +13,7 @@ namespace org.owasp.appsensor{
     //public interface RequestHandler {
     public abstract class RequestHandler {
 	
-	//public static string APPSENSOR_CLIENT_APPLICATION_IDENTIFIER_ATTR = "APPSENSOR_CLIENT_APPLICATION_IDENTIFIER_ATTR";
-    static string APPSENSOR_CLIENT_APPLICATION_IDENTIFIER_ATTR = "APPSENSOR_CLIENT_APPLICATION_IDENTIFIER_ATTR";
+    public static string APPSENSOR_CLIENT_APPLICATION_IDENTIFIER_ATTR = "APPSENSOR_CLIENT_APPLICATION_IDENTIFIER_ATTR";
 	
 	/**
 	 * Add an Event.

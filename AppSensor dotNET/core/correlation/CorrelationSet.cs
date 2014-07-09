@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using System.Text;
 using Tools.HashCodeBuilder;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace org.owasp.appsensor.correlation {
     /**
@@ -17,7 +18,7 @@ namespace org.owasp.appsensor.correlation {
      * @author John Melton (jtmelton@gmail.com) http://www.jtmelton.com/
      */
     public class CorrelationSet {
-
+        
 	    /** {@link ClientApplication}s that are represented in this correlation set */
 	    //private Collection<string> clientApplications = new List<>();
         private HashSet<string> clientApplications = new HashSet<string>();
@@ -33,7 +34,7 @@ namespace org.owasp.appsensor.correlation {
 		    return this;
 	    }
 
-	    //public override int hashCode() {
+        //public override int hashCode() {
         public int hashCode() {
 		    return new HashCodeBuilder().
 				    Add(clientApplications).

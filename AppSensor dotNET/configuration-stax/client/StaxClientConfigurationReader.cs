@@ -5,6 +5,7 @@ using System.Xml;
 using System.Configuration;
 using org.owasp.appsensor.util;
 using org.owasp.appsensor.exceptions;
+using System.Reflection;
 /**
  * This implementation parses the {@link ClientConfiguration} objects 
  * from the specified XML file via the StAX API.
@@ -38,8 +39,8 @@ public class StaxClientConfigurationReader : ClientConfigurationReader {
 	 * {@inheritDoc}
 	 */
 	//public override ClientConfiguration read() {
+    /// <exception cref="ConfigurationException"></exception>
     public ClientConfiguration read() {
-        /// <exception cref="ConfigurationException"></exception>
 		string defaultXmlLocation = "/appsensor-client-config.xml";
 		string defaultXsdLocation = "/appsensor_client_config_2.0.xsd";
 		
@@ -50,11 +51,12 @@ public class StaxClientConfigurationReader : ClientConfigurationReader {
 	 * {@inheritDoc}
 	 */
 	//public override ClientConfiguration read(string xml, string xsd) {
+    /// <exception cref="ConfigurationException"></exception>
     public ClientConfiguration read(string xml, string xsd) {
-        /// <exception cref="ConfigurationException"></exception>
+        Assembly assembly = Assembly.GetExecutingAssembly();
 		ClientConfiguration configuration = null;
 		//InputStream xmlInputStream = null;
-        Stream xmlInputStream = null;
+        StreamReader xmlInputStream = null;
 		//XMLStreamReader xmlReader = null;
         XmlReader xmlReader = null;
 
@@ -72,9 +74,9 @@ public class StaxClientConfigurationReader : ClientConfigurationReader {
 			xmlFactory.XmlResolver = null;
 			
 			XmlUtils.validateXMLSchema(xsd, xml);
-			
-			//xmlInputStream = GetType().getResourceAsStream(xml);
-            xmlInputStream = new StreamReader(xml).BaseStream;
+                       
+			//xmlInputStream = Class.getResourceAsStream(xml);
+            xmlInputStream = new StreamReader(assembly.GetManifestResourceStream(xml));
 			
 			//xmlReader = xmlFactory.createXMLStreamReader(xmlInputStream);
             xmlReader = XmlReader.Create(xmlInputStream);
@@ -85,7 +87,7 @@ public class StaxClientConfigurationReader : ClientConfigurationReader {
             } catch(XmlException e) {
                 throw new org.owasp.appsensor.exceptions.ConfigurationException(e.Message, e);
             } catch(IOException e) {
-                throw new org.owasp.appsensor.exceptions.ConfigurationException(e.Message, e);
+                throw new org.owasp.appsensor.exceptions.ConfigurationException(e.Message, e);// Esta es la excepcion que se lanza en el test.
 		} finally {
 			if(xmlReader != null) {
 				try {

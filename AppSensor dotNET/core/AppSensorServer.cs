@@ -5,6 +5,7 @@ using org.owasp.appsensor.analysis;
 using org.owasp.appsensor.configuration.server;
 using org.owasp.appsensor.logging;
 using org.owasp.appsensor.storage;
+using Spring.Core;
 
 /**
  * AppSensor core class for accessing server-side components. Most components
@@ -55,7 +56,7 @@ public class AppSensorServer {
 		return configuration;
 	}
 	
-	// [Inject]
+	//[Inject]
 	public void setConfiguration(ServerConfiguration updatedConfiguration) {
 		configuration = updatedConfiguration;
 	}

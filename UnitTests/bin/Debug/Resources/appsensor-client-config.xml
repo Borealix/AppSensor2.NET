@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects xmlns="http://www.springframework.net">
+  
+  <!-- Objeto principal. autowire="byType"-->
+  <object id="appsensor-client-config" />
+  
+  <object id="event-manager" type="org.owasp.appsensor.event.LocalEventManager" />
+
+  <object id="response-handler" type="org.owasp.appsensor.response.LocalResponseHandler" />
+
+  <object id="user-manager" type="org.owasp.appsensor.response.NoopUserManager" />
+
+  <object id="server-connection" type="rest">
+    <property name="server-connection-config">
+      <object id="protocol" type="https" />
+      <object id="host" type="www.owasp.org" />
+      <object id="port" type="5000" />
+      <object id="path" type="/appsensor/v2/api/" />
+    </property>
+    <property id="client-application-identification-header-value" name="my-sample-client" />
+   </object>
+
+</objects>
+  
+<!--<appsensor-client-config xmlns="https://www.owasp.org/index.php/OWASP_AppSensor_Project/xsd/appsensor_client_config_2.0.xsd">
+
+	<event-manager class="org.owasp.appsensor.event.LocalEventManager" />
+	
+	<response-handler class="org.owasp.appsensor.response.LocalResponseHandler"/>
+	
+	<user-manager class="org.owasp.appsensor.response.NoopUserManager"/>
+	
+	<server-connection type="rest">
+		<server-connection-config>
+			<protocol>https</protocol>
+			<host>www.owasp.org</host>
+			<port>5000</port>
+			<path>/appsensor/v2/api/</path>
+			<client-application-identification-header-value>my-sample-client</client-application-identification-header-value>
+		</server-connection-config>
+	</server-connection>
+
+</appsensor-client-config>-->

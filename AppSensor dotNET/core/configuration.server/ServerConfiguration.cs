@@ -7,7 +7,7 @@ using System;
 using System.Text;
 using System.Collections;
 /**
- * Represents a connection to a server from a {@link ClientApplication}. 
+ * Represents a connection to a server from a {@link clientApplication}. 
  * 
  * @author John Melton (jtmelton@gmail.com) http://www.jtmelton.com/
  */
@@ -39,7 +39,7 @@ public abstract class ServerConfiguration {
     [NonSerialized]
     private static IDictionary<string, DetectionPoint> detectionPointCache = new Dictionary<string, DetectionPoint>();
 	
-    //private static transient Map<String, ClientApplication> clientApplicationCache = Collections.synchronizedMap(new HashMap<String, ClientApplication>());
+    //private static transient Map<String, clientApplication> clientApplicationCache = Collections.synchronizedMap(new HashMap<String, clientApplication>());
     [NonSerialized]
 	private static IDictionary<string, ClientApplication> clientApplicationCache = new Dictionary<string, ClientApplication>();
 	

@@ -20,13 +20,15 @@ namespace org.owasp.appsensor.storage {
 
 	// [Inject]
 	// private AppSensorServer appSensorServer;
-    IApplicationContext context = new XmlApplicationContext("base-context.xml", "appsensor-server-config.xml");
+    
         	
 	//@Before
     /// <exception cref="Exception"></exception>
-    [TestMethod]
+    [TestInitialize]
 	public void deleteTestFiles() {
-        AppSensorServer appSensorServer = (AppSensorServer)context.GetObject("AppSensorServer");
+        IApplicationContext context = new XmlApplicationContext("Resources/base-context.xml", "Resources/appsensor-server-config.xml");
+        AppSensorServer appSensorServer = (AppSensorServer)context.GetObject("Resources/AppSensorServer");
+
 		FileBasedEventStore eventStore = (FileBasedEventStore)appSensorServer.getEventStore();
 		FileBasedAttackStore attackStore = (FileBasedAttackStore)appSensorServer.getAttackStore();
 		FileBasedResponseStore responseStore = (FileBasedResponseStore)appSensorServer.getResponseStore();

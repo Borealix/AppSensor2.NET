@@ -47,6 +47,7 @@
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="Spring.Aop">
       <HintPath>..\packages\Spring.Aop.1.3.2\lib\net40\Spring.Aop.dll</HintPath>
     </Reference>
@@ -60,6 +61,9 @@
       <HintPath>..\packages\Spring.Data.NHibernate32.1.3.2\lib\net40\Spring.Data.NHibernate32.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -74,12 +78,18 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AppSensor WCF tests\WCFRequestHandlerTest.cs" />
     <Compile Include="appsensor-local\analysis\ReferenceStatisticalEventAnalysisEngineTest.cs" />
     <Compile Include="appsensor-local\AppSensorServerWiringTest.cs" />
     <Compile Include="configuration-stax\client\XmlClientConfigurationReaderTest.cs" />
     <Compile Include="configuration-stax\server\XmlServerConfigurationReaderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="reporting-websocket\reporting\DemoDataPopulator.cs" />
+    <Compile Include="Service References\ServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="storage-file-based\storage\FileBasedEventStorageTest.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +101,38 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\org.owasp.appsensor.Response.datasource" />
+    <None Include="Service References\ServiceReference\Service.wsdl" />
+    <None Include="Service References\ServiceReference\Service.xsd" />
+    <None Include="Service References\ServiceReference\Service1.xsd" />
+    <None Include="Service References\ServiceReference\Service2.xsd" />
+    <None Include="Service References\ServiceReference\WCFRequestHandler.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\appsensor-client-config.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Resources\appsensor-server-config.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\base-context.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Service References\ServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ServiceReference\configuration.svcinfo" />
+    <None Include="Service References\ServiceReference\configuration91.svcinfo" />
+    <None Include="Service References\ServiceReference\Service.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\ServiceReference\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

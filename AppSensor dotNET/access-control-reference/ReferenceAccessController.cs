@@ -2,7 +2,7 @@ using org.owasp.appsensor.exceptions;
 using log4net;
 
 /**
- * This particular {@link AccessController} implementation simply checks the {@link ClientApplication}s 
+ * This particular {@link AccessController} implementation simply checks the {@link clientApplication}s 
  * role(s) to see if it matches the expected {@link Action}. If there is a match found, 
  * then the access is considered valid.
  * 
@@ -20,13 +20,13 @@ public class ReferenceAccessController : AccessController {
 	/**
 	 * {@inheritDoc}
 	 */
-    //public override bool isAuthorized(ClientApplication ClientApplication, Action Action, Context Context) {
-	public bool isAuthorized(ClientApplication ClientApplication, Action Action, Context Context) {
+    //public override bool isAuthorized(clientApplication clientApplication, Action Action, Context Context) {
+	public bool isAuthorized(ClientApplication clientApplication, Action Action, Context Context) {
 		bool authorized = false;
 
-		//if (ClientApplication != null && Action != null && Action.ToString() != null && Action.ToString().Trim().Length() > 0) {
-        if (ClientApplication != null && Action != null && Action.ToString() != null && Action.ToString().Trim().Length > 0) {
-			foreach (Role role in ClientApplication.getRoles()) {
+		//if (clientApplication != null && Action != null && Action.ToString() != null && Action.ToString().Trim().Length() > 0) {
+        if (clientApplication != null && Action != null && Action.ToString() != null && Action.ToString().Trim().Length > 0) {
+			foreach (Role role in clientApplication.getRoles()) {
 				
 				//simple check to make sure that 
 				//the value of the action matches the value of one of the roles (exact match)
@@ -44,7 +44,7 @@ public class ReferenceAccessController : AccessController {
 	/**
 	 * {@inheritDoc}
 	 */
-	//public override void assertAuthorized(ClientApplication clientApplication, Action action, Context context) {
+	//public override void assertAuthorized(clientApplication clientApplication, Action action, Context context) {
     public void assertAuthorized(ClientApplication clientApplication, Action action, Context context) {
         //throws NotAuthorizedException {
         /// <exception cref="NotAuthorizedException"></exception>

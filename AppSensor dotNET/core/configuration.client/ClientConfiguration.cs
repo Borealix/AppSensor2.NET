@@ -6,7 +6,7 @@ using System.Text;
 using Tools.HashCodeBuilder;
 
 /**
- * The ClientApplication object represents a consumer of the AppSensor 
+ * The clientApplication object represents a consumer of the AppSensor 
  * services in any of the client-server style setups.
  * 
  * @author John Melton (jtmelton@gmail.com) http://www.jtmelton.com/

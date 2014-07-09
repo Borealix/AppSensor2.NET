@@ -8,6 +8,7 @@ using System.IO;
 using System.Xml;
 using org.owasp.appsensor.exceptions;
 using System.Collections.ObjectModel;
+using System.Reflection;
 /**
  * This implementation parses the {@link ServerConfiguration} objects 
  * from the specified XML file via the StAX API.
@@ -52,14 +53,15 @@ public class StaxServerConfigurationReader : ServerConfigurationReader {
 	/**
 	 * {@inheritDoc}
 	 */
-	//public override ServerConfiguration read(string xml, string xsd) {
+	//public ServerConfiguration read(String xml, String xsd) throws ConfigurationException {
+    /// <exception cref="ConfigurationException"></exception>
     public ServerConfiguration read(string xml, string xsd) {
-         /// <exception cref="ConfigurationException"></exception>
 		ServerConfiguration configuration = null;
 		//InputStream xmlInptStream = null;
-        Stream xmlInputStream = null; 
+        StreamReader xmlInputStream = null; 
 		//XMLStreamReader xmlReader = null;
         XmlReader xmlReader = null;
+        Assembly assembly = Assembly.GetExecutingAssembly();
 		
 		try {
 			//XMLInputFactory xmlFactory = XMLInputFactory.newInstance();
@@ -75,11 +77,11 @@ public class StaxServerConfigurationReader : ServerConfigurationReader {
             xmlFactory.XmlResolver = null;
 			
 			XmlUtils.validateXMLSchema(xsd, xml);
-			
-			//xmlInputStream = GetType().getResourceAsStream(xml);
-            xmlInputStream = new StreamReader(xml).BaseStream;
-			
-			//xmlReader = xmlFactory.createXMLStreamReader(xmlInputStream);
+
+            // xmlInputStream = getClass().getResourceAsStream(xml);
+            xmlInputStream = new StreamReader(assembly.GetManifestResourceStream(xml));
+
+            // xmlReader = xmlFactory.createXMLStreamReader(xmlInputStream);
             xmlReader = XmlReader.Create(xmlInputStream);
 			
 			configuration = readServerConfiguration(xmlReader);

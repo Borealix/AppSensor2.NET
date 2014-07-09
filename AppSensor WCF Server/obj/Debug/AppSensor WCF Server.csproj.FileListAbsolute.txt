@@ -1,0 +1,21 @@
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor WCF Server\obj\Debug\AppSensor WCF Server.csprojResolveAssemblyReference.cache
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor WCF Server\bin\AppSensor WCF Server.dll.config
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor WCF Server\bin\AppSensor WCF Server.dll
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor WCF Server\bin\AppSensor WCF Server.pdb
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor WCF Server\bin\AppSensor dotNET.dll
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor WCF Server\bin\log4net.dll
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor WCF Server\bin\SuperSocket.SocketBase.dll
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor WCF Server\bin\Ninject.dll
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor WCF Server\bin\WebSocket4Net.dll
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor WCF Server\bin\Newtonsoft.Json.dll
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor WCF Server\bin\SuperSocket.Common.dll
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor WCF Server\bin\AppSensor dotNET.pdb
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor WCF Server\bin\log4net.xml
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor WCF Server\bin\SuperSocket.SocketBase.pdb
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor WCF Server\bin\SuperSocket.SocketBase.xml
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor WCF Server\bin\Ninject.xml
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor WCF Server\bin\Newtonsoft.Json.xml
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor WCF Server\bin\SuperSocket.Common.pdb
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor WCF Server\bin\SuperSocket.Common.xml
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor WCF Server\obj\Debug\AppSensor WCF Server.dll
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\AppSensor WCF Server\obj\Debug\AppSensor WCF Server.pdb

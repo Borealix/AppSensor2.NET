@@ -36,3 +36,6 @@ C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\UnitTests\bin\Debu
 C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\UnitTests\bin\Debug\Spring.Data.xml
 C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\UnitTests\bin\Debug\Spring.Data.NHibernate32.pdb
 C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\UnitTests\bin\Debug\Spring.Data.NHibernate32.xml
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\UnitTests\bin\Debug\Resources\appsensor-client-config.xml
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\UnitTests\bin\Debug\Resources\appsensor-server-config.xml
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\UnitTests\bin\Debug\Resources\base-context.xml

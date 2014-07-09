@@ -1,29 +1,17 @@
-/*import java.io.IOException;
-import java.io.InputStream;
-import java.util.Map;
-
-import javax.xml.XMLConstants;
-import javax.xml.stream.XMLStreamConstants;
-import javax.xml.stream.XMLStreamReader;
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import javax.xml.validation.Validator;
-
-import org.xml.sax.SAXException;*/
-
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
+using System.Resources;
+using System.Xml;
+using System.Xml.Schema;
+
+namespace org.owasp.appsensor.util{
 /**
  * Helper class for XML related utility methods
  * 
  * @author John Melton (jtmelton@gmail.com) http://www.jtmelton.com/
  */
-using System.IO;
-using System.Resources;
-using System.Xml;
-using System.Xml.Schema;
-namespace org.owasp.appsensor.util{
 public class XmlUtils {
 	
 	/**
@@ -36,12 +24,13 @@ public class XmlUtils {
 	 * @throws SAXException sax exception for parsing files
 	 */
     /// <exception cref="IOException"></exception>
-    /// /// <exception cref="SAXException"></exception>
+    /// <exception cref="SAXException"></exception>
 	public static void validateXMLSchema(string xsdPath, string xmlPath){
-		//InputStream xsdStream = XmlUtils.Class.getResourceAsStream(xsdPath);
-        Stream xsdStream = new StreamReader(xsdPath).BaseStream;
+        Assembly assembly = Assembly.GetExecutingAssembly();
+        //InputStream xsdStream = XmlUtils.class.getResourceAsStream(xsdPath);
+        StreamReader xsdStream = new StreamReader(assembly.GetManifestResourceStream(xsdPath));
 		//InputStream xmlStream = XmlUtils.Class.getResourceAsStream(xmlPath);
-        Stream xmlStream = new StreamReader(xmlPath).BaseStream;
+        StreamReader xmlStream = new StreamReader(assembly.GetManifestResourceStream(xmlPath));
 		
 		validateXMLSchema(xsdStream, xmlStream);
     }
@@ -55,18 +44,29 @@ public class XmlUtils {
 	 * @throws SAXException sax exception for parsing files
 	 */
 
-    /*  public static void validateXMLSchema(InputStream xsdStream, InputStream xmlStream) throws IOException, SAXException {
-        SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        Schema schema = factory.newSchema(new StreamSource(xsdStream)); Define un schema con "http://www.w3.org/2001/XMLSchema-instance" definido
-        Validator validator = schema.newValidator();
-        validator.validate(new StreamSource(xmlStream));
-    } */
-
     /// <exception cref="IOException"></exception>
-    /// /// <exception cref="SAXException"></exception>
-    public static void validateXMLSchema(Stream xsdStream, Stream xmlStream) {
-        //XmlSchema schema = XmlSchema.Read(xsdStream, null);        
-        //schema.Namespaces.Add(string.Empty, "http://www.w3.org/2001/XMLSchema");
+    /// <exception cref="SAXException"></exception>
+    public static void validateXMLSchema(StreamReader xsdStream, StreamReader xmlStream) {
+        //SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        //Schema schema = factory.newSchema(new StreamSource(xsdStream));
+        //Validator validator = schema.newValidator();
+        //validator.validate(new StreamSource(xmlStream));
+
+        //XmlReaderSettings booksSettings = new XmlReaderSettings();
+        //booksSettings.Schemas.Add("http://www.contoso.com/books", "books.xsd");
+        //booksSettings.ValidationType = ValidationType.Schema;
+        //booksSettings.ValidationEventHandler += new ValidationEventHandler(booksSettingsValidationEventHandler);
+
+        //XmlReader books = XmlReader.Create("books.xml", booksSettings);
+
+        //while(books.Read()) {
+        //}
+
+        //XmlReader books = XmlReader.Create("books.xml", booksSettings);
+
+        //while(books.Read()) {
+        //}
+
         XmlReaderSettings schema = new XmlReaderSettings();
         schema.Schemas.Add("http://www.w3.org/2001/XMLSchema", xsdStream.ToString());
         schema.ValidationType = ValidationType.Schema;
@@ -82,7 +82,6 @@ public class XmlUtils {
             Console.WriteLine(e.Message);
         }
     }
-
 
 	/**
 	 * Helper method for getting qualified name from stax reader given a set of specified schema namespaces
@@ -112,6 +111,5 @@ public class XmlUtils {
 		//return namespaces.get(namespaceUri) + ":" + localName;
         return namespaces[namespaceUri] + ":" + localName;
 	}
-	
 }
 }

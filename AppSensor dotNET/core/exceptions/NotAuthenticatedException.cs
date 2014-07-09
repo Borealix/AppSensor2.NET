@@ -1,6 +1,6 @@
 /**
  * This exception is meant to be thrown by the {@link org.owasp.appsensor.RequestHandler}
- * when a {@link org.owasp.appsensor.ClientApplication} is not providing appropriate
+ * when a {@link org.owasp.appsensor.clientApplication} is not providing appropriate
  * authentication credentials
  * 
  * @author John Melton (jtmelton@gmail.com) http://www.jtmelton.com/

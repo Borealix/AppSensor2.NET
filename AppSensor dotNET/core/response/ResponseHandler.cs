@@ -1,7 +1,7 @@
 using org.owasp.appsensor.response;
 /**
  * The ResponseHandler is executed when a {@link Response} needs to be executed. 
- * The ResponseHandler is used by the {@link org.owasp.appsensor.ClientApplication}, or possibly the server 
+ * The ResponseHandler is used by the {@link org.owasp.appsensor.clientApplication}, or possibly the server 
  * side in a local configuration.
  * 
  * @author John Melton (jtmelton@gmail.com) http://www.jtmelton.com/

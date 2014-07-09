@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/org.owasp.appsensor" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/org.owasp.appsensor" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="Event">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="Event" nillable="true" type="tns:Event" />
+  <xs:complexType name="Attack">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="Attack" nillable="true" type="tns:Attack" />
+  <xs:complexType name="ArrayOfResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Response" nillable="true" type="tns:Response" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfResponse" nillable="true" type="tns:ArrayOfResponse" />
+  <xs:complexType name="Response">
+    <xs:sequence>
+      <xs:element name="action" nillable="true" type="xs:string" />
+      <xs:element name="detectionSystemId" nillable="true" type="xs:string" />
+      <xs:element name="interval" nillable="true" type="tns:Interval" />
+      <xs:element name="timestamp" nillable="true" type="xs:string" />
+      <xs:element name="user" nillable="true" type="tns:User" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Response" nillable="true" type="tns:Response" />
+  <xs:complexType name="Interval">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="Interval" nillable="true" type="tns:Interval" />
+  <xs:complexType name="User">
+    <xs:sequence>
+      <xs:element name="username" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="User" nillable="true" type="tns:User" />
+</xs:schema>

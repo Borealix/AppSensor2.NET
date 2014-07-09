@@ -27,7 +27,6 @@ namespace org.owasp.appsensor.reporting {
      * @author John Melton (jtmelton@gmail.com) http://www.jtmelton.com/
      * @author Raphaël Taban
      */
-    [TestClass]
     public class DemoDataPopulator {
 	
 	// [Inject]

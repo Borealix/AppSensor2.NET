@@ -14,7 +14,6 @@ namespace org.owasp.appsensor {
     [TestClass]
     public class AppSensorServerWiringTest {
         
-        // Error: No esta definido ningun objeto con el nombre AppSensorServer.
         [TestMethod]
         public void testInstantiation() {
             // ApplicationContext ctx = new FileSystemXmlApplicationContext("spring.xml");
@@ -22,8 +21,7 @@ namespace org.owasp.appsensor {
             // Movie[] movies = lister.moviesDirectedBy("Sergio Leone");
             // assertEquals("Once Upon a Time in the West", movies[0].getTitle());
 
-            IApplicationContext context = new XmlApplicationContext("base-context.xml");
-            // , "appsensor-server-config.xml"
+            IApplicationContext context = new XmlApplicationContext("Resources/base-context.xml", "Resources/appsensor-server-config.xml");
             AppSensorServer appSensorServer = (AppSensorServer)context.GetObject("AppSensorServer");
 
 		    Assert.IsNotNull(appSensorServer, "Server instance is null");
