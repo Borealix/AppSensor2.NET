@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessControlUtils.cs" />
+    <Compile Include="ClientApplicationIdentificationFilter.cs" />
     <Compile Include="IWCFRequestHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WCFRequestHandler.cs" />

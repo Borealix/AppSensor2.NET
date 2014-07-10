@@ -45,11 +45,12 @@ namespace org.owasp.appsensor.analysis {
         /// <exception cref="InvalidOperationException"></exception>
 	    [TestMethod]
         public void testAttackCreation() {
-            IApplicationContext contextServer = new XmlApplicationContext("Resources/base-context.xml", "Resources/appsensor-server-config.xml");
-            IApplicationContext contextClient = new XmlApplicationContext("Resources/base-context.xml", "Resources/appsensor-client-config.xml");
+            IApplicationContext context = new XmlApplicationContext("Resources/appsensor-client-config.xml", "Resources/appsensor-server-config.xml");
+            //IApplicationContext contextClient = new XmlApplicationContext("Resources/base-context.xml", "Resources/appsensor-client-config.xml");
+            //IApplicationContext context = ContextRegistry.GetContext();
             
-            AppSensorServer appSensorServer = (AppSensorServer)contextServer.GetObject("AppSensorServer");
-            AppSensorClient appSensorClient = (AppSensorClient)contextClient.GetObject("AppSensorClient");
+            AppSensorServer appSensorServer = (AppSensorServer)context.GetObject("AppSensorServer");
+            AppSensorClient appSensorClient = (AppSensorClient)context.GetObject("AppSensorClient");
 
 		    ServerConfiguration updatedConfiguration = appSensorServer.getConfiguration();
 		    updatedConfiguration.setDetectionPoints(loadMockedDetectionPoints());

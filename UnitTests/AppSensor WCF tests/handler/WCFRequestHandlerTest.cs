@@ -50,18 +50,18 @@ namespace org.owasp.appsensor.wcf {
             IWCFRequestHandler requestHandler = (IWCFRequestHandler)response.CreateObjRef(typeof(IWCFRequestHandler));
         
             // HandlerChain installation
-            Binding binding = BindingOperations.GetBinding(requestHandler );
-            List<Handler> handlerChain = binding.getHandlerChain();
-            if (handlerChain == null) {
-        	    handlerChain = new ArrayList<Handler>();
-            }
+            //Binding binding = BindingOperations.GetBinding(requestHandler );
+            //List<Handler> handlerChain = binding.getHandlerChain();
+            //if (handlerChain == null) {
+            //    handlerChain = new ArrayList<Handler>();
+            //}
         
-            RegisterClientApplicationIdentificationHandler handler = 
-        		    new RegisterClientApplicationIdentificationHandler();
-            handler.setAppSensorClient(appSensorClient);
+            //RegisterClientApplicationIdentificationHandler handler = 
+            //        new RegisterClientApplicationIdentificationHandler();
+            //handler.setAppSensorClient(appSensorClient);
 
-            handlerChain.add(handler);
-            binding.setHandlerChain(handlerChain);
+            //handlerChain.add(handler);
+            //binding.setHandlerChain(handlerChain);
         
             DateTime currentTimestamp = DateUtils.getCurrentTimestamp();
             currentTimestamp = currentTimestamp.AddSeconds(-1);

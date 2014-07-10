@@ -2,7 +2,7 @@
 <objects xmlns="http://www.springframework.net">
   
   <!-- Objeto principal. autowire="byType"-->
-  <object id="appsensor-client-config" />
+  <object id="AppSensorClient" type="org.owasp.appsensor.AppSensorClient" />
   
   <object id="event-manager" type="org.owasp.appsensor.event.LocalEventManager" />
 
@@ -10,15 +10,13 @@
 
   <object id="user-manager" type="org.owasp.appsensor.response.NoopUserManager" />
 
-  <object id="server-connection" type="rest">
-    <property name="server-connection-config">
-      <object id="protocol" type="https" />
-      <object id="host" type="www.owasp.org" />
-      <object id="port" type="5000" />
-      <object id="path" type="/appsensor/v2/api/" />
-    </property>
-    <property id="client-application-identification-header-value" name="my-sample-client" />
-   </object>
+  <object name="server-connection" type="rest">
+    <constructor-arg name="protocol" type="string" value="https"/>
+    <constructor-arg name="host" type="string" value="www.owasp.org"/>
+    <constructor-arg name="port" type="string" value="5000"/>
+    <constructor-arg name="path" type="string" value="/appsensor/v2/api/"/>
+    <constructor-arg name="client-application-identification-header-value" type="string" value="my-sample-client"/>
+  </object>
 
 </objects>
   
