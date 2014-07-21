@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ninject;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel.Web;
@@ -37,6 +38,7 @@ namespace org.owasp.appsensor.wcf {
 	    private static bool checkedConfigurationHeaderName = false;
 	
 	    //@Inject
+        [Inject]
 	    private AppSensorServer appSensorServer;
 	
 	    //@Override

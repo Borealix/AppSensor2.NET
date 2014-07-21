@@ -1,4 +1,5 @@
-﻿using org.owasp.appsensor.accesscontrol;
+﻿using Ninject;
+using org.owasp.appsensor.accesscontrol;
 using System.ServiceModel.Web;
 namespace org.owasp.appsensor.wcf {
     /**
@@ -11,6 +12,7 @@ namespace org.owasp.appsensor.wcf {
     public class AccessControlUtils {
 
         //@Inject
+        [Inject]
         private AppSensorServer appSensorServer;
 
         /**

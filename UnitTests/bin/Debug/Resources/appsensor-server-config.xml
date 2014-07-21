@@ -1,5 +1,8 @@
 <!--<appsensor-server-config xmlns="https://www.owasp.org/index.php/OWASP_AppSensor_Project/xsd/appsensor_server_config_2.0.xsd">-->
-<objects xmlns="http://www.springframework.net">
+<!--<objects xmlns="http://www.springframework.net">-->
+<objects xmlns="http://www.springframework.net"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.net http://www.springframework.net/schema/objects/spring-objects-1.1.xsd">
   
   <!--<client-application-identification-header-name>X-Appsensor-Client-Application-Name2</client-application-identification-header-name>-->
   
@@ -42,18 +45,24 @@
     </correlated-client-set>
   </correlation-config>-->
   <object id="correlation-config">
-    <set name="correlated-client-set">
-      <client-application-name>server1</client-application-name>
-      <client-application-name>server3</client-application-name>
-    </set>
-    <set name="correlated-client-set">
-      <client-application-name>server2</client-application-name>
-      <client-application-name>server4</client-application-name>
-    </set>
-    <set name="correlated-client-set">
-      <client-application-name>server1</client-application-name>
-      <client-application-name>server5</client-application-name>
-    </set>
+    <property name="correlated-client-set">
+      <set>
+        <value>server1</value>
+        <value>server3</value>
+      </set>
+    </property>
+    <property name="correlated-client-set">
+      <set>
+        <value>server2</value>
+        <value>server4</value>
+      </set>
+    </property>
+    <property name ="correlated-client-set">
+      <set>
+        <value>server1</value>
+        <value>server5</value>
+      </set>
+    </property>
   </object>
 
   <!--<event-analyzer class="org.owasp.appsensor.analysis.ReferenceEventAnalysisEngine" />
@@ -76,8 +85,9 @@
     </extended-configuration>
   </event-store>-->
   <object id="event-store" type="org.owasp.appsensor.storage.FileBasedEventStore">
-    <property name="extended-configuration">
-      <dictionary name="configuration-parameter">
+    <!--<description>configuration-parameter</description>-->
+    <property name="configuration-parameter">
+      <dictionary>
         <entry key="filePath" value="/tmp" />
         <entry key="fileName" value="events_testing.txt" />
       </dictionary>
@@ -98,13 +108,16 @@
   </attack-store>-->
   <object id="attack-store" type="org.owasp.appsensor.storage.FileBasedAttackStore">
     <property name="extended-configuration">
-      <dictionary name="configuration-parameter">
+      <description>configuration-parameter</description>
+      <dictionary>
         <entry key="filePath" value="/tmp" />
       </dictionary>
-      <dictionary name="configuration-parameter">
+    </property>
+    <property name="extended-configuration">
+      <dictionary >
         <entry key="fileName" value="attacks_testing.txt" />
       </dictionary>
-     </property>
+    </property>
   </object>
 
   <!--<response-store class="org.owasp.appsensor.storage.FileBasedResponseStore">
@@ -124,6 +137,8 @@
       <dictionary>
         <entry key="filePath" value="/tmp" />
       </dictionary>
+    </property>
+    <property name="extended-configuration">
       <dictionary>
         <entry key="fileName" value="responses_testing.txt" />
       </dictionary>
@@ -140,169 +155,301 @@
     <observer class="org.owasp.appsensor.analysis.ReferenceEventAnalysisEngine" />
     <observer class="org.owasp.appsensor.reporting.SimpleLoggingReportingEngine" />
   </event-store-observers>-->
-  <event-store-observers>
-    <observer class="org.owasp.appsensor.analysis.ReferenceEventAnalysisEngine" />
-    <observer class="org.owasp.appsensor.reporting.SimpleLoggingReportingEngine" />
-  </event-store-observers>
+  <object id="event-store-observers">
+    <property name="observer" ref="org.owasp.appsensor.analysis.ReferenceEventAnalysisEngine"/>
+    <property name="observer" ref="org.owasp.appsensor.reporting.SimpleLoggingReportingEngine"/>
+  </object>
 
-</objects>
-
-<!--
-  <event-store-observers>
-    <observer class="org.owasp.appsensor.analysis.ReferenceEventAnalysisEngine" />
-    <observer class="org.owasp.appsensor.reporting.SimpleLoggingReportingEngine" />
-  </event-store-observers>
-
-  <attack-store-observers>
+  <!--<attack-store-observers>
     <observer class="org.owasp.appsensor.analysis.ReferenceAttackAnalysisEngine" />
     <observer class="org.owasp.appsensor.reporting.SimpleLoggingReportingEngine" />
-  </attack-store-observers>
+  </attack-store-observers>-->
+  <object id="attack-store-observers">
+    <property name="observer" ref="org.owasp.appsensor.analysis.ReferenceAttackAnalysisEngine"/>
+    <property name="observer" ref="org.owasp.appsensor.reporting.SimpleLoggingReportingEngine"/>
+  </object>
 
-  <response-store-observers>
+  <!--<response-store-observers>
     <observer class="org.owasp.appsensor.analysis.ReferenceResponseAnalysisEngine" />
     <observer class="org.owasp.appsensor.reporting.SimpleLoggingReportingEngine" />
-  </response-store-observers>
+  </response-store-observers>-->
+  <object id="response-store-observers">
+    <property name="observer" ref="org.owasp.appsensor.analysis.ReferenceResponseAnalysisEngine"/>
+    <property name="observer" ref="org.owasp.appsensor.reporting.SimpleLoggingReportingEngine"/>
+  </object>
 
-  <detection-points>
-    <detection-point>
-      <id>IE1</id>
-      <threshold>
-        <count>11</count>
-        <interval unit="minutes">4</interval>
-      </threshold>
-      <responses>
-        <response>
-          <action>log</action>
-        </response>
-        <response>
-          <action>logout</action>
-        </response>
-        <response>
-          <action>disableUser</action>
-        </response>
-        <response>
-          <action>disableComponentForSpecificUser</action>
-          <interval unit="minutes">31</interval>
-        </response>
-        <response>
-          <action>disableComponentForAllUsers</action>
-          <interval unit="minutes">11</interval>
-        </response>
-      </responses>
-    </detection-point>
-    <detection-point>
-      <id>IE2</id>
-      <threshold>
-        <count>12</count>
-        <interval unit="minutes">5</interval>
-      </threshold>
-      <responses>
-        <response>
-          <action>log</action>
-        </response>
-        <response>
-          <action>logout</action>
-        </response>
-        <response>
-          <action>disableUser</action>
-        </response>
-        <response>
-          <action>disableComponentForSpecificUser</action>
-          <interval unit="minutes">32</interval>
-        </response>
-        <response>
-          <action>disableComponentForAllUsers</action>
-          <interval unit="minutes">12</interval>
-        </response>
-      </responses>
-    </detection-point>
-    <detection-point>
-      <id>RE3</id>
-      <threshold>
-        <count>13</count>
-        <interval unit="minutes">6</interval>
-      </threshold>
-      <responses>
-        <response>
-          <action>log</action>
-        </response>
-        <response>
-          <action>logout</action>
-        </response>
-        <response>
-          <action>disableUser</action>
-        </response>
-        <response>
-          <action>disableComponentForSpecificUser</action>
-          <interval unit="minutes">33</interval>
-        </response>
-        <response>
-          <action>disableComponentForAllUsers</action>
-          <interval unit="minutes">13</interval>
-        </response>
-      </responses>
-    </detection-point>
-    <detection-point>
-      <id>RE4</id>
-      <threshold>
-        <count>14</count>
-        <interval unit="minutes">7</interval>
-      </threshold>
-      <responses>
-        <response>
-          <action>log</action>
-        </response>
-        <response>
-          <action>logout</action>
-        </response>
-        <response>
-          <action>disableUser</action>
-        </response>
-        <response>
-          <action>disableComponentForSpecificUser</action>
-          <interval unit="minutes">34</interval>
-        </response>
-        <response>
-          <action>disableComponentForAllUsers</action>
-          <interval unit="minutes">14</interval>
-        </response>
-      </responses>
-    </detection-point>
-    <detection-point>
-      <id>RE5</id>
-      <threshold>
-        <count>15</count>
-        <interval unit="minutes">8</interval>
-      </threshold>
-      <responses>
-        <response>
-          <action>log</action>
-        </response>
-        <response>
-          <action>logout</action>
-        </response>
-        <response>
-          <action>disableUser</action>
-        </response>
-        <response>
-          <action>disableComponentForSpecificUser</action>
-          <interval unit="minutes">35</interval>
-        </response>
-        <response>
-          <action>disableComponentForAllUsers</action>
-          <interval unit="minutes">15</interval>
-        </response>
-      </responses>
-    </detection-point>
-    Comentado<detection-point><id></id></detection-point>
-		<detection-point><id>RE1</id></detection-point>
-		<detection-point><id>RE2</id></detection-point>
-		<detection-point><id>RE3</id></detection-point>Comentado
-    Comentado<detection-point>IE1</detection-point>
-		<detection-point>IE2</detection-point>
-		<detection-point>RE1</detection-point>
-		<detection-point>RE2</detection-point>
-		<detection-point>RE3</detection-point>Comentado
-  </detection-points>
+<!--<detection-points>
+      <detection-point>
+        <id>IE1</id>
+        <threshold>
+          <count>11</count>
+          <interval unit="minutes">4</interval>
+        </threshold>
+        <responses>
+          <response>
+            <action>log</action>
+          </response>
+          <response>
+            <action>logout</action>
+          </response>
+          <response>
+            <action>disableUser</action>
+          </response>
+          <response>
+            <action>disableComponentForSpecificUser</action>
+            <interval unit="minutes">31</interval>
+          </response>
+          <response>
+            <action>disableComponentForAllUsers</action>
+            <interval unit="minutes">11</interval>
+          </response>
+        </responses>
+      </detection-point>
+      <detection-point>
+        <id>IE2</id>
+        <threshold>
+          <count>12</count>
+          <interval unit="minutes">5</interval>
+        </threshold>
+        <responses>
+          <response>
+            <action>log</action>
+          </response>
+          <response>
+            <action>logout</action>
+          </response>
+          <response>
+            <action>disableUser</action>
+          </response>
+          <response>
+            <action>disableComponentForSpecificUser</action>
+            <interval unit="minutes">32</interval>
+          </response>
+          <response>
+            <action>disableComponentForAllUsers</action>
+            <interval unit="minutes">12</interval>
+          </response>
+        </responses>
+      </detection-point>
+      <detection-point>
+        <id>RE3</id>
+        <threshold>
+          <count>13</count>
+          <interval unit="minutes">6</interval>
+        </threshold>
+        <responses>
+          <response>
+            <action>log</action>
+          </response>
+          <response>
+            <action>logout</action>
+          </response>
+          <response>
+            <action>disableUser</action>
+          </response>
+          <response>
+            <action>disableComponentForSpecificUser</action>
+            <interval unit="minutes">33</interval>
+          </response>
+          <response>
+            <action>disableComponentForAllUsers</action>
+            <interval unit="minutes">13</interval>
+          </response>
+        </responses>
+      </detection-point>
+      <detection-point>
+        <id>RE4</id>
+        <threshold>
+          <count>14</count>
+          <interval unit="minutes">7</interval>
+        </threshold>
+        <responses>
+          <response>
+            <action>log</action>
+          </response>
+          <response>
+            <action>logout</action>
+          </response>
+          <response>
+            <action>disableUser</action>
+          </response>
+          <response>
+            <action>disableComponentForSpecificUser</action>
+            <interval unit="minutes">34</interval>
+          </response>
+          <response>
+            <action>disableComponentForAllUsers</action>
+            <interval unit="minutes">14</interval>
+          </response>
+        </responses>
+      </detection-point>
+      <detection-point>
+        <id>RE5</id>
+        <threshold>
+          <count>15</count>
+          <interval unit="minutes">8</interval>
+        </threshold>
+        <responses>
+          <response>
+            <action>log</action>
+          </response>
+          <response>
+            <action>logout</action>
+          </response>
+          <response>
+            <action>disableUser</action>
+          </response>
+          <response>
+            <action>disableComponentForSpecificUser</action>
+            <interval unit="minutes">35</interval>
+          </response>
+          <response>
+            <action>disableComponentForAllUsers</action>
+            <interval unit="minutes">15</interval>
+          </response>
+        </responses>
+      </detection-point>
+      Comentado<detection-point><id></id></detection-point>
+		  <detection-point><id>RE1</id></detection-point>
+		  <detection-point><id>RE2</id></detection-point>
+		  <detection-point><id>RE3</id></detection-point>Comentado
+      Comentado<detection-point>IE1</detection-point>
+		  <detection-point>IE2</detection-point>
+		  <detection-point>RE1</detection-point>
+		  <detection-point>RE2</detection-point>
+		  <detection-point>RE3</detection-point>Comentado
+    </detection-points>-->
+<!--<object id="detection-points">
+  <property id="IE1" name="detection-point">
+    <object id="threshold">
+      <constructor-arg name="count" type="int" value="11"/>
+      <constructor-arg name="interval" type="minutes" value="4"/>
+    </object>
+  </property>
+    <responses>
+      <response>
+        <action>log</action>
+      </response>
+      <response>
+        <action>logout</action>
+      </response>
+      <response>
+        <action>disableUser</action>
+      </response>
+      <response>
+        <action>disableComponentForSpecificUser</action>
+        <interval unit="minutes">31</interval>
+      </response>
+      <response>
+        <action>disableComponentForAllUsers</action>
+        <interval unit="minutes">11</interval>
+      </response>
+    </responses>
+  </property>
+  <detection-point>
+    <id>IE2</id>
+    <threshold>
+      <count>12</count>
+      <interval unit="minutes">5</interval>
+    </threshold>
+    <responses>
+      <response>
+        <action>log</action>
+      </response>
+      <response>
+        <action>logout</action>
+      </response>
+      <response>
+        <action>disableUser</action>
+      </response>
+      <response>
+        <action>disableComponentForSpecificUser</action>
+        <interval unit="minutes">32</interval>
+      </response>
+      <response>
+        <action>disableComponentForAllUsers</action>
+        <interval unit="minutes">12</interval>
+      </response>
+    </responses>
+  </detection-point>
+  <detection-point>
+    <id>RE3</id>
+    <threshold>
+      <count>13</count>
+      <interval unit="minutes">6</interval>
+    </threshold>
+    <responses>
+      <response>
+        <action>log</action>
+      </response>
+      <response>
+        <action>logout</action>
+      </response>
+      <response>
+        <action>disableUser</action>
+      </response>
+      <response>
+        <action>disableComponentForSpecificUser</action>
+        <interval unit="minutes">33</interval>
+      </response>
+      <response>
+        <action>disableComponentForAllUsers</action>
+        <interval unit="minutes">13</interval>
+      </response>
+    </responses>
+  </detection-point>
+  <detection-point>
+    <id>RE4</id>
+    <threshold>
+      <count>14</count>
+      <interval unit="minutes">7</interval>
+    </threshold>
+    <responses>
+      <response>
+        <action>log</action>
+      </response>
+      <response>
+        <action>logout</action>
+      </response>
+      <response>
+        <action>disableUser</action>
+      </response>
+      <response>
+        <action>disableComponentForSpecificUser</action>
+        <interval unit="minutes">34</interval>
+      </response>
+      <response>
+        <action>disableComponentForAllUsers</action>
+        <interval unit="minutes">14</interval>
+      </response>
+    </responses>
+  </detection-point>
+  <detection-point>
+    <id>RE5</id>
+    <threshold>
+      <count>15</count>
+      <interval unit="minutes">8</interval>
+    </threshold>
+    <responses>
+      <response>
+        <action>log</action>
+      </response>
+      <response>
+        <action>logout</action>
+      </response>
+      <response>
+        <action>disableUser</action>
+      </response>
+      <response>
+        <action>disableComponentForSpecificUser</action>
+        <interval unit="minutes">35</interval>
+      </response>
+      <response>
+        <action>disableComponentForAllUsers</action>
+        <interval unit="minutes">15</interval>
+      </response>
+    </responses>
+  </detection-point>
+</object>-->
 
-</appsensor-server-config>-->
+</objects>

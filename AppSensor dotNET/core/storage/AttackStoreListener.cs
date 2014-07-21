@@ -7,7 +7,6 @@ using static java.lang.annotation.RetentionPolicy.RUNTIME;
 using java.lang.annotation.Inherited;
 using java.lang.annotation.Retention;
 using java.lang.annotation.Target;
-using javax.inject.Qualifier;
  */
 
 /**
@@ -19,11 +18,11 @@ using javax.inject.Qualifier;
  * @author Raphaël Taban
  */
 namespace org.owasp.appsensor.storage{
-//@Qualifier
-//@Retention(RUNTIME)
-//@Target({TYPE, METHOD, FIELD, PARAMETER})
-//@Inherited
-//public @interface AttackStoreListener {
-public interface AttackStoreListener {
-}
+    //@Qualifier
+    //@Retention(RUNTIME)
+    //@Target({TYPE, METHOD, FIELD, PARAMETER})
+    //@Inherited
+    //[AttributeUsage(Inherited = True)]
+    public interface AttackStoreListener {
+    }
 }

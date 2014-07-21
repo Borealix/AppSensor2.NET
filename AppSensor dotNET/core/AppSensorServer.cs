@@ -1,4 +1,5 @@
 using log4net;
+using Ninject;
 //using Ninject;
 using org.owasp.appsensor.accesscontrol;
 using org.owasp.appsensor.analysis;
@@ -16,112 +17,112 @@ using Spring.Core;
  * @author Raphaël Taban
  */
 namespace org.owasp.appsensor{
-//[Named("AppSensorServer")]
-public class AppSensorServer {
+    //[Named]
+    public class AppSensorServer {
 	
-	//@SuppressWarnings("unused")
-	private ILog logger;
+	    //@SuppressWarnings("unused")
+	    private ILog logger;
 	
-	/** accessor for {@link org.owasp.appsensor.configuration.server.ServerConfiguration} */
-	private ServerConfiguration configuration;
+	    /** accessor for {@link org.owasp.appsensor.configuration.server.ServerConfiguration} */
+	    private ServerConfiguration configuration;
 	
-	/** accessor for {@link org.owasp.appsensor.storage.EventStore} */
-	private EventStore eventStore;
+	    /** accessor for {@link org.owasp.appsensor.storage.EventStore} */
+	    private EventStore eventStore;
 	
-	/** accessor for {@link org.owasp.appsensor.storage.AttackStore} */
-	private AttackStore attackStore;
+	    /** accessor for {@link org.owasp.appsensor.storage.AttackStore} */
+	    private AttackStore attackStore;
 	
-	/** accessor for {@link org.owasp.appsensor.storage.ResponseStore} */
-	private ResponseStore responseStore;
+	    /** accessor for {@link org.owasp.appsensor.storage.ResponseStore} */
+	    private ResponseStore responseStore;
 	
-	/** accessor for {@link org.owasp.appsensor.storage.EventAnalysisEngine} */
-	private EventAnalysisEngine eventAnalysisEngine;
+	    /** accessor for {@link org.owasp.appsensor.storage.EventAnalysisEngine} */
+	    private EventAnalysisEngine eventAnalysisEngine;
 	
-	/** accessor for {@link org.owasp.appsensor.storage.AttackAnalysisEngine} */
-	private AttackAnalysisEngine attackAnalysisEngine;
+	    /** accessor for {@link org.owasp.appsensor.storage.AttackAnalysisEngine} */
+	    private AttackAnalysisEngine attackAnalysisEngine;
 	
-	/** accessor for {@link org.owasp.appsensor.storage.ResponseAnalysisEngine} */
-	private ResponseAnalysisEngine responseAnalysisEngine;
+	    /** accessor for {@link org.owasp.appsensor.storage.ResponseAnalysisEngine} */
+	    private ResponseAnalysisEngine responseAnalysisEngine;
 	
-	/** accessor for {@link org.owasp.appsensor.accesscontrol.AccessController} */
-	private AccessController accessController;
+	    /** accessor for {@link org.owasp.appsensor.accesscontrol.AccessController} */
+	    private AccessController accessController;
 	
-	public AppSensorServer() { }
+	    public AppSensorServer() { }
 	
-	/**
-	 * Accessor for ServerConfiguration object
-	 * @return ServerConfiguration object
-	 */
-	public ServerConfiguration getConfiguration() {
-		return configuration;
-	}
+	    /**
+	     * Accessor for ServerConfiguration object
+	     * @return ServerConfiguration object
+	     */
+	    public ServerConfiguration getConfiguration() {
+		    return configuration;
+	    }
 	
-	//[Inject]
-	public void setConfiguration(ServerConfiguration updatedConfiguration) {
-		configuration = updatedConfiguration;
-	}
+	    [Inject]
+	    public void setConfiguration(ServerConfiguration updatedConfiguration) {
+		    configuration = updatedConfiguration;
+	    }
 	
-	public EventStore getEventStore() {
-		return eventStore;
-	}
+	    public EventStore getEventStore() {
+		    return eventStore;
+	    }
 
-	public AttackStore getAttackStore() {
-		return attackStore;
-	}
+	    public AttackStore getAttackStore() {
+		    return attackStore;
+	    }
 
-	public ResponseStore getResponseStore() {
-		return responseStore;
-	}
+	    public ResponseStore getResponseStore() {
+		    return responseStore;
+	    }
 
-	public EventAnalysisEngine getEventAnalysisEngine() {
-		return eventAnalysisEngine;
-	}
+	    public EventAnalysisEngine getEventAnalysisEngine() {
+		    return eventAnalysisEngine;
+	    }
 
-	public AttackAnalysisEngine getAttackAnalysisEngine() {
-		return attackAnalysisEngine;
-	}
+	    public AttackAnalysisEngine getAttackAnalysisEngine() {
+		    return attackAnalysisEngine;
+	    }
 	
-	public ResponseAnalysisEngine getResponseAnalysisEngine() {
-		return responseAnalysisEngine;
-	}
+	    public ResponseAnalysisEngine getResponseAnalysisEngine() {
+		    return responseAnalysisEngine;
+	    }
 
-	public AccessController getAccessController() {
-		return accessController;
-	}
+	    public AccessController getAccessController() {
+		    return accessController;
+	    }
 	
-	 //[Inject]
-	public void setEventStore(EventStore eventStore) {
-		this.eventStore = eventStore;
-	}
+	     [Inject]
+	    public void setEventStore(EventStore eventStore) {
+		    this.eventStore = eventStore;
+	    }
 
-	 //[Inject]
-	public void setAttackStore(AttackStore attackStore) {
-		this.attackStore = attackStore;
-	}
+	     [Inject]
+	    public void setAttackStore(AttackStore attackStore) {
+		    this.attackStore = attackStore;
+	    }
 
-	 //[Inject]
-	public void setResponseStore(ResponseStore responseStore) {
-		this.responseStore = responseStore;
-	}
+	     [Inject]
+	    public void setResponseStore(ResponseStore responseStore) {
+		    this.responseStore = responseStore;
+	    }
 
-	 //[Inject]
-	public void setEventAnalysisEngine(EventAnalysisEngine eventAnalysisEngine) {
-		this.eventAnalysisEngine = eventAnalysisEngine;
-	}
+	     [Inject]
+	    public void setEventAnalysisEngine(EventAnalysisEngine eventAnalysisEngine) {
+		    this.eventAnalysisEngine = eventAnalysisEngine;
+	    }
 
-	 //[Inject]
-	public void setAttackAnalysisEngine(AttackAnalysisEngine attackAnalysisEngine) {
-		this.attackAnalysisEngine = attackAnalysisEngine;
-	}
+	     [Inject]
+	    public void setAttackAnalysisEngine(AttackAnalysisEngine attackAnalysisEngine) {
+		    this.attackAnalysisEngine = attackAnalysisEngine;
+	    }
 
-	 //[Inject]
-	public void setResponseAnalysisEngine(ResponseAnalysisEngine responseAnalysisEngine) {
-		this.responseAnalysisEngine = responseAnalysisEngine;
-	}
+	     [Inject]
+	    public void setResponseAnalysisEngine(ResponseAnalysisEngine responseAnalysisEngine) {
+		    this.responseAnalysisEngine = responseAnalysisEngine;
+	    }
 	
-	 //[Inject]
-	public void setAccessController(AccessController accessController) {
-		this.accessController = accessController;
-	}
-}
+	     [Inject]
+	    public void setAccessController(AccessController accessController) {
+		    this.accessController = accessController;
+	    }
+    }
 }

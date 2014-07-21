@@ -9,6 +9,7 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
 using org.owasp.appsensor.accesscontrol;
+using Ninject;
 
 namespace org.owasp.appsensor.wcf {
     /**
@@ -29,9 +30,11 @@ namespace org.owasp.appsensor.wcf {
     public class WCFRequestHandler : IWCFRequestHandler {
 
         //@Inject
+        [Inject]
         private AppSensorServer appSensorServer;
 
         //@Inject
+        [Inject]
         private AccessControlUtils accessControlUtils;
 
         //@Context

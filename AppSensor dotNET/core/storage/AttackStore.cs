@@ -67,12 +67,11 @@ namespace org.owasp.appsensor.storage{
 	     * @param collection of {@link AttackListener}s that are injected to be 
 	     * 			listeners on the {@link @AttackStore}
 	     */
-	    [Inject] //@AttackStoreListener
+	    [Inject]//@AttackStoreListener
 	    public void setListeners(Collection<AttackListener> listeners) {
 		    foreach (AttackListener listener in listeners) {
 			    registerListener(listener);	
 		    }
 	    }
-	
     }
 }

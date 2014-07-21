@@ -39,3 +39,15 @@ C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\UnitTests\bin\Debu
 C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\UnitTests\bin\Debug\Resources\appsensor-client-config.xml
 C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\UnitTests\bin\Debug\Resources\appsensor-server-config.xml
 C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\UnitTests\bin\Debug\Resources\base-context.xml
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\UnitTests\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\UnitTests\bin\Debug\Ninject.Web.Common.dll
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\UnitTests\bin\Debug\Ninject.Web.Mvc.dll
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\UnitTests\bin\Debug\WebActivatorEx.dll
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\UnitTests\bin\Debug\Ninject.Web.Common.xml
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\UnitTests\bin\Debug\Ninject.Web.Mvc.xml
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\UnitTests\bin\Debug\Moq.dll
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\UnitTests\bin\Debug\Ninject.MockingKernel.dll
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\UnitTests\bin\Debug\Ninject.MockingKernel.Moq.dll
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\UnitTests\bin\Debug\Moq.xml
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\UnitTests\bin\Debug\Ninject.MockingKernel.xml
+C:\Users\Luis Serna González\Documents\GitHub\AppSensor2.NET\UnitTests\bin\Debug\Ninject.MockingKernel.Moq.xml
